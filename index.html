@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-3YlKNAlTPRQ4ic+BcC+TIdEZA6zlkhjAtlXQLBrGy38=' 'sha256-oxlaCU39eVD75m/6W8vEU9NVVvObUw9zmwtW2PY8oEI=' 'sha256-3rg/p46mbozcQc93L371kdTd6B01IOW0Z3y8XO6KIDk=' 'sha256-QkTRpxy/f2XrViOfyMXHXa0gOL/SUBv3yoH/nwwK80s='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-aRqiL7E/EQEu2aQq2NKxUVxdOP31JiV/SE7jiJ2qbHE=' 'sha256-C+Cd2JBR437DlLuiwF8S49X6FS1vLx+OxVD5oAeL158=' 'sha256-0O+eTlsm3bafMSLxtbH+RtkFHWtFZ1PL3DaLO2LumDk=' 'sha256-KLaLUpDH0qOsoYLglJ9UqSRmOHw1rhvhIiArpHrT/Go=' 'sha256-iSihOofT9jLICYMahuBD8+RKDZ7HJJh8dVHU82X8naU=' 'sha256-2svj0RaS4BEuNbwBVFaQFwUBbYohTUjMPrLbmSQSjO0='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f5f3ec">
 <meta name="description" content="属于自己的看房记录, 保存现场细节, 再慢慢做决定.">
@@ -15,28 +15,31 @@
 .sync-indicator{border:0;background:transparent;color:var(--green);padding:8px 0;text-align:left;cursor:pointer;font:inherit;font-size:12px}.sync-indicator.problem{color:var(--orange)}.sync-stack{display:grid;gap:14px}.sync-status-box{background:var(--soft);border-radius:12px;padding:16px;line-height:1.8;font-size:13px}.sync-actions{display:flex;flex-wrap:wrap;gap:9px}.conflict-item{border:1px solid var(--line);background:var(--paper);border-radius:12px;padding:16px;margin-top:12px}.conflict-item h3{font-size:14px;margin:0 0 12px}.conflict-option{display:block;padding:12px;border-radius:8px;background:var(--soft);margin-top:8px;font-size:13px;line-height:1.7;overflow-wrap:anywhere}.conflict-option pre{font:inherit;white-space:pre-wrap;margin:7px 0 0;max-height:180px;overflow:auto}.sync-label{font-size:12px;color:var(--muted)}@media(max-width:560px){.topbar{flex-wrap:wrap}.tools{margin-left:auto}.sync-indicator{width:100%}}
 
 .metro-row{margin-top:14px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px}.metro-station{font-size:12px;line-height:1.6;overflow-wrap:anywhere}.metro-badges{display:flex;gap:5px;flex-wrap:wrap}.metro-badge{display:inline-flex;align-items:center;justify-content:center;background:var(--metro-color);color:var(--metro-ink);border-radius:5px;padding:4px 7px;font-size:11px;line-height:1.4;font-weight:650;white-space:nowrap}.metro-field{margin:0;padding:0;border:0}.metro-field legend{padding:0;margin-bottom:8px;font-size:12px;color:var(--muted)}.metro-choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:7px}.metro-choice{min-height:44px;padding:7px;display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:8px;background:white;cursor:pointer}.metro-choice input{width:17px;min-height:17px;height:17px;margin:0;accent-color:var(--green);flex-shrink:0}.metro-field .field-hint{margin-top:8px}
+
+.score-summary{padding:12px 0;border-bottom:1px solid var(--line);font-size:12px;line-height:1.8}.score-heading{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}.score-heading strong{font-size:25px;color:var(--green)}.score-heading small{font-size:12px;font-weight:400}.score-heading span{color:var(--muted);font-size:11px}.score-flags{display:flex;gap:14px;color:var(--muted)}.score-red{color:var(--error)!important}.red-reasons{font-size:11px;color:var(--error);margin-top:8px}.red-reasons summary{cursor:pointer}.red-reasons p{margin:7px 0}.sort-label{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin:-4px 0 16px}.sort-label select{font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;min-height:40px;padding:8px}.criteria-list{padding:0 14px 14px}.criterion{border:1px solid var(--line);border-radius:10px;margin-bottom:12px;padding:14px}.criterion:last-child{margin-bottom:0}.criterion-heading{display:flex;justify-content:space-between;gap:10px;align-items:start}.criterion h4{font-size:14px;margin:0;line-height:1.7}.criterion .subtle{margin:8px 0 14px}.criterion .form-grid{padding:14px 0 0;gap:14px}.weight{white-space:nowrap;color:var(--muted);font-size:11px;line-height:2}.criterion-red{border-color:#ce7d71;background:#fff5f0}.rating-row{border-top:1px dashed var(--line);margin-top:15px;padding-top:12px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}.rating-row .field{min-width:145px}.rating-status{font-size:12px;line-height:1.8;flex:1;min-width:110px;color:var(--muted);margin:0}.form-section summary small{font-weight:400;color:var(--muted);font-size:11px}.preferences-section h3{font-size:14px;margin:22px 0 10px}.preferences-line{display:flex;gap:15px;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}.preferences-line strong{color:var(--green)}#editorScore{margin-bottom:18px}@media(max-width:560px){.criterion{padding:12px}.criteria-list{padding:0 10px 12px}.score-heading strong{font-size:24px}.tools{flex-wrap:wrap}.rating-row .field{width:100%}.rating-row .field select{min-height:44px}.criterion .field input,.criterion .field select{font-size:16px}}
 </style>
 </head>
 <body>
 <main class="shell">
- <header class="topbar"><div class="brand"><span class="logo" aria-hidden="true">⌂</span>栖居<span class="eyebrow" style="margin-left:8px">看房手记</span></div><div class="tools"><button class="btn ghost" id="helpBtn">使用说明</button><button class="btn" id="syncBtn">同步</button><button class="btn" id="backupBtn">备份</button></div></header>
+ <header class="topbar"><div class="brand"><span class="logo" aria-hidden="true">⌂</span>栖居<span class="eyebrow" style="margin-left:8px">看房手记</span></div><div class="tools"><button class="btn ghost" id="helpBtn">使用说明</button><button class="btn" id="syncBtn">同步</button><button class="btn" id="preferencesBtn">评分规则</button><button class="btn" id="backupBtn">备份</button></div></header>
  <section class="hero"><div><div class="eyebrow">给下一个家, 留一份现场记录</div><h1>慢慢看, 好好住.</h1><p>把采光, 通勤, 和猫咪的落脚处记下来.<br>现场留下细节, 回来再做决定.</p></div><div class="hero-actions"><button class="btn primary" id="arriveBtn">⌖ 到场建档并定位</button><button class="btn" id="newBtn">+ 新增房源</button></div></section>
  <div id="globalError" class="banner" role="alert" hidden></div>
  <section class="summary" aria-label="看房概况"><div class="stat"><strong id="totalCount">0</strong>套房源</div><div class="stat"><strong id="locatedCount">0</strong>已记位置</div><div class="stat"><strong id="photoCount">0</strong>张现场照片</div><button class="storage-note sync-indicator" id="syncIndicator" aria-live="polite">已保存本机 · 待授权同步</button></section>
- <section><div class="sectionbar"><h2>我的房源 <span id="listHint" class="subtle"></span></h2><input class="search" type="search" id="search" placeholder="搜索房源, 小区或备注" aria-label="搜索房源"></div><div class="cards" id="cards" aria-live="polite"><div class="empty"><p>正在读取本机记录...</p></div></div></section>
- <footer class="footer"><span>每一项未确认, 都留给现场核实. 评分规则待定.</span><span>本机优先保存 · 可连接 GitHub 私有仓库 · ฅ(•̀ᴗ•́)</span></footer>
+ <section><div class="sectionbar"><h2>我的房源 <span id="listHint" class="subtle"></span></h2><input class="search" type="search" id="search" placeholder="搜索房源, 小区或备注" aria-label="搜索房源"></div><label class="sort-label">排序 <select id="sortRecords"><option value="newest">新增时间</option><option value="score">总分从高到低</option></select></label><div class="cards" id="cards" aria-live="polite"><div class="empty"><p>正在读取本机记录...</p></div></div></section>
+ <footer class="footer"><span>逐项核实, 分数与红项同时参考.</span><span>本机优先保存 · 可连接 GitHub 私有仓库 · ฅ(•̀ᴗ•́)</span></footer>
 </main>
 <div id="compareDock" class="compare-dock" hidden><span id="selectedCount"></span><button class="btn" id="compareBtn">对比房源</button><button class="clear" id="clearCompare">清空</button></div>
-<div id="editor" class="modal" role="dialog" aria-modal="true" aria-labelledby="editorTitle" hidden><section class="panel"><header class="panel-header"><div><h2 id="editorTitle">房源记录</h2><span id="saveStatus" class="save-status" role="status">已保存到本机</span></div><button class="btn" id="closeEditor">完成</button></header><div class="panel-content"><div class="location-box"><div class="location-head"><strong>⌖ 现场位置</strong><button class="btn" id="locateBtn">记录当前位置</button></div><div class="location-detail" id="locationDetail"></div></div><form id="recordForm" autocomplete="off"></form><details class="form-section" open><summary>照片与现场备注</summary><div style="padding:0 18px 18px"><button class="btn" id="addPhotos">+ 拍照或添加照片</button><p id="photoStatus" class="subtle" role="status">照片自动压缩并保存在本机, 随备份一起导出.</p><div class="photos" id="photos"></div><label class="field">现场备注<textarea id="notes" placeholder="采光, 噪音, 气味, 漏水痕迹, 房东承诺..." maxlength="20000"></textarea></label></div></details><div class="panel-bottom"><button class="btn danger" id="deleteBtn">删除这套房源</button><button class="btn" id="retrySave">保存并关闭</button></div></div></section></div>
+<div id="editor" class="modal" role="dialog" aria-modal="true" aria-labelledby="editorTitle" hidden><section class="panel"><header class="panel-header"><div><h2 id="editorTitle">房源记录</h2><span id="saveStatus" class="save-status" role="status">已保存到本机</span></div><button class="btn" id="closeEditor">完成</button></header><div class="panel-content"><div class="location-box"><div class="location-head"><strong>⌖ 现场位置</strong><button class="btn" id="locateBtn">记录当前位置</button></div><div class="location-detail" id="locationDetail"></div></div><div id="editorScore"></div><form id="recordForm" autocomplete="off"></form><details class="form-section" open><summary>照片与现场备注</summary><div style="padding:0 18px 18px"><button class="btn" id="addPhotos">+ 拍照或添加照片</button><p id="photoStatus" class="subtle" role="status">照片自动压缩并保存在本机, 随备份一起导出.</p><div class="photos" id="photos"></div><label class="field">现场备注<textarea id="notes" placeholder="采光, 噪音, 气味, 漏水痕迹, 房东承诺..." maxlength="20000"></textarea></label></div></details><div class="panel-bottom"><button class="btn danger" id="deleteBtn">删除这套房源</button><button class="btn" id="retrySave">保存并关闭</button></div></div></section></div>
 <div id="compareModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="compareTitle" hidden><section class="panel compare-panel"><header class="panel-header"><div><h2 id="compareTitle">把细节摆在一起</h2><span class="subtle">横向滑动查看 · 未确认不等于否</span></div><button class="btn" data-close="compareModal">关闭</button></header><div class="table-wrap" id="comparison"></div></section></div>
 <div id="backupModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="backupTitle" hidden><section class="panel" style="max-width:520px"><header class="panel-header"><h2 id="backupTitle">给记录留个副本</h2><button class="btn" data-close="backupModal">关闭</button></header><div class="panel-content"><p class="subtle">备份包含全部房源, 定位, 备注和照片. 建议每次看房结束后导出, 保存到 iPhone 的文件或 iCloud 云盘中.</p><p><button class="btn primary" id="exportBtn">导出完整备份</button></p><p><button class="btn" id="importBtn">导入备份文件</button></p><p class="subtle">导入按记录标识合并. 已存在的房源直接跳过, 不覆盖当前内容. 备份包含私人位置和照片, 请妥善保管.</p><p id="backupStatus" class="subtle" role="status"></p></div></section></div>
-<div id="helpModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle" hidden><section class="panel" style="max-width:600px"><header class="panel-header"><h2 id="helpTitle">看房之前</h2><button class="btn" data-close="helpModal">关闭</button></header><div class="panel-content help-content"><h3>1. 用固定地址, 在 Safari 打开</h3><p>将本文件上传至支持 HTTPS (Hypertext Transfer Protocol Secure) 的静态网站空间, 再用 iPhone Safari 打开链接. 可在分享菜单中添加到主屏幕, 但请先确认该入口能读取原有记录. 直接预览文件附件不适合作为正式使用入口.</p><h3>2. 到场建档, 边看边填</h3><p>点击到场建档并定位, 首次允许浏览器访问位置. 室内定位可能有偏差, 请核对地图, 小区及门牌自行补充. 定位失败不影响填写, 可重试或粘贴地图分享链接. 通勤时间请参照地图导航填写.</p><h3>3. 自动保存, 定期备份</h3><p>记录与压缩后的照片先保存在当前浏览器的 IndexedDB 数据库中. 通过同步入口授权后, 自动与独立私有仓库双向同步. 每次刷新或重新打开页面需再次输入专用令牌, 待同步修改会保留. 未授权的设备可通过备份导入记录. 清理网站数据, 隐私浏览或系统存储清理可能导致数据丢失.</p><h3>4. 先记录事实, 再定评分</h3><p>所有条件默认未确认. 首页勾选至少 2 套房源即可对比. 本版不计算分数, 不自动推断地址, 不后台持续定位.</p></div></section></div>
+<div id="helpModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle" hidden><section class="panel" style="max-width:600px"><header class="panel-header"><h2 id="helpTitle">看房之前</h2><button class="btn" data-close="helpModal">关闭</button></header><div class="panel-content help-content"><h3>1. 用固定地址, 在 Safari 打开</h3><p>将本文件上传至支持 HTTPS (Hypertext Transfer Protocol Secure) 的静态网站空间, 再用 iPhone Safari 打开链接. 可在分享菜单中添加到主屏幕, 但请先确认该入口能读取原有记录. 直接预览文件附件不适合作为正式使用入口.</p><h3>2. 到场建档, 边看边填</h3><p>点击到场建档并定位, 首次允许浏览器访问位置. 室内定位可能有偏差, 请核对地图, 小区及门牌自行补充. 定位失败不影响填写, 可重试或粘贴地图分享链接. 通勤时间请参照地图导航填写.</p><h3>3. 自动保存, 定期备份</h3><p>记录与压缩后的照片先保存在当前浏览器的 IndexedDB 数据库中. 通过同步入口授权后, 自动与独立私有仓库双向同步. 每次刷新或重新打开页面需再次输入专用令牌, 待同步修改会保留. 未授权的设备可通过备份导入记录. 清理网站数据, 隐私浏览或系统存储清理可能导致数据丢失.</p><h3>4. 先记录事实, 再定评分</h3><p>所有条件默认未确认. 首页勾选至少 2 套房源即可对比. 导入私有个人规则后计算百分制加权分数, 未确认项暂不加分. 权重为 10 且未完全满足的项目标红, 不自动淘汰房源.</p></div></section></div>
 <div id="lightbox" class="modal lightbox" role="dialog" aria-modal="true" aria-label="查看照片" hidden><button class="btn" data-close="lightbox">关闭照片</button><img id="largePhoto" alt="房源现场照片"></div>
 <div id="toast" class="toast" role="status" hidden></div>
 <div id="syncModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="syncTitle" hidden><section class="panel" style="max-width:600px"><header class="panel-header"><div><h2 id="syncTitle">同步你的看房记录</h2><span class="subtle">本机先保存, 再与 GitHub 私有仓库同步</span></div><button class="btn" data-close="syncModal">关闭</button></header><div class="panel-content sync-stack"><div class="sync-status-box"><strong id="syncStatusText" role="status">待授权</strong><div id="syncStatusDetail" class="subtle"></div></div><div><div class="sync-label">固定的数据仓库</div><p style="overflow-wrap:anywhere"><a href="https://github.com/isotropy44/rental-viewing-data" target="_blank" rel="noopener noreferrer">isotropy44/rental-viewing-data ↗</a></p></div><div id="syncAuthFields"><p class="subtle">创建 PAT (Personal Access Token) 时, 仅选择上面的数据仓库, 授予 Contents 的 Read and write 权限, 有效期建议 30 天. 每次刷新或重新打开页面需要重新输入, 页面不会保存令牌.</p><p><a href="https://github.com/settings/personal-access-tokens/new?name=Rental%20Viewing%20Sync&amp;target_name=isotropy44&amp;expires_in=30&amp;contents=write" target="_blank" rel="noopener noreferrer">前往 GitHub 创建专用令牌 ↗</a></p><label class="field" for="syncToken">专用令牌<input id="syncToken" type="password" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="只在当前页面内存中使用"></label><p class="subtle">首次连接前建议先导出完整备份. 连接后将双向合并当前本机记录与私有仓库中的记录.</p><div class="sync-actions"><button class="btn primary" id="connectSync">连接并自动同步</button><button class="btn" id="syncBackup">先导出完整备份</button></div></div><div class="sync-actions"><button class="btn primary" id="syncNow">立即同步</button><button class="btn" id="disconnectSync">断开连接</button><button class="btn" id="showConflicts" hidden>处理冲突</button><button class="btn" id="checkSyncNetwork">检查网络</button></div><p id="syncNetworkResult" class="subtle" role="status"></p><p class="subtle">编辑结束 5 秒后同步, 连续编辑最多等待 30 秒. 仅在页面运行且已授权时同步, 不保证锁屏后继续上传. 删除状态会同步, Git 历史中的旧照片仍会保留.</p></div></section></div>
 <div id="conflictModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="conflictTitle" hidden><section class="panel"><header class="panel-header"><div><h2 id="conflictTitle">两端有不同修改</h2><span class="subtle">逐项选择后再继续同步, 本机记录已保留</span></div><button class="btn" data-close="conflictModal">稍后处理</button></header><div class="panel-content"><div id="conflictList"></div><p><button class="btn primary" id="resolveConflicts">按选择继续同步</button></p></div></section></div>
 <input type="file" id="photoInput" accept="image/*" multiple hidden><input type="file" id="importInput" accept=".json,application/json" hidden>
-<script>
+<div id="preferencesModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="preferencesTitle" hidden><section class="panel" style="max-width:680px"><header class="panel-header"><div><h2 id="preferencesTitle">个人评分规则</h2><span class="subtle">保存在本机, 授权后随私有数据同步</span></div><button class="btn" data-close="preferencesModal">关闭</button></header><div class="panel-content"><p id="preferencesStatus" class="subtle"></p><div class="sync-actions"><button class="btn primary" id="importPreferences">导入个人规则</button><button class="btn" id="exportPreferences">导出个人规则</button></div><p class="subtle">满足程度为 0 至 5 分. 未确认项暂不加分, 分母固定. 权重为 10 且未完全满足时标红, 高总分不会清除红项. 合并项只计一次权重.</p><div id="preferencesList"></div></div></section></div><input type="file" id="preferencesInput" accept=".json,application/json" hidden>
+<script id="app-code">
 'use strict';
 const $=id=>document.getElementById(id);
 const yesNo=[['unknown','未确认'],['yes','是'],['no','否']];
@@ -75,12 +78,12 @@ const dateText=v=>v?new Date(v).toLocaleString('zh-CN',{year:'numeric',month:'2-
 const nameOf=r=>r.values.name||r.values.address||'未命名房源';
 function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('toast').hidden=true,4500)}
 function errorMessage(e){return e?.name==='QuotaExceededError'?'本机存储空间不足. 请先导出备份, 再清理不需要的照片.':e?.name==='SecurityError'?'浏览器禁止本机存储. 请使用普通 Safari 窗口和固定安全网址.':e?.message||'保存失败, 请重试并导出备份.'}
-function openDB(){return new Promise((resolve,reject)=>{if(!globalThis.indexedDB){reject(new Error('此浏览器不支持本机数据库. 请使用 Safari 普通窗口.'));return}const req=indexedDB.open('qiju-viewings',2);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains('records'))req.result.createObjectStore('records',{keyPath:'id'});if(!req.result.objectStoreNames.contains('sync'))req.result.createObjectStore('sync',{keyPath:'key'})};req.onsuccess=()=>{req.result.onversionchange=()=>{req.result.close();state.db=null;showError('页面版本已变化, 请先导出备份, 再刷新页面.')};resolve(req.result)};req.onerror=()=>reject(req.error);req.onblocked=()=>showError('数据库被其他窗口占用, 请关闭其他看房页面后重试.')})}
+function openDB(){return new Promise((resolve,reject)=>{if(!globalThis.indexedDB){reject(new Error('此浏览器不支持本机数据库. 请使用 Safari 普通窗口.'));return}const req=indexedDB.open('qiju-viewings',3);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains('records'))req.result.createObjectStore('records',{keyPath:'id'});if(!req.result.objectStoreNames.contains('sync'))req.result.createObjectStore('sync',{keyPath:'key'});const cursor=req.transaction.objectStore('records').openCursor();cursor.onsuccess=()=>{const c=cursor.result;if(c){c.update(migrateScoringRecord(c.value));c.continue()}}};req.onsuccess=()=>{req.result.onversionchange=()=>{req.result.close();state.db=null;showError('页面版本已变化, 请先导出备份, 再刷新页面.')};resolve(req.result)};req.onerror=()=>reject(req.error);req.onblocked=()=>showError('数据库被其他窗口占用, 请关闭其他看房页面后重试.')})}
 function dbRead(){return new Promise((resolve,reject)=>{const tx=state.db.transaction('records','readonly'),req=tx.objectStore('records').getAll();req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
 function queuedLocal(task){const result=state.localTail.then(task);state.localTail=result.catch(()=>{});return result;}
 function noteMutation(){state.generation++;state.applyGuard?.();}
 function rawLocalWrite({puts=[],removes=[],meta,clear=false,generation}){return new Promise((resolve,reject)=>{let tx;try{if(generation!==undefined&&generation!==state.generation)throw Object.assign(new Error('本机仍在编辑.'),{localChanged:true});tx=state.db.transaction(['records','sync'],'readwrite');if(generation!==undefined)state.applyGuard=()=>{try{tx.abort()}catch{}};const store=tx.objectStore('records');if(clear)store.clear();removes.forEach(id=>store.delete(id));puts.forEach(r=>store.put(r));if(meta)tx.objectStore('sync').put(meta);const finish=()=>{if(generation!==undefined)state.applyGuard=null;};tx.oncomplete=()=>{finish();resolve()};tx.onabort=()=>{finish();reject(generation!==undefined&&generation!==state.generation?Object.assign(new Error('本机仍在编辑.'),{localChanged:true}):tx.error||new Error('保存被中断.'))};tx.onerror=()=>{};}catch(e){if(tx)try{tx.abort()}catch{}reject(e)}})}
-function dbWrite(records,removeId){return queuedLocal(async()=>{const meta=structuredClone(state.sync||makeSyncMeta());for(const r of records){meta.pending[r.id]=uuid();delete meta.tombstones[r.id];}if(removeId){meta.pending[removeId]=uuid();meta.tombstones[removeId]=new Date().toISOString();}await rawLocalWrite({puts:records,removes:removeId?[removeId]:[],meta});state.sync=meta;if(removeId)state.records.delete(removeId);updateSyncStatus();scheduleSync();})}
+function dbWrite(records,removeId,preferences){return queuedLocal(async()=>{const meta=structuredClone(state.sync||makeSyncMeta());if(preferences!==undefined&&preferences!==null){meta.preferences=validatePreferences(preferences);meta.pendingPreferences=uuid();}for(const r of records){meta.pending[r.id]=uuid();delete meta.tombstones[r.id];}if(removeId){meta.pending[removeId]=uuid();meta.tombstones[removeId]=new Date().toISOString();}await rawLocalWrite({puts:records,removes:removeId?[removeId]:[],meta});state.sync=meta;if(removeId)state.records.delete(removeId);updateSyncStatus();scheduleSync();})}
 function showError(message){$('globalError').replaceChildren(document.createTextNode(message+' '));const b=document.createElement('button');b.textContent='重试保存';b.onclick=()=>flush();$('globalError').append(b);$('globalError').hidden=false}
 function updateSaveStatus(){const pending=state.dirty.size>0;$('saveStatus').textContent=state.saveError?'保存失败, 请重试或导出备份':state.flushing?'正在保存...':pending?'尚有修改待保存':'已保存到本机';$('saveStatus').classList.toggle('error',!!state.saveError)}
 function touch(id){const r=state.records.get(id);if(!r)return;noteMutation();r.updatedAt=new Date().toISOString();state.rev.set(id,(state.rev.get(id)||0)+1);state.dirty.add(id);clearTimeout(state.timer);state.timer=setTimeout(()=>flush(),350);updateSaveStatus();updateSyncStatus()}
@@ -90,14 +93,14 @@ function releasePhoto(photo){if(state.urls.has(photo.id)){URL.revokeObjectURL(st
 function mapUrl(r){const p=r.location;return p?'https://uri.amap.com/marker?position='+p.longitude+','+p.latitude+'&coordinate=wgs84&name='+encodeURIComponent(nameOf(r)):safeMapLink(r.values.mapLink)}
 function safeMapLink(value){try{const u=new URL(value);return ['https:','http:'].includes(u.protocol)&&!u.username&&!u.password?u.href:''}catch{return ''}}
 function displayValue(r,f){const value=r.values[f[0]];if(value===''||value===undefined||value==='unknown')return '未确认';if(f[2]==='metro')return metroLineIds(value).map(id=>metroLineMap.get(id)[1]).join(' / ')||'未确认';return f[2]==='select'?f[3].find(o=>o[0]===value)?.[1]||'未确认':f[2]==='datetime-local'?dateText(value):String(value)}
-function renderList(){const all=[...state.records.values()].sort((a,b)=>b.createdAt.localeCompare(a.createdAt));const q=$('search').value.trim().toLowerCase();const list=all.filter(r=>[r.values.name,r.values.address,r.notes].some(v=>String(v||'').toLowerCase().includes(q)));$('totalCount').textContent=all.length;$('locatedCount').textContent=all.filter(r=>r.location).length;$('photoCount').textContent=all.reduce((n,r)=>n+r.photos.length,0);$('listHint').textContent=q?' / 找到 '+list.length+' 套':'';
- $('cards').innerHTML=list.length?list.map(r=>{const v=r.values;return '<article class="card"><div class="cover">'+(r.photos[0]?'<img src="'+photoUrl(r.photos[0])+'" alt="'+esc(nameOf(r))+' 的现场照片">':'<div class="house-art" aria-hidden="true"></div>')+'<span class="cover-tag">'+(v.viewedAt?esc(dateText(v.viewedAt).split(' ')[0]):'待看房')+'</span><label class="compare-check"><input type="checkbox" data-select="'+esc(r.id)+'" '+(state.selected.has(r.id)?'checked':'')+'>对比</label></div><div class="card-body"><div class="card-title"><h3>'+esc(nameOf(r))+'</h3><span class="rent">'+(v.rent!==''&&v.rent!==undefined?'¥ '+esc(v.rent)+'<small> / 月</small>':'<small>租金待补</small>')+'</span></div><div class="address">'+esc(v.address||'小区及门牌待补充')+'</div>'+metroCard(r)+'<div class="facts"><span class="chip">'+(v.area!==''&&v.area!==undefined?esc(v.area)+' 平方米':'面积未确认')+'</span><span class="chip '+(v.cats==='no'?'bad':'')+'">'+(v.cats==='yes'?'可养猫':v.cats==='no'?'不可养猫':'养猫待确认')+'</span><span class="chip">'+esc(displayValue(r,fieldMap.get('orientation'))) +(v.orientation!=='unknown'&&v.orientation?'向':'朝向')+'</span></div><div class="card-footer">'+(mapUrl(r)?'<a href="'+esc(mapUrl(r))+'" target="_blank" rel="noopener noreferrer">⌖ 查看位置</a>':'<span class="subtle">⌖ 位置待记录</span>')+'<button class="btn" data-edit="'+esc(r.id)+'">打开记录 ↗</button></div></div></article>'}).join(''):'<div class="empty"><div class="house-art" aria-hidden="true"></div><h3>'+(q?'没有匹配的房源':'先记录第一套房源')+'</h3><p>'+(q?'换个关键词试试.':'每套房源一张记录, 每个细节都有地方安放.<br>条件先留空, 到现场再慢慢确认.')+'</p>'+(!q?'<button class="btn primary" id="emptyNew">+ 新增房源</button>':'')+'</div>';
+function renderList(){const all=[...state.records.values()].sort((a,b)=>$('sortRecords').value==='score'?((scoreRecord(b)?.total??-1)-(scoreRecord(a)?.total??-1)||b.createdAt.localeCompare(a.createdAt)):b.createdAt.localeCompare(a.createdAt));const q=$('search').value.trim().toLowerCase();const list=all.filter(r=>[r.values.name,r.values.address,r.notes].some(v=>String(v||'').toLowerCase().includes(q)));$('totalCount').textContent=all.length;$('locatedCount').textContent=all.filter(r=>r.location).length;$('photoCount').textContent=all.reduce((n,r)=>n+r.photos.length,0);$('listHint').textContent=q?' / 找到 '+list.length+' 套':'';
+ $('cards').innerHTML=list.length?list.map(r=>{const v=r.values;return '<article class="card"><div class="cover">'+(r.photos[0]?'<img src="'+photoUrl(r.photos[0])+'" alt="'+esc(nameOf(r))+' 的现场照片">':'<div class="house-art" aria-hidden="true"></div>')+'<span class="cover-tag">'+(v.viewedAt?esc(dateText(v.viewedAt).split(' ')[0]):'待看房')+'</span><label class="compare-check"><input type="checkbox" data-select="'+esc(r.id)+'" '+(state.selected.has(r.id)?'checked':'')+'>对比</label></div><div class="card-body"><div class="card-title"><h3>'+esc(nameOf(r))+'</h3><span class="rent">'+(v.rent!==''&&v.rent!==undefined?'¥ '+esc(v.rent)+'<small> / 月</small>':'<small>租金待补</small>')+'</span></div><div class="address">'+esc(v.address||'小区及门牌待补充')+'</div>'+scoreSummaryHtml(r)+metroCard(r)+'<div class="facts"><span class="chip">'+(v.area!==''&&v.area!==undefined?esc(v.area)+' 平方米':'面积未确认')+'</span><span class="chip '+(v.cats==='no'?'bad':'')+'">'+(v.cats==='yes'?'可养猫':v.cats==='no'?'不可养猫':'养猫待确认')+'</span><span class="chip">'+esc(displayValue(r,fieldMap.get('orientation'))) +(v.orientation!=='unknown'&&v.orientation?'向':'朝向')+'</span></div><div class="card-footer">'+(mapUrl(r)?'<a href="'+esc(mapUrl(r))+'" target="_blank" rel="noopener noreferrer">⌖ 查看位置</a>':'<span class="subtle">⌖ 位置待记录</span>')+'<button class="btn" data-edit="'+esc(r.id)+'">打开记录 ↗</button></div></div></article>'}).join(''):'<div class="empty"><div class="house-art" aria-hidden="true"></div><h3>'+(q?'没有匹配的房源':'先记录第一套房源')+'</h3><p>'+(q?'换个关键词试试.':'每套房源一张记录, 每个细节都有地方安放.<br>条件先留空, 到现场再慢慢确认.')+'</p>'+(!q?'<button class="btn primary" id="emptyNew">+ 新增房源</button>':'')+'</div>';
  $('selectedCount').textContent='已选 '+state.selected.size+' 套';$('compareDock').hidden=!state.selected.size;$('compareBtn').disabled=state.selected.size<2;
 }
 let lastFocus=null,pageScroll=0;
 function modalOpen(id){if(!document.querySelector('.modal:not([hidden])')){lastFocus=document.activeElement;pageScroll=window.scrollY||0;Object.assign(document.body.style,{position:'fixed',top:-pageScroll+'px',width:'100%',overflow:'hidden'})}$(id).hidden=false;$(id).querySelector('button,input,select,textarea,a')?.focus()}
 function modalClose(id){$(id).hidden=true;if(!document.querySelector('.modal:not([hidden])')){Object.assign(document.body.style,{position:'',top:'',width:'',overflow:''});window.scrollTo(0,pageScroll);lastFocus?.focus({preventScroll:true})}if(id==='lightbox')$('largePhoto').removeAttribute('src')}
-function newRecord(withLocation=false){if(!state.db||state.importing){toast('请等待数据库准备完成.');return}const values=Object.fromEntries(fields.map(f=>[f[0],f[2]==='select'?'unknown':'']));values.viewedAt=localTime();const now=new Date().toISOString(),r={id:uuid(),createdAt:now,updatedAt:now,values,notes:'',location:null,photos:[]};state.records.set(r.id,r);touch(r.id);renderList();openEditor(r.id);if(withLocation)locate(r.id)}
+function newRecord(withLocation=false){if(!state.db||state.importing){toast('请等待数据库准备完成.');return}const values=Object.fromEntries(fields.map(f=>[f[0],f[2]==='select'?'unknown':'']));values.viewedAt=localTime();const now=new Date().toISOString(),r={id:uuid(),createdAt:now,updatedAt:now,values,notes:'',location:null,photos:[],ratings:{}};state.records.set(r.id,r);touch(r.id);renderList();openEditor(r.id);if(withLocation)locate(r.id)}
 function openEditor(id){const r=state.records.get(id);if(!r)return;state.current=id;$('editorTitle').textContent=nameOf(r);$('recordForm').innerHTML=sections.map((s,i)=>'<details class="form-section" '+(i<2?'open':'')+'><summary>'+s.title+'</summary><div class="form-grid">'+s.fields.map(f=>f[2]==='metro'?metroField(r.values[f[0]]):'<label class="field '+(f[0]==='mapLink'?'wide':'')+'" for="f-'+f[0]+'">'+f[1]+(f[2]==='select'?'<select id="f-'+f[0]+'" data-field="'+f[0]+'">'+f[3].map(o=>'<option value="'+esc(o[0])+'" '+(r.values[f[0]]===o[0]?'selected':'')+'>'+o[1]+'</option>').join('')+'</select>':'<input id="f-'+f[0]+'" data-field="'+f[0]+'" type="'+f[2]+'" value="'+esc(r.values[f[0]])+'" '+(f[2]==='number'?'min="0" max="100000000" step="any" inputmode="decimal"':f[2]==='url'?'inputmode="url" maxlength="4000"':'maxlength="500"')+'>')+'</label>').join('')+'</div></details>').join('');$('notes').value=r.notes;renderLocation();renderPhotos();updateSaveStatus();modalOpen('editor');$('editor').querySelector('.panel').scrollTop=0}
 function renderLocation(){const r=state.records.get(state.current);if(!r)return;const busy=state.geoBusy.has(r.id);$('locateBtn').disabled=busy;$('locateBtn').textContent=busy?'正在定位...':r.location?'重新记录位置':'记录当前位置';const p=r.location;$('locationDetail').innerHTML=p?'位置已记录 · 精度约 '+Math.round(p.accuracy)+' 米<br>'+esc(dateText(p.timestamp))+' · 经度 '+p.longitude.toFixed(6)+' / 纬度 '+p.latitude.toFixed(6)+'<br><a target="_blank" rel="noopener noreferrer" href="'+esc(mapUrl(r))+'">在高德地图核对 ↗</a> 原始坐标系: WGS84 (World Geodetic System 1984)':'尚未记录位置. 室内定位可能有偏差, 可到窗边或楼下重试.<br>也可以在基本信息中粘贴地图分享链接.'}
 function locate(id){const r=state.records.get(id);if(!r||state.geoBusy.has(id))return;if(!window.isSecureContext){toast('定位需要安全网页地址. 请通过 HTTPS 打开, 草稿已保留.');return}if(!navigator.geolocation){toast('当前浏览器不支持定位, 请粘贴地图分享链接.');return}state.geoBusy.add(id);if(state.current===id)renderLocation();navigator.geolocation.getCurrentPosition(p=>{state.geoBusy.delete(id);const record=state.records.get(id);if(!record)return;const c=p.coords;if(!Number.isFinite(c.latitude)||!Number.isFinite(c.longitude)){toast('定位结果无效, 请重试.');if(state.current===id)renderLocation();return}record.location={latitude:c.latitude,longitude:c.longitude,accuracy:c.accuracy,timestamp:new Date(p.timestamp).toISOString(),coordinateSystem:'WGS84'};touch(id);renderList();if(state.current===id)renderLocation();toast('已记录 '+nameOf(record)+' 的位置, 请核对小区及门牌.');},e=>{state.geoBusy.delete(id);if(state.current===id)renderLocation();toast(e.code===1?'位置权限未开启. 草稿已保留, 可在 Safari 网站设置中允许定位后重试.':e.code===3?'定位超时. 草稿已保留, 可到窗边或楼下重试.':'暂时无法获取位置. 草稿已保留, 可重试或粘贴地图链接.');},{enableHighAccuracy:true,timeout:15000,maximumAge:0})}
@@ -105,21 +108,163 @@ function renderPhotos(){const r=state.records.get(state.current);if(!r)return;$(
 async function compressPhoto(file){if(!file.type.startsWith('image/')&&!/\.(heic|heif|jpe?g|png|webp)$/i.test(file.name))throw new Error('请选择图片文件.');if(file.size>40*1024*1024)throw new Error('单张照片超过 40 MB (Megabyte), 请先缩小图片.');const url=URL.createObjectURL(file);try{const img=await new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(new Error('无法读取 '+file.name+', 请改用相机照片或普通图片格式.'));im.src=url});const scale=Math.min(1,1600/Math.max(img.naturalWidth,img.naturalHeight)),canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.naturalWidth*scale));canvas.height=Math.max(1,Math.round(img.naturalHeight*scale));const ctx=canvas.getContext('2d');ctx.fillStyle='#ffffff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/jpeg',.8));canvas.width=canvas.height=0;if(!blob)throw new Error('图片压缩失败, 请重试.');return {id:uuid(),name:file.name.slice(0,500),type:'image/jpeg',blob}}finally{URL.revokeObjectURL(url)}}
 async function addPhotos(files){const id=state.current;if(!id||!files.length)return;state.photoJobs++;$('addPhotos').disabled=true;let count=0;const failures=[];try{for(const file of files){$('photoStatus').textContent='正在压缩 '+(count+failures.length+1)+' / '+files.length+' ...';try{const p=await compressPhoto(file),r=state.records.get(id);if(!r)break;r.photos.push(p);count++;touch(id);if(state.current===id)renderPhotos();renderList()}catch(e){failures.push(errorMessage(e))}}await flush()}finally{state.photoJobs--;$('addPhotos').disabled=state.photoJobs>0;$('photoStatus').textContent='已添加 '+count+' 张照片.'+(failures.length?' '+failures.join(' '):' 照片随备份一起导出.');if(failures.length)toast(failures[0]);scheduleSync()}}
 const blobData=blob=>new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(reader.error);reader.readAsDataURL(blob)});
-async function exportBackup(){if(state.photoJobs||state.importing){toast('请等待照片处理或导入完成后再备份.');return}$('exportBtn').disabled=true;try{await flush();const snapshot=structuredClone([...state.records.values()]);const records=await Promise.all(snapshot.map(async r=>({...r,photos:await Promise.all(r.photos.map(async p=>({id:p.id,name:p.name,type:p.type,data:await blobData(p.blob)})))})));const blob=new Blob([JSON.stringify({format:'qiju-viewings',version:1,exportedAt:new Date().toISOString(),records})],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='qiju-backup-'+localTime().replace(/[:T]/g,'-')+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);$('backupStatus').textContent='已生成 '+records.length+' 套房源的完整备份. 请在下载或分享界面保存文件.'+(state.dirty.size?' 本机保存失败的修改也已包含在备份中.':'')}catch(e){$('backupStatus').textContent='导出失败: '+errorMessage(e)}finally{$('exportBtn').disabled=false}}
+async function exportBackup(){if(state.photoJobs||state.importing){toast('请等待照片处理或导入完成后再备份.');return}$('exportBtn').disabled=true;try{await flush();const snapshot=structuredClone([...state.records.values()]),preferences=structuredClone(state.sync?.preferences||null);const records=await Promise.all(snapshot.map(async r=>({...r,photos:await Promise.all(r.photos.map(async p=>({id:p.id,name:p.name,type:p.type,data:await blobData(p.blob)})))})));const blob=new Blob([JSON.stringify({format:'qiju-viewings',version:2,preferences,exportedAt:new Date().toISOString(),records})],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='qiju-backup-'+localTime().replace(/[:T]/g,'-')+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);$('backupStatus').textContent='已生成 '+records.length+' 套房源的完整备份. 请在下载或分享界面保存文件.'+(state.dirty.size?' 本机保存失败的修改也已包含在备份中.':'')}catch(e){$('backupStatus').textContent='导出失败: '+errorMessage(e)}finally{$('exportBtn').disabled=false}}
 function validDate(s){return typeof s==='string'&&s.length<=40&&Number.isFinite(Date.parse(s))}
 function validId(s){return typeof s==='string'&&/^[a-zA-Z0-9_-]{1,100}$/.test(s)&&!['__proto__','constructor','prototype'].includes(s)}
-function validateRecord(raw,usedPhotoIds){if(!raw||!validId(raw.id)||!validDate(raw.createdAt)||!validDate(raw.updatedAt)||!raw.values||typeof raw.values!=='object'||Array.isArray(raw.values)||typeof raw.notes!=='string'||raw.notes.length>20000||!Array.isArray(raw.photos)||raw.photos.length>1000)throw new Error('备份中的房源结构不正确.');const values={};for(const f of fields){const v=raw.values[f[0]];if(v===undefined||v===''){values[f[0]]=f[2]==='select'?'unknown':'';continue}if(f[2]==='metro'){if(typeof v!=='string'||v.length>200||v.split(',').some(id=>!metroLineMap.has(id)))throw new Error('备份地铁线路不正确.');values[f[0]]=metroLineIds(v).join(',')}else if(f[2]==='select'){if(!f[3].some(o=>o[0]===v))throw new Error('备份字段选项不正确: '+f[1]);values[f[0]]=v}else if(f[2]==='number'){if(typeof v!=='number'||!Number.isFinite(v)||v<0||v>1e8)throw new Error('备份数值不正确: '+f[1]);values[f[0]]=v}else{if(typeof v!=='string'||v.length>(f[2]==='url'?4000:500))throw new Error('备份文字字段不正确.');if(f[2]==='datetime-local'&&(!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(v)||!validDate(v)))throw new Error('备份看房时间不正确.');values[f[0]]=v}}let location=null;if(raw.location!==null&&raw.location!==undefined){const p=raw.location;if(p.coordinateSystem!=='WGS84'||!Number.isFinite(p.latitude)||Math.abs(p.latitude)>90||!Number.isFinite(p.longitude)||Math.abs(p.longitude)>180||!Number.isFinite(p.accuracy)||p.accuracy<0||!validDate(p.timestamp))throw new Error('备份定位数据不正确.');location={latitude:p.latitude,longitude:p.longitude,accuracy:p.accuracy,timestamp:p.timestamp,coordinateSystem:'WGS84'}}const photos=raw.photos.map(p=>{if(!p||!validId(p.id)||usedPhotoIds.has(p.id)||typeof p.name!=='string'||p.name.length>500||typeof p.data!=='string'||p.data.length>16*1024*1024)throw new Error('备份照片结构不正确.');const match=/^data:(image\/(?:jpeg|png|webp));base64,([A-Za-z0-9+/]*={0,2})$/.exec(p.data);if(!match||!match[2]||match[2].length%4!==0||p.type!==match[1])throw new Error('备份照片格式不正确.');const binary=atob(match[2]);const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));const signature=match[1]==='image/jpeg'?bytes[0]===255&&bytes[1]===216&&bytes[2]===255:match[1]==='image/png'?bytes[0]===137&&binary.slice(1,4)==='PNG':binary.slice(0,4)==='RIFF'&&binary.slice(8,12)==='WEBP';if(!signature)throw new Error('备份照片内容不正确.');usedPhotoIds.add(p.id);return {id:p.id,name:p.name,type:match[1],blob:new Blob([bytes],{type:match[1]})}});return {id:raw.id,createdAt:raw.createdAt,updatedAt:raw.updatedAt,values,notes:raw.notes,location,photos}}
-async function importBackup(file){if(!file)return;if(state.photoJobs||state.importing){toast('请等待当前操作完成.');return}if(file.size>120*1024*1024){toast('备份超过 120 MB, 请在电脑上整理后再导入.');return}noteMutation();state.importing=true;$('importBtn').disabled=true;try{if(!await flush())throw new Error('请先解决当前记录的保存错误, 或导出备份.');$('backupStatus').textContent='正在校验备份...';const data=JSON.parse(await file.text());if(!data||data.format!=='qiju-viewings'||data.version!==1||!Array.isArray(data.records)||data.records.length>10000)throw new Error('不是受支持的看房备份文件.');const incomingIds=new Set(),usedPhotoIds=new Set([...state.records.values()].flatMap(r=>r.photos.map(p=>p.id)));let skipped=0;const incoming=[];for(const raw of data.records){if(!raw||!validId(raw.id)||incomingIds.has(raw.id))throw new Error('备份存在无效或重复的房源标识.');incomingIds.add(raw.id);if(state.records.has(raw.id)){skipped++;continue}incoming.push(validateRecord(raw,usedPhotoIds))}await dbWrite(incoming);incoming.forEach(r=>state.records.set(r.id,r));noteMutation();scheduleSync();renderList();$('backupStatus').textContent='导入完成: 新增 '+incoming.length+' 套, 跳过已有 '+skipped+' 套. 原有记录未被覆盖.';toast('备份导入完成.')}catch(e){$('backupStatus').textContent='导入失败, 未写入任何导入记录: '+(e instanceof SyntaxError?'文件内容不是有效的备份格式.':errorMessage(e))}finally{state.importing=false;$('importBtn').disabled=false;$('importInput').value='';scheduleSync();updateSyncStatus()}}
+function validateRecord(raw,usedPhotoIds){if(!raw||!validId(raw.id)||!validDate(raw.createdAt)||!validDate(raw.updatedAt)||!raw.values||typeof raw.values!=='object'||Array.isArray(raw.values)||typeof raw.notes!=='string'||raw.notes.length>20000||!Array.isArray(raw.photos)||raw.photos.length>1000)throw new Error('备份中的房源结构不正确.');const values={};for(const f of fields){const v=raw.values[f[0]];if(v===undefined||v===''){values[f[0]]=f[2]==='select'?'unknown':'';continue}if(f[2]==='metro'){if(typeof v!=='string'||v.length>200||v.split(',').some(id=>!metroLineMap.has(id)))throw new Error('备份地铁线路不正确.');values[f[0]]=metroLineIds(v).join(',')}else if(f[2]==='select'){if(!f[3].some(o=>o[0]===v))throw new Error('备份字段选项不正确: '+f[1]);values[f[0]]=v}else if(f[2]==='number'){if(typeof v!=='number'||!Number.isFinite(v)||v<0||v>1e8)throw new Error('备份数值不正确: '+f[1]);values[f[0]]=v}else{if(typeof v!=='string'||v.length>(f[2]==='url'?4000:500))throw new Error('备份文字字段不正确.');if(f[2]==='datetime-local'&&(!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(v)||!validDate(v)))throw new Error('备份看房时间不正确.');values[f[0]]=v}}let location=null;if(raw.location!==null&&raw.location!==undefined){const p=raw.location;if(p.coordinateSystem!=='WGS84'||!Number.isFinite(p.latitude)||Math.abs(p.latitude)>90||!Number.isFinite(p.longitude)||Math.abs(p.longitude)>180||!Number.isFinite(p.accuracy)||p.accuracy<0||!validDate(p.timestamp))throw new Error('备份定位数据不正确.');location={latitude:p.latitude,longitude:p.longitude,accuracy:p.accuracy,timestamp:p.timestamp,coordinateSystem:'WGS84'}}const photos=raw.photos.map(p=>{if(!p||!validId(p.id)||usedPhotoIds.has(p.id)||typeof p.name!=='string'||p.name.length>500||typeof p.data!=='string'||p.data.length>16*1024*1024)throw new Error('备份照片结构不正确.');const match=/^data:(image\/(?:jpeg|png|webp));base64,([A-Za-z0-9+/]*={0,2})$/.exec(p.data);if(!match||!match[2]||match[2].length%4!==0||p.type!==match[1])throw new Error('备份照片格式不正确.');const binary=atob(match[2]);const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));const signature=match[1]==='image/jpeg'?bytes[0]===255&&bytes[1]===216&&bytes[2]===255:match[1]==='image/png'?bytes[0]===137&&binary.slice(1,4)==='PNG':binary.slice(0,4)==='RIFF'&&binary.slice(8,12)==='WEBP';if(!signature)throw new Error('备份照片内容不正确.');usedPhotoIds.add(p.id);return {id:p.id,name:p.name,type:match[1],blob:new Blob([bytes],{type:match[1]})}});return migrateScoringRecord({id:raw.id,createdAt:raw.createdAt,updatedAt:raw.updatedAt,values,notes:raw.notes,location,photos,ratings:validateRatings(raw.ratings)})}
+async function importBackup(file){if(!file)return;if(state.photoJobs||state.importing){toast('请等待当前操作完成.');return}if(file.size>120*1024*1024){toast('备份超过 120 MB, 请在电脑上整理后再导入.');return}noteMutation();state.importing=true;$('importBtn').disabled=true;try{if(!await flush())throw new Error('请先解决当前记录的保存错误, 或导出备份.');$('backupStatus').textContent='正在校验备份...';const data=JSON.parse(await file.text());if(!data||data.format!=='qiju-viewings'||![1,2].includes(data.version)||!Array.isArray(data.records)||data.records.length>10000)throw new Error('不是受支持的看房备份文件.');let importedPreferences=data.version===2?validatePreferences(data.preferences):null;if(importedPreferences&&state.sync.preferences&&!same(importedPreferences,state.sync.preferences)&&!confirm('备份中的个人规则与本机不同. 是否采用备份规则? 取消将保留本机规则, 房源仍会导入.'))importedPreferences=null;const incomingIds=new Set(),usedPhotoIds=new Set([...state.records.values()].flatMap(r=>r.photos.map(p=>p.id)));let skipped=0;const incoming=[];for(const raw of data.records){if(!raw||!validId(raw.id)||incomingIds.has(raw.id))throw new Error('备份存在无效或重复的房源标识.');incomingIds.add(raw.id);if(state.records.has(raw.id)){skipped++;continue}incoming.push(validateRecord(raw,usedPhotoIds))}await dbWrite(incoming,undefined,importedPreferences||undefined);incoming.forEach(r=>state.records.set(r.id,r));noteMutation();scheduleSync();renderList();renderPreferences();refreshRatingControls();$('backupStatus').textContent='导入完成: 新增 '+incoming.length+' 套, 跳过已有 '+skipped+' 套. 原有记录未被覆盖.';toast('备份导入完成.')}catch(e){$('backupStatus').textContent='导入失败, 未写入任何导入记录: '+(e instanceof SyntaxError?'文件内容不是有效的备份格式.':errorMessage(e))}finally{state.importing=false;$('importBtn').disabled=false;$('importInput').value='';scheduleSync();updateSyncStatus()}}
 function renderComparison(){const records=[...state.selected].map(id=>state.records.get(id)).filter(Boolean);if(records.length<2)return;let html='<table class="comparison"><thead><tr><th>现场记录</th>'+records.map(r=>'<th>'+esc(nameOf(r))+'</th>').join('')+'</tr></thead><tbody>';for(const section of sections){html+='<tr class="group"><td>'+section.title+'</td>'+records.map(()=>'<td></td>').join('')+'</tr>';for(const f of section.fields)html+='<tr><td>'+f[1]+'</td>'+records.map(r=>'<td>'+esc(displayValue(r,f))+'</td>').join('')+'</tr>'}html+='<tr><td>现场位置</td>'+records.map(r=>'<td>'+(mapUrl(r)?'<a href="'+esc(mapUrl(r))+'" target="_blank" rel="noopener noreferrer">在地图中查看 ↗</a>':'未记录')+'</td>').join('')+'</tr><tr><td>现场照片</td>'+records.map(r=>'<td>'+(r.photos[0]?'<img src="'+photoUrl(r.photos[0])+'" alt="房源照片"><br>共 '+r.photos.length+' 张':'未添加')+'</td>').join('')+'</tr><tr><td>现场备注</td>'+records.map(r=>'<td style="white-space:pre-wrap">'+esc(r.notes||'未填写')+'</td>').join('')+'</tr></tbody></table>';$('comparison').innerHTML=html;modalOpen('compareModal')}
 async function saveAndClose(){if(!$('recordForm').reportValidity())return;if(state.photoJobs){toast('请等待照片处理完成后再保存并关闭.');return}if(!await flush())return;renderList();modalClose('editor');toast('已保存到本机.');}
 $('newBtn').onclick=()=>newRecord();$('arriveBtn').onclick=()=>newRecord(true);$('helpBtn').onclick=()=>modalOpen('helpModal');$('backupBtn').onclick=()=>modalOpen('backupModal');$('closeEditor').onclick=$('retrySave').onclick=saveAndClose;$('locateBtn').onclick=()=>locate(state.current);$('search').oninput=renderList;$('compareBtn').onclick=renderComparison;$('clearCompare').onclick=()=>{state.selected.clear();renderList()};$('exportBtn').onclick=exportBackup;$('importBtn').onclick=()=>$('importInput').click();$('importInput').onchange=e=>importBackup(e.target.files[0]);$('addPhotos').onclick=()=>$('photoInput').click();$('photoInput').onchange=e=>{const files=[...e.target.files];e.target.value='';addPhotos(files)};
 $('cards').onclick=e=>{const b=e.target.closest('[data-edit]');if(b)openEditor(b.dataset.edit);if(e.target.closest('#emptyNew'))newRecord()};$('cards').onchange=e=>{const id=e.target.dataset.select;if(!id)return;e.target.checked?state.selected.add(id):state.selected.delete(id);renderList()};
-function editField(e){const key=e.target.dataset.field,r=state.records.get(state.current);if(!key||!r)return;const f=fieldMap.get(key);if(f[2]==='metro'){r.values[key]=metroLineIds([...$('recordForm').querySelectorAll('[data-field="metroLines"]:checked')].map(input=>input.value).join(',')).join(',')}else if(f[2]==='number'){e.target.setCustomValidity('');if(!e.target.validity.valid){e.target.setCustomValidity('请输入 0 到 100000000 之间的数值.');e.target.reportValidity();return}r.values[key]=e.target.value===''?'':Number(e.target.value)}else r.values[key]=e.target.value;touch(r.id);if(key==='name'||key==='address')$('editorTitle').textContent=nameOf(r);renderList()}
+function editField(e){const key=e.target.dataset.field,r=state.records.get(state.current);if(!key||!r)return;const f=fieldMap.get(key),previousValue=r.values[key];if(f[2]==='metro'){r.values[key]=metroLineIds([...$('recordForm').querySelectorAll('[data-field="metroLines"]:checked')].map(input=>input.value).join(',')).join(',')}else if(f[2]==='number'){e.target.setCustomValidity('');if(!e.target.validity.valid){e.target.setCustomValidity('请输入 0 到 100000000 之间的数值.');e.target.reportValidity();return}r.values[key]=e.target.value===''?'':Number(e.target.value)}else r.values[key]=e.target.value;const reset=previousValue!==r.values[key]?clearDependentRatings(r,key):[];if(reset.length)toast(reset.join(' / ')+' 的原始记录已变化, 请重新评分.');touch(r.id);if(key==='name'||key==='address')$('editorTitle').textContent=nameOf(r);renderList()}
 $('recordForm').oninput=editField;$('recordForm').onsubmit=e=>e.preventDefault();$('notes').oninput=e=>{const r=state.records.get(state.current);if(r){r.notes=e.target.value;touch(r.id);renderList()}};
 $('photos').onclick=e=>{const remove=e.target.closest('[data-remove-photo]'),view=e.target.closest('[data-view-photo]'),r=state.records.get(state.current);if(!r)return;if(remove&&confirm('删除这张照片?')){const i=r.photos.findIndex(p=>p.id===remove.dataset.removePhoto);if(i>=0){releasePhoto(r.photos[i]);r.photos.splice(i,1);touch(r.id);renderPhotos();renderList()}}else if(view){const p=r.photos.find(p=>p.id===view.dataset.viewPhoto);if(p){$('largePhoto').src=photoUrl(p);modalOpen('lightbox')}}};$('photos').onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&e.target.dataset.viewPhoto){e.preventDefault();e.target.click()}};
 $('deleteBtn').onclick=async()=>{const id=state.current,r=state.records.get(id);if(!r)return;if(state.photoJobs){toast('请等待照片处理完成后再删除.');return}if(!confirm('删除 '+nameOf(r)+' 及其全部照片? 此操作无法撤销.'))return;noteMutation();$('deleteBtn').disabled=true;try{if(!await flush())throw new Error('保存尚未完成, 请解决保存错误后重试删除.');await dbWrite([],id);r.photos.forEach(releasePhoto);state.records.delete(id);state.dirty.delete(id);state.rev.delete(id);state.selected.delete(id);state.current=null;modalClose('editor');renderList();updateSyncStatus();toast('房源已删除, 删除状态将在授权后同步.')}catch(e){toast(errorMessage(e))}finally{$('deleteBtn').disabled=false}};
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>modalClose(b.dataset.close));document.addEventListener('keydown',e=>{const visible=[...document.querySelectorAll('.modal:not([hidden])')],top=visible.at(-1);if(!top)return;if(e.key==='Escape'){e.preventDefault();if(top.id==='editor')$('closeEditor').click();else modalClose(top.id)}if(e.key==='Tab'){const focusable=[...top.querySelectorAll('button:not(:disabled),a[href],input:not([hidden]),select,textarea,[tabindex="0"]')].filter(el=>el.getClientRects().length);const first=focusable[0],last=focusable.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus()}}});
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')flush()});window.addEventListener('pagehide',()=>{flush();disconnectSync(false)});window.addEventListener('beforeunload',e=>{if(state.dirty.size||state.photoJobs||state.importing){e.preventDefault();e.returnValue=''}});
+
+</script>
+<script id="scoring-core">
+// Generic observation and scoring definitions. Personal weights and thresholds are imported.
+const scoringGroups=['费用与租赁','通勤与交通','房屋与环境','厨房与咖啡','卫浴与家电','网络与工位','养猫与日常便利'];
+const criterion=(id,group,label,keys,mode='manual',hint='')=>({id,group,label,keys,mode,hint});
+const criteria=[
+ criterion('monthlyCost',0,'全部固定月费',['rent','serviceFee','propertyFee','broadbandFee','otherFixedFee'],'cost','已含在其他项目中的费用填 0, 不确定则留空. 押金和按用量计费的水电燃气不计入.'),
+ criterion('utilities',0,'民水民电',['utilities'],'boolean'),
+ criterion('beike',0,'是否贝壳省心租',['beike'],'boolean'),
+ criterion('commute',1,'高峰门到门通勤',['commuteMinutes'],'commute','从房门到办公地点, 包含步行, 等候和换乘.'),
+ criterion('schedule',1,'地铁班次信息',['station','metroLines','scheduleNotes'],'info','记录常用方向, 高峰间隔, 首末班和核验日期; 照片可附时刻表.'),
+ criterion('stationDistance',1,'到地铁站的距离',['stationDistance']),
+ criterion('walk',1,'步行到站时间',['walkMinutes']),
+ criterion('bike',1,'骑行到站时间',['bikeMinutes']),
+ criterion('livingOpening',2,'客厅外窗或封闭阳台',['livingOpeningNotes'],'manual','客厅有直接外窗, 或连接已封窗的阳台.'),
+ criterion('elevator',2,'电梯',['elevator'],'boolean'),
+ criterion('orientation',2,'主要朝向',['orientation'],'orientation'),
+ criterion('area',2,'中介提供面积',['area'],'area'),
+ criterion('floor',2,'楼层',['currentFloor','totalFloors','floor'],'floor','旧楼层文字保留, 判断以两个数值字段为准.'),
+ criterion('noise',2,'隔音与睡眠环境',['noiseNotes']),
+ criterion('damp',2,'无潮湿漏水',['dampNotes'],'manual','检查墙角, 窗边, 柜内和卫生间的水痕, 霉斑与返潮.'),
+ criterion('daylight',2,'采光通风及异味',['daylightNotes']),
+ criterion('storage',2,'收纳空间',['storageNotes']),
+ criterion('coffee',3,'咖啡机空间及油烟隔离',['coffeeNotes'],'manual','整体评分: 设备可放置并正常操作, 且不受炒菜油烟污染.'),
+ criterion('fridge',3,'冰箱门数与容量',['fridgeDoors','fridgeCapacity']),
+ criterion('fridgeEnergy',3,'冰箱能效',['fridgeEnergy']),
+ criterion('dryWet',4,'卫浴干湿分离',['dryWetNotes']),
+ criterion('washer',4,'滚筒洗衣及烘干',['washerType','washerDryer'],'washer'),
+ criterion('gas',4,'燃气灶及燃气热水器',['gasStove','gasWater'],'gas'),
+ criterion('bedroomAc',4,'卧室空调',['bedroomAc'],'boolean'),
+ criterion('livingAc',4,'客厅空调',['livingAc'],'boolean'),
+ criterion('bedroomAcAge',4,'卧室空调新旧',['bedroomAcAge']),
+ criterion('livingAcAge',4,'客厅空调新旧',['livingAcAge']),
+ criterion('bedroomAcEnergy',4,'卧室空调能效',['bedroomAcEnergy']),
+ criterion('livingAcEnergy',4,'客厅空调能效',['livingAcEnergy']),
+ criterion('toiletClean',4,'马桶清洁',['toiletClean']),
+ criterion('toiletSmart',4,'智能马桶',['toiletSmart']),
+ criterion('smartTv',4,'智能电视',['smartTv']),
+ criterion('water',4,'水压, 热水及排水体验',['waterNotes']),
+ criterion('broadband',5,'自有宽带迁移及千兆接入',['broadbandNotes'],'manual','房东允许迁入自己的宽带, 对应运营商能够办理, 且支持千兆接入.'),
+ criterion('roomNetwork',5,'卧室网络及信号',['roomNetworkNotes'],'manual','合并评价关门后的网络, 室内手机信号及有线布网条件.'),
+ criterion('workspace',5,'卧室显示器工位',['workspaceNotes']),
+ criterion('power',5,'插座及设备用电条件',['powerNotes']),
+ criterion('cats',6,'允许养猫',['cats'],'boolean'),
+ criterion('convenience',6,'日常便利与公共安全',['convenienceNotes'])
+];
+const criterionMap=new Map(criteria.map(c=>[c.id,c]));
+function criterionDependencies(c){
+ const prerequisite={bedroomAcAge:'bedroomAc',bedroomAcEnergy:'bedroomAc',livingAcAge:'livingAc',livingAcEnergy:'livingAc',fridgeEnergy:'fridgeDoors'}[c.id];
+ return prerequisite?[...c.keys,prerequisite]:c.keys;
+}
+const extraFields=[
+ ['propertyFee','物业费 (元/月)','number'],['broadbandFee','固定宽带费 (元/月)','number'],['otherFixedFee','其他固定月费 (元/月)','number'],
+ ['beike','是否贝壳省心租','select',yesNo],['currentFloor','当前楼层','number'],['totalFloors','总楼层','number'],
+ ['scheduleNotes','班次及核验记录','text'],['livingOpeningNotes','客厅外窗及阳台观察','text'],['noiseNotes','隔音及噪音观察','text'],
+ ['dampNotes','潮湿漏水观察','text'],['daylightNotes','采光通风及异味观察','text'],['storageNotes','收纳观察','text'],
+ ['coffeeNotes','咖啡机位置及油烟隔离','text'],['fridgeCapacity','冰箱容量 (升)','number'],['dryWetNotes','干湿分离观察','text'],
+ ['smartTv','有智能电视','select',yesNo],['waterNotes','水压, 热水及排水观察','text'],['broadbandNotes','运营商, 迁移许可及千兆接入核验','text'],
+ ['roomNetworkNotes','卧室关门后的网络, 手机信号及布网核验','text'],['workspaceNotes','工位尺寸及摆放观察','text'],
+ ['powerNotes','插座及设备用电观察','text'],['convenienceNotes','日常便利及公共安全观察','text']
+];
+extraFields.forEach(f=>{fields.push(f);fieldMap.set(f[0],f)});
+fieldMap.get('area')[1]='中介提供面积 (平方米)';
+fieldMap.get('floor')[1]='原楼层文字 (保留记录)';
+// Keep the established fields registry for validation and field-level synchronization.
+sections.splice(0,sections.length,{title:'基本资料',fields:['name','address','viewedAt','mapLink'].map(k=>fieldMap.get(k))},
+ ...scoringGroups.map((title,i)=>({title,fields:criteria.filter(c=>c.group===i).flatMap(c=>c.keys.map(k=>fieldMap.get(k)))})));
+const ratingLabels=['0 · 不满足','1 · 明显不足','2 · 较多不足','3 · 基本满足','4 · 接近满足','5 · 完全满足'];
+function validateRatings(raw){
+ const result=Object.fromEntries(criteria.filter(c=>c.mode==='manual').map(c=>[c.id,null]));
+ if(raw===undefined)return result;
+ if(!raw||typeof raw!=='object'||Array.isArray(raw))throw new Error('评分记录格式无效.');
+ for(const [id,value]of Object.entries(raw)){
+  if(!criterionMap.has(id)||criterionMap.get(id).mode!=='manual'||(value!==null&&(!Number.isInteger(value)||value<0||value>5)))throw new Error('评分记录内容无效.');
+  result[id]=value;
+ }return result;
+}
+function validatePreferences(raw){
+ if(raw===null||raw===undefined)return null;
+ const plain=v=>v&&typeof v==='object'&&!Array.isArray(v);
+ const exact=(obj,keys)=>plain(obj)&&Object.keys(obj).length===keys.length&&keys.every(k=>Object.hasOwn(obj,k));
+ const thresholdKeys=['costLimit','flexibleCostLimit','maxCommuteMinutes','minArea','minFloor','topFloorBuffer','allowedOrientations'];
+ if(!exact(raw,['format','version','weights','thresholds'])||raw.format!=='qiju-preferences'||raw.version!==1||
+    !exact(raw.weights,criteria.map(c=>c.id))||!exact(raw.thresholds,thresholdKeys))throw new Error('个人规则文件格式不受支持.');
+ const weights={};for(const c of criteria){const w=raw.weights[c.id];if(!Number.isInteger(w)||w<0||w>10)throw new Error('权重必须是 0 至 10 的整数.');weights[c.id]=w;}
+ if(!Object.values(weights).some(w=>w>0)||weights.schedule!==0)throw new Error('个人规则需包含有效权重, 班次仅作记录.');
+ const t=raw.thresholds;
+ for(const k of thresholdKeys.filter(k=>k!=='allowedOrientations'))if(typeof t[k]!=='number'||!Number.isFinite(t[k])||t[k]<0||t[k]>1e8)throw new Error('个人规则阈值无效.');
+ if(t.flexibleCostLimit<t.costLimit||!Number.isInteger(t.minFloor)||!Number.isInteger(t.topFloorBuffer)||
+   !Array.isArray(t.allowedOrientations)||!t.allowedOrientations.length||new Set(t.allowedOrientations).size!==t.allowedOrientations.length||
+   t.allowedOrientations.some(v=>!fieldMap.get('orientation')[3].some(o=>o[0]===v&&v!=='unknown')))throw new Error('个人规则阈值关系无效.');
+ return {format:'qiju-preferences',version:1,weights,thresholds:structuredClone(t)};
+}
+function migrateScoringRecord(r){
+ r.ratings=validateRatings(r.ratings);
+ // Parse only an unambiguous positive integer pair. Unstructured old text remains intact.
+ if((r.values.currentFloor===undefined||r.values.currentFloor==='')&&(r.values.totalFloors===undefined||r.values.totalFloors==='')){
+  const m=/^\s*(\d+)\s*[/／]\s*(\d+)\s*$/.exec(r.values.floor||'');
+  if(m&&+m[1]>0&&+m[2]>=+m[1]){r.values.currentFloor=+m[1];r.values.totalFloors=+m[2];}
+ }return r;
+}
+function evaluateCriterion(c,r,profile){
+ const v=r.values,t=profile.thresholds;
+ const result=(score,reason)=>({score,reason});
+ const known=n=>typeof n==='number'&&Number.isFinite(n);
+ const yesNoScore=(items,reason)=>items.includes(false)?result(0,reason):items.includes(null)?result(null,'待核实'):result(5,reason);
+ const bool=k=>v[k]==='yes'?true:v[k]==='no'?false:null;
+ if(c.mode==='info')return result(null,'仅记录, 不计分');
+ if(c.mode==='manual'){const score=r.ratings?.[c.id]??null;return result(score,score===null?'待核实':ratingLabels[score].split(' · ')[1]);}
+ if(c.mode==='boolean')return yesNoScore([bool(c.keys[0])],v[c.keys[0]]==='yes'?'已确认满足':'已确认不满足');
+ if(c.mode==='gas')return yesNoScore(c.keys.map(bool),'需同时具备燃气灶和燃气热水器');
+ if(c.mode==='washer')return yesNoScore([!v.washerType||v.washerType==='unknown'?null:v.washerType==='滚筒',bool('washerDryer')],'需滚筒洗衣机且支持烘干');
+ if(c.mode==='cost'){
+  const cents=c.keys.map(k=>known(v[k])?Math.round(v[k]*100):null),sum=cents.reduce((a,b)=>a+(b??0),0),limit=Math.round(t.costLimit*100);
+  const message='固定月费'+(cents.includes(null)?'已知部分':'合计')+' '+(sum/100).toFixed(2)+' 元; 上限 '+t.costLimit+' 元';
+  if(sum>limit)return result(0,message+(sum<=Math.round(t.flexibleCostLimit*100)?', 仍在可考虑预算内':', 超出可考虑范围'));
+  return result(cents.includes(null)?null:5,message+(cents.includes(null)?', 费用仍待核实':''));
+ }
+ if(c.mode==='commute')return result(known(v.commuteMinutes)?(v.commuteMinutes<=t.maxCommuteMinutes?5:0):null,'高峰门到门不超过 '+t.maxCommuteMinutes+' 分钟');
+ if(c.mode==='area')return result(known(v.area)?(v.area>=t.minArea?5:0):null,'中介提供面积不小于 '+t.minArea+' 平方米');
+ if(c.mode==='orientation')return result(!v.orientation||v.orientation==='unknown'?null:t.allowedOrientations.includes(v.orientation)?5:0,'接受朝向: '+t.allowedOrientations.join(' / '));
+ if(c.mode==='floor'){
+  const a=v.currentFloor,b=v.totalFloors;
+  if(known(a)&&(!Number.isInteger(a)||a<t.minFloor))return result(0,'当前楼层需为整数且不低于 '+t.minFloor+' 层');
+  if(known(b)&&(!Number.isInteger(b)||b<t.minFloor+t.topFloorBuffer))return result(0,'总楼层不足以满足楼层范围');
+  return result(known(a)&&known(b)?(a<=b-t.topFloorBuffer?5:0):null,'当前楼层需在 '+t.minFloor+' 至总楼层减 '+t.topFloorBuffer+' 之间');
+ }
+ return result(null,'待核实');
+}
+function scoreRecord(r,profile=state.sync?.preferences){
+ if(!profile)return null;
+ let earned=0,total=0,confirmedWeight=0,confirmed=0,active=0;
+ const items=criteria.map(c=>{const weight=profile.weights[c.id],rating=evaluateCriterion(c,r,profile);if(weight>0){total+=weight;active++;if(rating.score!==null){earned+=weight*rating.score;confirmedWeight+=weight;confirmed++;}}
+  return {...rating,id:c.id,weight,red:weight===10&&rating.score!==null&&rating.score<5,pending:weight===10&&rating.score===null};});
+ return {total:100*earned/(5*total),coverage:100*confirmedWeight/total,confirmed,active,items,
+  red:items.filter(i=>i.red),pending:items.filter(i=>i.pending)};
+}
+function clearDependentRatings(r,key){
+ const reset=[];for(const c of criteria)if(c.mode==='manual'&&criterionDependencies(c).includes(key)&&r.ratings?.[c.id]!=null){r.ratings[c.id]=null;reset.push(c.label)}return reset;
+}
+
 </script>
 <script id="sync-core">
 // Embedded into index.html by bundle-sync.py. No browser storage or credentials here.
@@ -127,8 +272,8 @@ const SYNC_REPO = 'isotropy44/rental-viewing-data';
 const SYNC_BRANCH = 'main';
 const SYNC_PATH = 'data/records.json';
 // Older pages must reject the expanded schema instead of silently dropping its new fields.
-const SYNC_FORMAT_VERSION = 2;
-const emptySyncDoc = () => ({format:'qiju-sync',version:SYNC_FORMAT_VERSION,records:[]});
+const SYNC_FORMAT_VERSION = 3;
+const emptySyncDoc = () => ({format:'qiju-sync',version:SYNC_FORMAT_VERSION,records:[],preferences:null});
 const copy = value => value === undefined ? undefined : structuredClone(value);
 function stableJSON(value) {
   if (value === undefined) return 'undefined';
@@ -145,7 +290,7 @@ const same = (a,b) => stableJSON(semantic(a)) === stableJSON(semantic(b));
 const recordMap = doc => new Map(doc.records.map(r=>[r.id,r]));
 function makeSyncMeta() {
   return {key:'state',repo:SYNC_REPO,branch:SYNC_BRANCH,base:emptySyncDoc(),head:null,
-    pending:{},tombstones:{},conflicts:[],resolutions:{},flight:null,lastSyncAt:null};
+    pending:{},tombstones:{},conflicts:[],resolutions:{},flight:null,lastSyncAt:null,preferences:null,pendingPreferences:null};
 }
 function mergeSyncDocs(base, local, remote, resolutions={}) {
   const bm=recordMap(base),lm=recordMap(local),rm=recordMap(remote),conflicts=[],records=[];
@@ -174,10 +319,19 @@ function mergeSyncDocs(base, local, remote, resolutions={}) {
       continue;
     }
     const result={id,createdAt:choose(id,['createdAt'],'创建时间',b?.createdAt,l.createdAt,r.createdAt),
-      updatedAt:[l.updatedAt,r.updatedAt].sort().at(-1),values:{},notes:'',location:null,photos:[]};
+      updatedAt:[l.updatedAt,r.updatedAt].sort().at(-1),values:{},ratings:{},notes:'',location:null,photos:[]};
     for (const f of fields) result.values[f[0]]=choose(id,['values',f[0]],f[1],b&&!b.deletedAt?(b.values?.[f[0]]??defaultFieldValue(f)):undefined,l.values[f[0]]??defaultFieldValue(f),r.values[f[0]]??defaultFieldValue(f));
     result.notes=choose(id,['notes'],'现场备注',b?.notes,l.notes,r.notes);
     result.location=choose(id,['location'],'现场定位',b?.location,l.location,r.location);
+    for(const c of criteria.filter(c=>c.mode==='manual'))result.ratings[c.id]=choose(id,['ratings',c.id],c.label+'评分',b?.ratings?.[c.id]??null,l.ratings?.[c.id]??null,r.ratings?.[c.id]??null);
+    // An observation changed on the other device invalidates a score based on the old fact.
+    // If the score's author also supplied the winning observations, the score stays valid.
+    for(const c of criteria.filter(c=>c.mode==='manual')){
+      if(result.ratings[c.id]==null)continue;
+      const observation=record=>criterionDependencies(c).map(k=>record?.values?.[k]??defaultFieldValue(fieldMap.get(k)));
+      const source=[l,r].filter(record=>same(record.ratings?.[c.id]??null,result.ratings[c.id]));
+      if(!source.some(record=>same(observation(record),observation(result))))result.ratings[c.id]=null;
+    }
     const bp=new Map((b?.photos||[]).map(p=>[p.id,p])),lp=new Map(l.photos.map(p=>[p.id,p])),rp=new Map(r.photos.map(p=>[p.id,p]));
     // Remote order is stable, with genuinely new local photos appended.
     for (const pid of new Set([...rp.keys(),...lp.keys(),...bp.keys()])) {
@@ -186,12 +340,16 @@ function mergeSyncDocs(base, local, remote, resolutions={}) {
     }
     records.push(result);
   }
-  return {doc:{format:'qiju-sync',version:SYNC_FORMAT_VERSION,records},conflicts};
+  const lp=local.preferences??null,rp=remote.preferences??null;
+  // Absence in an older document is not an instruction to delete private preferences.
+  const preferences=!lp?copy(rp):!rp?copy(lp):choose('$preferences',['preferences'],'个人评分规则',base.preferences??null,lp,rp);
+  return {doc:{format:'qiju-sync',version:SYNC_FORMAT_VERSION,records,preferences},conflicts};
 }
 function commonBaseAfterRebase(sent, before, conflicts) {
   const result=copy(sent),map=recordMap(result),bm=recordMap(before);
   // Conflicting fields keep their old common ancestor. Other fields acknowledge the commit.
   for (const c of conflicts) {
+    if(c.path[0]==='preferences'){result.preferences=copy(before.preferences??null);continue;}
     const previous=bm.get(c.id);
     if(c.path[0]==='$record') {if(previous)map.set(c.id,copy(previous));else map.delete(c.id);continue;}
     const record=map.get(c.id);
@@ -200,12 +358,13 @@ function commonBaseAfterRebase(sent, before, conflicts) {
       record.photos=record.photos.filter(p=>p.id!==c.path[1]);
       const old=previous?.photos?.find(p=>p.id===c.path[1]);if(old)record.photos.push(copy(old));
     } else if(c.path[0]==='values') record.values[c.path[1]]=copy(previous?.values?.[c.path[1]]);
+    else if(c.path[0]==='ratings'){record.ratings??={};record.ratings[c.path[1]]=copy(previous?.ratings?.[c.path[1]]??null);}
     else record[c.path[0]]=copy(previous?.[c.path[0]]);
   }
   result.records=[...map.values()];return result;
 }
 function validateSyncDoc(raw) {
-  if(!raw || raw.format!=='qiju-sync' || ![1,SYNC_FORMAT_VERSION].includes(raw.version) || !Array.isArray(raw.records) || raw.records.length>10000)
+  if(!raw || raw.format!=='qiju-sync' || ![1,2,SYNC_FORMAT_VERSION].includes(raw.version) || !Array.isArray(raw.records) || raw.records.length>10000)
     throw new Error('远端数据格式不受支持, 已保留本机记录.');
   const ids=new Set(),photoIds=new Set();
   const records=raw.records.map(r=>{
@@ -220,7 +379,7 @@ function validateSyncDoc(raw) {
         throw new Error('远端照片引用无效.');
       photoIds.add(p.id);return {id:p.id,name:p.name,type:p.type,hash:p.hash,path:p.path,blobSha:p.blobSha};
     });return clean;
-  });return {format:'qiju-sync',version:SYNC_FORMAT_VERSION,records};
+  });return {format:'qiju-sync',version:SYNC_FORMAT_VERSION,records,preferences:validatePreferences(raw.preferences)};
 }
 function bytesBase64(bytes) {
   let binary='';for(let i=0;i<bytes.length;i+=16384)binary+=String.fromCharCode(...bytes.subarray(i,i+16384));return btoa(binary);
@@ -434,7 +593,7 @@ class GitHubSynchronizer {
 // Browser adapter. Tokens live only inside GitHubRemote instances, never in persisted metadata.
 const syncRuntime={busy:false,error:'',fatal:false,firstDirty:0,debounce:null,deadline:null,retry:null,failures:0,poll:null};
 const photoDigests=new WeakMap();
-function readSyncMeta(){return new Promise((resolve,reject)=>{const tx=state.db.transaction('sync','readonly'),req=tx.objectStore('sync').get('state');req.onsuccess=()=>{const meta=req.result||makeSyncMeta();if(!req.result)for(const id of state.records.keys())meta.pending[id]=uuid();if(meta.repo!==SYNC_REPO||meta.branch!==SYNC_BRANCH){reject(new Error('本机同步目标不匹配, 请先导出备份.'));return}resolve(meta)};req.onerror=()=>reject(req.error)})}
+function readSyncMeta(){return new Promise((resolve,reject)=>{const tx=state.db.transaction('sync','readonly'),req=tx.objectStore('sync').get('state');req.onsuccess=()=>{try{const meta={...makeSyncMeta(),...(req.result||{})};meta.preferences=validatePreferences(meta.preferences);if(!req.result)for(const id of state.records.keys())meta.pending[id]=uuid();if(meta.repo!==SYNC_REPO||meta.branch!==SYNC_BRANCH)throw new Error('本机同步目标不匹配, 请先导出备份.');resolve(meta)}catch(e){reject(e)}};req.onerror=()=>reject(req.error)})}
 function persistSyncMeta(mutate){return queuedLocal(async()=>{const meta=copy(state.sync||makeSyncMeta());mutate(meta);await rawLocalWrite({meta});state.sync=meta;updateSyncStatus();})}
 function cloneRecords(){return [...state.records.values()].map(r=>({...copy({...r,photos:[]}),photos:r.photos.map(p=>({...p,blob:p.blob}))}))}
 async function captureSyncLocal(){
@@ -445,7 +604,7 @@ async function captureSyncLocal(){
     const generation=state.generation,raw=cloneRecords(),meta=copy(state.sync),assets=new Map();
     const records=[];
     for(const r of raw){
-      const wire={...r,values:fieldDefaults(r.values),photos:[]};
+      const wire={...r,values:fieldDefaults(r.values),ratings:validateRatings(r.ratings),photos:[]};
       for(const p of r.photos){
         if(!photoDigests.has(p.blob))photoDigests.set(p.blob,digestBlob(p.blob));
         const hash=await photoDigests.get(p.blob),ext={'image/jpeg':'jpg','image/png':'png','image/webp':'webp'}[p.type];
@@ -457,7 +616,7 @@ async function captureSyncLocal(){
       records.push(wire);
     }
     for(const [id,deletedAt]of Object.entries(meta.tombstones))if(!state.records.has(id))records.push({id,deletedAt});
-    if(generation===state.generation&&!state.dirty.size)return {generation,doc:{format:'qiju-sync',version:SYNC_FORMAT_VERSION,records:records.sort((a,b)=>a.id.localeCompare(b.id))},meta,assets};
+    if(generation===state.generation&&!state.dirty.size)return {generation,doc:{format:'qiju-sync',version:SYNC_FORMAT_VERSION,records:records.sort((a,b)=>a.id.localeCompare(b.id)),preferences:copy(meta.preferences)},meta,assets};
   }
   throw new SyncError('当前仍在编辑, 修改已保留, 稍后继续同步.');
 }
@@ -470,7 +629,8 @@ async function applySyncCheckpoint({generation,doc,base,head,assets,conflicts,se
       else puts.push({...r,photos:r.photos.map(p=>{const blob=assets.get(p.hash);if(!blob)throw new Error('照片尚未完整下载.');return {...p,blob}})});
       if(!same(r,remote.get(r.id)))pending[r.id]=uuid();
     }
-    Object.assign(meta,{base:copy(base),head,pending,tombstones,conflicts:copy(conflicts),resolutions:{},flight:null});
+    Object.assign(meta,{base:copy(base),head,pending,tombstones,conflicts:copy(conflicts),resolutions:{},flight:null,
+      preferences:copy(doc.preferences??null),pendingPreferences:same(doc.preferences??null,sent.preferences??null)?null:uuid()});
     if(!conflicts.length)meta.lastSyncAt=new Date().toISOString();
     await rawLocalWrite({puts,meta,clear:true,generation});
     if(generation!==state.generation){
@@ -484,7 +644,7 @@ async function applySyncCheckpoint({generation,doc,base,head,assets,conflicts,se
     for(const r of state.records.values())r.photos.forEach(releasePhoto);
     state.records=new Map(puts.map(r=>[r.id,r]));state.sync=meta;state.generation++;
     state.selected=new Set([...state.selected].filter(id=>state.records.has(id)));
-    refreshSyncedEditor();renderList();updateSyncStatus();
+    refreshSyncedEditor();renderList();renderPreferences();updateSyncStatus();
   });
 }
 function refreshSyncedEditor(){
@@ -495,13 +655,13 @@ function refreshSyncedEditor(){
   // Keep the focused input and its caret intact; all actual input events already update state.
   for(const f of fields){if(f[2]==='metro'){refreshMetroChoices(r.values[f[0]]);continue}const el=$('f-'+f[0]);if(el&&el!==document.activeElement)el.value=r.values[f[0]]??'';}
   if($('notes')!==document.activeElement)$('notes').value=r.notes;
-  renderLocation();renderPhotos();updateSaveStatus();
+  refreshRatingControls();renderLocation();renderPhotos();updateSaveStatus();
 }
 const synchronizer=new GitHubSynchronizer({capture:captureSyncLocal,meta:persistSyncMeta,
   conflicts:items=>persistSyncMeta(m=>{m.conflicts=copy(items)}),apply:applySyncCheckpoint});
 function clearSyncTimers(){for(const key of ['debounce','deadline','retry','poll']){clearTimeout(syncRuntime[key]);syncRuntime[key]=null}syncRuntime.firstDirty=0}
 function updateSyncStatus(){
-  const meta=state.sync,pending=state.dirty.size+(meta?Object.keys(meta.pending).length:0);
+  const meta=state.sync,pending=state.dirty.size+(meta?Object.keys(meta.pending).length:0)+(meta?.pendingPreferences?1:0);
   let title='已保存本机 · 待授权同步';
   if(state.saveError)title='本机保存失败';
   else if(state.dirty.size||state.flushing)title='正在保存本机...';
@@ -523,7 +683,7 @@ function schedulePoll(){clearTimeout(syncRuntime.poll);if(synchronizer.remote&&!
 function scheduleSync(){
   if(!synchronizer.remote||syncRuntime.fatal||document.visibilityState==='hidden')return;
   if(state.photoJobs||state.importing){schedulePoll();return}
-  if(!Object.keys(state.sync?.pending||{}).length&&!state.dirty.size)return;
+  if(!Object.keys(state.sync?.pending||{}).length&&!state.sync?.pendingPreferences&&!state.dirty.size)return;
   if(!syncRuntime.firstDirty){syncRuntime.firstDirty=Date.now();syncRuntime.deadline=setTimeout(()=>runSync(),30000)}
   clearTimeout(syncRuntime.debounce);syncRuntime.debounce=setTimeout(()=>runSync(),5000);
 }
@@ -545,6 +705,8 @@ async function runSync(){
 }
 function disconnectSync(notify=true){synchronizer.disconnect();clearSyncTimers();syncRuntime.fatal=false;syncRuntime.error='';$('syncToken').value='';updateSyncStatus();if(notify)toast('已清除当前页面中的令牌, 本机记录和待同步修改仍保留.')}
 function conflictText(value,c){
+  if(c.path[0]==='preferences')return value?preferencesDescription(value):'尚未设置个人规则';
+  if(c.path[0]==='ratings')return value==null?'未确认':ratingLabels[value];
   if(c.path[0]==='$record')return value?.deletedAt?'删除房源':'保留房源: '+(value?.values?.name||value?.values?.address||'未命名房源');
   if(c.path[0]==='photos')return value?'保留照片: '+value.name:'删除照片';
   if(value===undefined||value===null||value==='unknown'||value==='')return '未确认';
@@ -554,7 +716,7 @@ function conflictText(value,c){
 }
 function showSyncConflicts(){
   const conflicts=state.sync?.conflicts||[];
-  $('conflictList').innerHTML=conflicts.map((c,i)=>'<section class="conflict-item"><h3>'+esc(nameOf(state.records.get(c.id)||{values:{name:c.local?.values?.name||c.remote?.values?.name||c.id}}))+' / '+esc(c.label)+'</h3>'+['local','remote'].map(side=>'<label class="conflict-option"><input type="radio" name="conflict-'+i+'" value="'+side+'"> '+(side==='local'?'保留本机':'采用远端')+'<pre>'+esc(conflictText(c[side],c))+'</pre></label>').join('')+'</section>').join('');
+  $('conflictList').innerHTML=conflicts.map((c,i)=>'<section class="conflict-item"><h3>'+esc(c.id==='$preferences'?'个人评分规则':nameOf(state.records.get(c.id)||{values:{name:c.local?.values?.name||c.remote?.values?.name||c.id}}))+' / '+esc(c.label)+'</h3>'+['local','remote'].map(side=>'<label class="conflict-option"><input type="radio" name="conflict-'+i+'" value="'+side+'"> '+(side==='local'?'保留本机':'采用远端')+'<pre>'+esc(conflictText(c[side],c))+'</pre></label>').join('')+'</section>').join('');
   modalOpen('conflictModal');
 }
 $('syncBtn').onclick=$('syncIndicator').onclick=()=>{updateSyncStatus();modalOpen('syncModal')};
@@ -591,8 +753,85 @@ window.addEventListener('online',()=>{if(synchronizer.remote)runSync()});
 window.addEventListener('offline',()=>{if(synchronizer.remote){syncRuntime.error='当前离线, 修改已保存在本机.';updateSyncStatus()}});
 
 </script>
+<script id="scoring-ui">
+function scoreSummaryHtml(r){
+ const s=scoreRecord(r);if(!s)return '<div class="score-summary subtle">尚未设置评分规则</div>';
+ return '<div class="score-summary"><div class="score-heading"><strong>'+s.total.toFixed(1)+'<small> / 100</small></strong><span>确认度 '+s.coverage.toFixed(0)+' % · '+s.confirmed+'/'+s.active+' 项</span></div><div class="score-flags"><span class="'+(s.red.length?'score-red':'')+'">红项 '+s.red.length+'</span><span>重要项待核实 '+s.pending.length+'</span></div>'+(s.red.length?'<details class="red-reasons"><summary>查看未完全满足的条件</summary>'+s.red.map(i=>'<p>'+esc(criterionMap.get(i.id).label)+': '+esc(i.reason)+'</p>').join('')+'</details>':'')+'</div>';
+}
+function observationField(f,r){
+ if(f[2]==='metro')return metroField(r.values[f[0]]);
+ return '<label class="field '+(f[2]==='text'?'wide':'')+'" for="f-'+f[0]+'">'+f[1]+(f[2]==='select'?'<select id="f-'+f[0]+'" data-field="'+f[0]+'">'+f[3].map(o=>'<option value="'+esc(o[0])+'" '+(r.values[f[0]]===o[0]?'selected':'')+'>'+o[1]+'</option>').join('')+'</select>':'<input id="f-'+f[0]+'" data-field="'+f[0]+'" type="'+f[2]+'" value="'+esc(r.values[f[0]])+'" '+(f[2]==='number'?'min="0" max="100000000" step="any" inputmode="decimal"':f[2]==='url'?'inputmode="url" maxlength="4000"':'maxlength="500"')+'>')+'</label>';
+}
+function criterionHtml(c,r){
+ return '<article class="criterion" id="criterion-'+c.id+'"><header class="criterion-heading"><h4>'+esc(c.label)+'</h4><span id="weight-'+c.id+'" class="weight"></span></header>'+(c.hint?'<p class="subtle">'+esc(c.hint)+'</p>':'')+'<div class="form-grid">'+c.keys.map(k=>observationField(fieldMap.get(k),r)).join('')+'</div><div class="rating-row">'+(c.mode==='manual'?'<label class="field" for="rating-'+c.id+'">满足程度<select id="rating-'+c.id+'" data-rating="'+c.id+'"><option value="">未确认</option>'+ratingLabels.map((label,n)=>'<option value="'+n+'">'+label+'</option>').join('')+'</select></label>':'<span class="subtle">'+(c.mode==='info'?'仅作记录':'依据原始记录自动判断')+'</span>')+'<p id="rating-status-'+c.id+'" class="rating-status" role="status"></p></div></article>';
+}
+openEditor=function(id){
+ const r=state.records.get(id);if(!r)return;state.current=id;$('editorTitle').textContent=nameOf(r);
+ const basic=sections[0];
+ $('recordForm').innerHTML='<details class="form-section" open><summary>基本资料</summary><div class="form-grid">'+basic.fields.map(f=>observationField(f,r)).join('')+'</div></details>'+scoringGroups.map((title,i)=>'<details class="form-section" '+(i===0?'open':'')+'><summary>'+title+' <small id="group-status-'+i+'"></small></summary><div class="criteria-list">'+criteria.filter(c=>c.group===i).map(c=>criterionHtml(c,r)).join('')+'</div></details>').join('');
+ $('notes').value=r.notes;refreshRatingControls();renderLocation();renderPhotos();updateSaveStatus();modalOpen('editor');$('editor').querySelector('.panel').scrollTop=0;
+};
+function refreshRatingControls(){
+ const r=state.records.get(state.current);if(!r)return;
+ const s=scoreRecord(r),profile=state.sync?.preferences;
+ $('editorScore').innerHTML=scoreSummaryHtml(r);
+ for(const c of criteria){
+  const item=s?.items.find(i=>i.id===c.id),weight=$('weight-'+c.id),status=$('rating-status-'+c.id),root=$('criterion-'+c.id);
+  if(weight)weight.textContent=profile?'权重 '+profile.weights[c.id]:'规则待导入';
+  if(status){status.textContent=!profile?'导入个人规则后显示评分':c.mode==='info'?'仅记录, 不计分':item.score===null?'待核实'+(item.reason==='待核实'?'':' · '+item.reason):item.score+' / 5 · '+item.reason;status.classList.toggle('score-red',!!item?.red);}
+  root?.classList.toggle('criterion-red',!!item?.red);
+  if(c.mode==='manual'){const input=$('rating-'+c.id);if(input){input.disabled=!profile;if(input!==document.activeElement)input.value=r.ratings?.[c.id]??'';}}
+ }
+ scoringGroups.forEach((_,i)=>{const items=s?.items.filter(x=>criterionMap.get(x.id).group===i&&x.weight>0)||[];const el=$('group-status-'+i);if(el)el.textContent=s?'已确认 '+items.filter(x=>x.score!==null).length+'/'+items.length+' · 红项 '+items.filter(x=>x.red).length:'';});
+}
+const originalEditField=editField;
+$('recordForm').oninput=e=>{
+ const id=e.target.dataset.rating;
+ if(id){const c=criterionMap.get(id),r=state.records.get(state.current);if(!r||c?.mode!=='manual'||!state.sync.preferences)return;const n=e.target.value===''?null:Number(e.target.value);if(n!==null&&(!Number.isInteger(n)||n<0||n>5))return;r.ratings??={};r.ratings[id]=n;touch(r.id);renderList();}
+ else originalEditField(e);
+ refreshRatingControls();
+};
+$('sortRecords').onchange=renderList;
+function preferencesDescription(profile){
+ const t=profile.thresholds;return '固定月费上限 '+t.costLimit+' 元, 可考虑上限 '+t.flexibleCostLimit+' 元; 通勤不超过 '+t.maxCommuteMinutes+' 分钟; 中介面积至少 '+t.minArea+' 平方米; 楼层 '+t.minFloor+' 至总楼层减 '+t.topFloorBuffer+'; 朝向 '+t.allowedOrientations.join(' / ')+'; 总权重 '+Object.values(profile.weights).reduce((a,b)=>a+b,0);
+}
+function renderPreferences(){
+ const p=state.sync?.preferences;
+ $('preferencesStatus').textContent=p?preferencesDescription(p):'尚未设置评分规则. 导入个人规则文件一次, 或授权后从私有仓库恢复. 房源仍可正常记录.';
+ $('exportPreferences').disabled=!p;
+ $('preferencesList').innerHTML=p?scoringGroups.map((title,i)=>'<section class="preferences-section"><h3>'+title+'</h3>'+criteria.filter(c=>c.group===i).map(c=>'<div class="preferences-line"><span>'+esc(c.label)+'</span><strong>'+p.weights[c.id]+'</strong></div>').join('')+'</section>').join(''):'';
+}
+async function setPreferences(raw,confirmReplacement=true){
+ const profile=validatePreferences(raw);if(!profile)throw new Error('请选择有效的个人规则文件.');
+ if(!state.db||!state.sync)throw new Error('请等待本机数据库准备完成.');
+ if(confirmReplacement&&state.sync.preferences&&!same(profile,state.sync.preferences)&&!confirm('个人规则与本机不同. 是否替换? 所有房源将按新规则重新计算.'))return false;
+ noteMutation();if(!await flush())throw new Error('请先解决本机保存错误.');
+ await persistSyncMeta(m=>{noteMutation();m.preferences=profile;m.pendingPreferences=uuid()});
+ renderPreferences();refreshRatingControls();renderList();scheduleSync();return true;
+}
+function downloadJson(value,name){const url=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}
+$('preferencesBtn').onclick=()=>{renderPreferences();modalOpen('preferencesModal')};
+$('importPreferences').onclick=()=>$('preferencesInput').click();
+$('preferencesInput').onchange=async e=>{
+ const file=e.target.files[0];e.target.value='';if(!file)return;
+ try{if(file.size>1024*1024)throw new Error('个人规则文件过大.');if(await setPreferences(JSON.parse(await file.text())))toast('个人规则已保存本机, 授权后会同步.');}
+ catch(error){toast(error instanceof SyntaxError?'个人规则文件不是有效格式.':errorMessage(error));}
+};
+$('exportPreferences').onclick=()=>{if(state.sync?.preferences)downloadJson(state.sync.preferences,'rental-preferences.private.json')};
+renderComparison=function(){
+ const records=[...state.selected].map(id=>state.records.get(id)).filter(Boolean);if(records.length<2)return;
+ let html='<table class="comparison"><thead><tr><th>现场记录</th>'+records.map(r=>'<th>'+esc(nameOf(r))+'</th>').join('')+'</tr></thead><tbody><tr><td>评分汇总</td>'+records.map(r=>'<td>'+scoreSummaryHtml(r)+'</td>').join('')+'</tr>';
+ for(const f of sections[0].fields)html+='<tr><td>'+esc(f[1])+'</td>'+records.map(r=>'<td>'+esc(displayValue(r,f))+'</td>').join('')+'</tr>';
+ scoringGroups.forEach((title,i)=>{html+='<tr class="group"><td>'+title+'</td>'+records.map(()=>'<td></td>').join('')+'</tr>';for(const c of criteria.filter(c=>c.group===i))html+='<tr><td>'+esc(c.label)+(state.sync.preferences?' · 权重 '+state.sync.preferences.weights[c.id]:'')+'</td>'+records.map(r=>{const item=scoreRecord(r)?.items.find(x=>x.id===c.id);return '<td class="'+(item?.red?'score-red':'')+'">'+(item?'<strong>'+(item.score===null?'待核实':item.score+' / 5')+'</strong><p>'+esc(item.reason)+'</p>':'')+c.keys.map(k=>'<div class="subtle">'+esc(fieldMap.get(k)[1])+': '+(k==='metroLines'?metroLineIds(r.values[k]).map(id=>metroBadge(metroLineMap.get(id))).join('')||'未确认':esc(displayValue(r,fieldMap.get(k))))+'</div>').join('')+'</td>';}).join('')+'</tr>';});
+ html+='<tr><td>照片与现场备注</td>'+records.map(r=>'<td>'+(r.photos[0]?'<img src="'+photoUrl(r.photos[0])+'" alt="房源照片"><p>共 '+r.photos.length+' 张</p>':'')+'<p style="white-space:pre-wrap">'+esc(r.notes||'未填写')+'</p>'+(mapUrl(r)?'<a href="'+esc(mapUrl(r))+'" target="_blank" rel="noopener noreferrer">查看位置</a>':'')+'</td>').join('')+'</tr></tbody></table>';
+ $('comparison').innerHTML=html;modalOpen('compareModal');
+};
+
+$('compareBtn').onclick=()=>renderComparison();
+
+</script>
 <script id="boot-code">
-(async()=>{try{state.db=await openDB();(await dbRead()).forEach(r=>state.records.set(r.id,r));state.sync=await readSyncMeta();await persistSyncMeta(()=>{});renderList();updateSyncStatus();}catch(e){showError(errorMessage(e));$('cards').innerHTML='<div class="empty"><h3>暂时无法读取本机记录</h3><p>请使用普通 Safari 窗口, 允许网站存储后刷新重试.</p></div>'}})();
+(async()=>{try{state.db=await openDB();(await dbRead()).forEach(r=>state.records.set(r.id,r));state.sync=await readSyncMeta();await persistSyncMeta(()=>{});renderList();renderPreferences();updateSyncStatus();}catch(e){showError(errorMessage(e));$('cards').innerHTML='<div class="empty"><h3>暂时无法读取本机记录</h3><p>请使用普通 Safari 窗口, 允许网站存储后刷新重试.</p></div>'}})();
 </script>
 </body>
 </html>
