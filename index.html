@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-qqn3EygZ4svQvt46ieuC5lAFKK1Lyf7D5BeoaRPND8Q=' 'sha256-776KMZqHNQ9IAinGjYZzrGIeeNmXYTA7e5KssQIW4qw=' 'sha256-epv1ESG0hb40XThqc1i7RNSaNkxLBk52H9BsMT6Nq64=' 'sha256-QkTRpxy/f2XrViOfyMXHXa0gOL/SUBv3yoH/nwwK80s='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f5f3ec">
 <meta name="description" content="属于自己的看房记录, 保存现场细节, 再慢慢做决定.">
@@ -248,15 +249,16 @@ async function checkGitHubNetwork(fetcher=fetch) {
   return '网络检查通过. 尚未验证令牌和仓库权限, 请点击立即同步, 或输入令牌连接.';
 }
 class GitHubRemote {
+  #token;
   constructor(token,fetcher=fetch){
-    this.token=token;
+    this.#token=token;
     // Native browser fetch rejects a GitHubRemote receiver. Invoke it as a bare function.
     this.fetcher=(...args)=>fetcher(...args);
     this.controllers=new Set();
   }
-  close(){this.token='';for(const c of this.controllers)c.abort();this.controllers.clear();}
+  close(){this.#token='';for(const c of this.controllers)c.abort();this.controllers.clear();}
   async request(path,method='GET',body) {
-    if(!this.token)throw new SyncError('请重新输入同步令牌.',{auth:true});
+    if(!this.#token)throw new SyncError('请重新输入同步令牌.',{auth:true});
     if(path!==''&&!path.startsWith('/'))throw new Error('无效的仓库请求.');
     const controller=new AbortController();this.controllers.add(controller);
     const timeout=setTimeout(()=>controller.abort(),25000);
@@ -264,7 +266,7 @@ class GitHubRemote {
     try {
       let response;
       try {response=await this.fetcher('https://api.github.com/repos/'+SYNC_REPO+path,{
-        method,headers:{Accept:'application/vnd.github+json',Authorization:'Bearer '+this.token,
+        method,headers:{Accept:'application/vnd.github+json',Authorization:'Bearer '+this.#token,
           'X-GitHub-Api-Version':'2022-11-28',...(body?{'Content-Type':'application/json'}:{})},
         ...(body?{body:JSON.stringify(body)}:{}),signal:controller.signal,redirect:'error',credentials:'omit',cache:'no-store'});}
       catch(e){throw new SyncError(stage+': '+(e?.name==='AbortError'?'请求超时或已中断.':'浏览器未收到 api.github.com 的响应. 请检查网络或代理设置, 可点击检查网络.')+' 本机记录已保留.');}
