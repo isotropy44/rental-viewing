@@ -248,7 +248,12 @@ async function checkGitHubNetwork(fetcher=fetch) {
   return '网络检查通过. 尚未验证令牌和仓库权限, 请点击立即同步, 或输入令牌连接.';
 }
 class GitHubRemote {
-  constructor(token,fetcher=fetch){this.token=token;this.fetcher=fetcher;this.controllers=new Set();}
+  constructor(token,fetcher=fetch){
+    this.token=token;
+    // Native browser fetch rejects a GitHubRemote receiver. Invoke it as a bare function.
+    this.fetcher=(...args)=>fetcher(...args);
+    this.controllers=new Set();
+  }
   close(){this.token='';for(const c of this.controllers)c.abort();this.controllers.clear();}
   async request(path,method='GET',body) {
     if(!this.token)throw new SyncError('请重新输入同步令牌.',{auth:true});
