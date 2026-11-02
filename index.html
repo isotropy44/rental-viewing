@@ -11,24 +11,27 @@
 @media(max-width:900px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:1fr}.hero h1{font-size:36px}.hero-actions{margin-top:4px}}
 @media(max-width:560px){.shell{padding:20px 18px 100px}.brand{font-size:19px}.tools{gap:5px}.tools .btn{font-size:12px;padding:9px 10px}.hero{padding:36px 0 27px;gap:15px}.hero h1{font-size:32px}.hero p{font-size:13px}.hero-actions .btn{flex:1;padding:13px 10px}.summary{gap:19px;flex-wrap:wrap;padding:16px 0}.stat{font-size:11px;gap:7px}.stat strong{font-size:23px}.storage-note{width:100%;margin:0;font-size:11px}.sectionbar{align-items:stretch;flex-direction:column;gap:12px}.search{min-width:0;width:100%;font-size:16px}.cards{grid-template-columns:1fr;gap:18px}.cover{height:170px}.card-body{padding:18px}.footer{flex-direction:column;gap:4px}.modal{padding:0;align-items:stretch}.panel{border-radius:0;max-height:100dvh;width:100%;height:100dvh}.panel-header{padding:calc(15px + env(safe-area-inset-top)) 18px 15px}.panel-content{padding:18px 14px calc(28px + env(safe-area-inset-bottom))}.form-grid{gap:16px 12px;padding:0 14px 17px}.form-section summary{padding:17px 14px}.compare-dock{max-width:calc(100vw - 28px);gap:12px;font-size:12px;padding:9px 10px 9px 15px}.compare-dock .btn{padding:10px 12px}.comparison th,.comparison td{min-width:160px;padding:12px}.comparison th:first-child,.comparison td:first-child{min-width:110px;width:110px}.empty{padding:43px 18px}.location-head .btn{font-size:12px;padding:9px 11px}.photos{grid-template-columns:repeat(3,1fr)}}
 .form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.field{min-width:0}.field:has(input[type="datetime-local"]){grid-column:1/-1}
+.sync-indicator{border:0;background:transparent;color:var(--green);padding:8px 0;text-align:left;cursor:pointer;font:inherit;font-size:12px}.sync-indicator.problem{color:var(--orange)}.sync-stack{display:grid;gap:14px}.sync-status-box{background:var(--soft);border-radius:12px;padding:16px;line-height:1.8;font-size:13px}.sync-actions{display:flex;flex-wrap:wrap;gap:9px}.conflict-item{border:1px solid var(--line);background:var(--paper);border-radius:12px;padding:16px;margin-top:12px}.conflict-item h3{font-size:14px;margin:0 0 12px}.conflict-option{display:block;padding:12px;border-radius:8px;background:var(--soft);margin-top:8px;font-size:13px;line-height:1.7;overflow-wrap:anywhere}.conflict-option pre{font:inherit;white-space:pre-wrap;margin:7px 0 0;max-height:180px;overflow:auto}.sync-label{font-size:12px;color:var(--muted)}@media(max-width:560px){.topbar{flex-wrap:wrap}.tools{margin-left:auto}.sync-indicator{width:100%}}
 </style>
 </head>
 <body>
 <main class="shell">
- <header class="topbar"><div class="brand"><span class="logo" aria-hidden="true">⌂</span>栖居<span class="eyebrow" style="margin-left:8px">看房手记</span></div><div class="tools"><button class="btn ghost" id="helpBtn">使用说明</button><button class="btn" id="backupBtn">备份</button></div></header>
+ <header class="topbar"><div class="brand"><span class="logo" aria-hidden="true">⌂</span>栖居<span class="eyebrow" style="margin-left:8px">看房手记</span></div><div class="tools"><button class="btn ghost" id="helpBtn">使用说明</button><button class="btn" id="syncBtn">同步</button><button class="btn" id="backupBtn">备份</button></div></header>
  <section class="hero"><div><div class="eyebrow">给下一个家, 留一份现场记录</div><h1>慢慢看, 好好住.</h1><p>把采光, 通勤, 和猫咪的落脚处记下来.<br>现场留下细节, 回来再做决定.</p></div><div class="hero-actions"><button class="btn primary" id="arriveBtn">⌖ 到场建档并定位</button><button class="btn" id="newBtn">+ 新增房源</button></div></section>
  <div id="globalError" class="banner" role="alert" hidden></div>
- <section class="summary" aria-label="看房概况"><div class="stat"><strong id="totalCount">0</strong>套房源</div><div class="stat"><strong id="locatedCount">0</strong>已记位置</div><div class="stat"><strong id="photoCount">0</strong>张现场照片</div><div class="storage-note">● 本机保存 · 记得定期备份</div></section>
+ <section class="summary" aria-label="看房概况"><div class="stat"><strong id="totalCount">0</strong>套房源</div><div class="stat"><strong id="locatedCount">0</strong>已记位置</div><div class="stat"><strong id="photoCount">0</strong>张现场照片</div><button class="storage-note sync-indicator" id="syncIndicator" aria-live="polite">已保存本机 · 待授权同步</button></section>
  <section><div class="sectionbar"><h2>我的房源 <span id="listHint" class="subtle"></span></h2><input class="search" type="search" id="search" placeholder="搜索房源, 小区或备注" aria-label="搜索房源"></div><div class="cards" id="cards" aria-live="polite"><div class="empty"><p>正在读取本机记录...</p></div></div></section>
- <footer class="footer"><span>每一项未确认, 都留给现场核实. 评分规则待定.</span><span>数据保存在当前浏览器 · 无账号 · 无云同步 · ฅ(•̀ᴗ•́)</span></footer>
+ <footer class="footer"><span>每一项未确认, 都留给现场核实. 评分规则待定.</span><span>本机优先保存 · 可连接 GitHub 私有仓库 · ฅ(•̀ᴗ•́)</span></footer>
 </main>
 <div id="compareDock" class="compare-dock" hidden><span id="selectedCount"></span><button class="btn" id="compareBtn">对比房源</button><button class="clear" id="clearCompare">清空</button></div>
 <div id="editor" class="modal" role="dialog" aria-modal="true" aria-labelledby="editorTitle" hidden><section class="panel"><header class="panel-header"><div><h2 id="editorTitle">房源记录</h2><span id="saveStatus" class="save-status" role="status">已保存到本机</span></div><button class="btn" id="closeEditor">完成</button></header><div class="panel-content"><div class="location-box"><div class="location-head"><strong>⌖ 现场位置</strong><button class="btn" id="locateBtn">记录当前位置</button></div><div class="location-detail" id="locationDetail"></div></div><form id="recordForm" autocomplete="off"></form><details class="form-section" open><summary>照片与现场备注</summary><div style="padding:0 18px 18px"><button class="btn" id="addPhotos">+ 拍照或添加照片</button><p id="photoStatus" class="subtle" role="status">照片自动压缩并保存在本机, 随备份一起导出.</p><div class="photos" id="photos"></div><label class="field">现场备注<textarea id="notes" placeholder="采光, 噪音, 气味, 漏水痕迹, 房东承诺..." maxlength="20000"></textarea></label></div></details><div class="panel-bottom"><button class="btn danger" id="deleteBtn">删除这套房源</button><button class="btn" id="retrySave">立即保存</button></div></div></section></div>
 <div id="compareModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="compareTitle" hidden><section class="panel compare-panel"><header class="panel-header"><div><h2 id="compareTitle">把细节摆在一起</h2><span class="subtle">横向滑动查看 · 未确认不等于否</span></div><button class="btn" data-close="compareModal">关闭</button></header><div class="table-wrap" id="comparison"></div></section></div>
 <div id="backupModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="backupTitle" hidden><section class="panel" style="max-width:520px"><header class="panel-header"><h2 id="backupTitle">给记录留个副本</h2><button class="btn" data-close="backupModal">关闭</button></header><div class="panel-content"><p class="subtle">备份包含全部房源, 定位, 备注和照片. 建议每次看房结束后导出, 保存到 iPhone 的文件或 iCloud 云盘中.</p><p><button class="btn primary" id="exportBtn">导出完整备份</button></p><p><button class="btn" id="importBtn">导入备份文件</button></p><p class="subtle">导入按记录标识合并. 已存在的房源直接跳过, 不覆盖当前内容. 备份包含私人位置和照片, 请妥善保管.</p><p id="backupStatus" class="subtle" role="status"></p></div></section></div>
-<div id="helpModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle" hidden><section class="panel" style="max-width:600px"><header class="panel-header"><h2 id="helpTitle">看房之前</h2><button class="btn" data-close="helpModal">关闭</button></header><div class="panel-content help-content"><h3>1. 用固定地址, 在 Safari 打开</h3><p>将本文件上传至支持 HTTPS (Hypertext Transfer Protocol Secure) 的静态网站空间, 再用 iPhone Safari 打开链接. 可在分享菜单中添加到主屏幕, 但请先确认该入口能读取原有记录. 直接预览文件附件不适合作为正式使用入口.</p><h3>2. 到场建档, 边看边填</h3><p>点击到场建档并定位, 首次允许浏览器访问位置. 室内定位可能有偏差, 请核对地图, 小区及门牌自行补充. 定位失败不影响填写, 可重试或粘贴地图分享链接. 通勤时间请参照地图导航填写.</p><h3>3. 自动保存, 定期备份</h3><p>记录与压缩后的照片存放在当前浏览器的 IndexedDB 数据库中, 无云同步. 网址, 浏览器或设备变化后, 需要手动导入备份. 清理网站数据, 隐私浏览或系统存储清理可能导致数据丢失.</p><h3>4. 先记录事实, 再定评分</h3><p>所有条件默认未确认. 首页勾选至少 2 套房源即可对比. 本版不计算分数, 不自动推断地址, 不后台持续定位.</p></div></section></div>
+<div id="helpModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle" hidden><section class="panel" style="max-width:600px"><header class="panel-header"><h2 id="helpTitle">看房之前</h2><button class="btn" data-close="helpModal">关闭</button></header><div class="panel-content help-content"><h3>1. 用固定地址, 在 Safari 打开</h3><p>将本文件上传至支持 HTTPS (Hypertext Transfer Protocol Secure) 的静态网站空间, 再用 iPhone Safari 打开链接. 可在分享菜单中添加到主屏幕, 但请先确认该入口能读取原有记录. 直接预览文件附件不适合作为正式使用入口.</p><h3>2. 到场建档, 边看边填</h3><p>点击到场建档并定位, 首次允许浏览器访问位置. 室内定位可能有偏差, 请核对地图, 小区及门牌自行补充. 定位失败不影响填写, 可重试或粘贴地图分享链接. 通勤时间请参照地图导航填写.</p><h3>3. 自动保存, 定期备份</h3><p>记录与压缩后的照片先保存在当前浏览器的 IndexedDB 数据库中. 通过同步入口授权后, 自动与独立私有仓库双向同步. 每次刷新或重新打开页面需再次输入专用令牌, 待同步修改会保留. 未授权的设备可通过备份导入记录. 清理网站数据, 隐私浏览或系统存储清理可能导致数据丢失.</p><h3>4. 先记录事实, 再定评分</h3><p>所有条件默认未确认. 首页勾选至少 2 套房源即可对比. 本版不计算分数, 不自动推断地址, 不后台持续定位.</p></div></section></div>
 <div id="lightbox" class="modal lightbox" role="dialog" aria-modal="true" aria-label="查看照片" hidden><button class="btn" data-close="lightbox">关闭照片</button><img id="largePhoto" alt="房源现场照片"></div>
 <div id="toast" class="toast" role="status" hidden></div>
+<div id="syncModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="syncTitle" hidden><section class="panel" style="max-width:600px"><header class="panel-header"><div><h2 id="syncTitle">同步你的看房记录</h2><span class="subtle">本机先保存, 再与 GitHub 私有仓库同步</span></div><button class="btn" data-close="syncModal">关闭</button></header><div class="panel-content sync-stack"><div class="sync-status-box"><strong id="syncStatusText" role="status">待授权</strong><div id="syncStatusDetail" class="subtle"></div></div><div><div class="sync-label">固定的数据仓库</div><p style="overflow-wrap:anywhere"><a href="https://github.com/isotropy44/rental-viewing-data" target="_blank" rel="noopener noreferrer">isotropy44/rental-viewing-data ↗</a></p></div><div id="syncAuthFields"><p class="subtle">创建 PAT (Personal Access Token) 时, 仅选择上面的数据仓库, 授予 Contents 的 Read and write 权限, 有效期建议 30 天. 每次刷新或重新打开页面需要重新输入, 页面不会保存令牌.</p><p><a href="https://github.com/settings/personal-access-tokens/new?name=Rental%20Viewing%20Sync&amp;target_name=isotropy44&amp;expires_in=30&amp;contents=write" target="_blank" rel="noopener noreferrer">前往 GitHub 创建专用令牌 ↗</a></p><label class="field" for="syncToken">专用令牌<input id="syncToken" type="password" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="只在当前页面内存中使用"></label><p class="subtle">首次连接前建议先导出完整备份. 连接后将双向合并当前本机记录与私有仓库中的记录.</p><div class="sync-actions"><button class="btn primary" id="connectSync">连接并自动同步</button><button class="btn" id="syncBackup">先导出完整备份</button></div></div><div class="sync-actions"><button class="btn primary" id="syncNow">立即同步</button><button class="btn" id="disconnectSync">断开连接</button><button class="btn" id="showConflicts" hidden>处理冲突</button></div><p class="subtle">编辑结束 5 秒后同步, 连续编辑最多等待 30 秒. 仅在页面运行且已授权时同步, 不保证锁屏后继续上传. 删除状态会同步, Git 历史中的旧照片仍会保留.</p></div></section></div>
+<div id="conflictModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="conflictTitle" hidden><section class="panel"><header class="panel-header"><div><h2 id="conflictTitle">两端有不同修改</h2><span class="subtle">逐项选择后再继续同步, 本机记录已保留</span></div><button class="btn" data-close="conflictModal">稍后处理</button></header><div class="panel-content"><div id="conflictList"></div><p><button class="btn primary" id="resolveConflicts">按选择继续同步</button></p></div></section></div>
 <input type="file" id="photoInput" accept="image/*" multiple hidden><input type="file" id="importInput" accept=".json,application/json" hidden>
 <script>
 'use strict';
@@ -43,7 +46,7 @@ const sections=[
  {title:'交通与通勤',fields:[['station','最近地铁站','text'],['stationDistance','距地铁站 (米)','number'],['walkMinutes','步行至地铁 (分钟)','number'],['bikeMinutes','骑行至地铁 (分钟)','number'],['commuteMinutes','总通勤时间 (分钟)','number']]}
 ];
 const fields=sections.flatMap(s=>s.fields), fieldMap=new Map(fields.map(f=>[f[0],f]));
-const state={db:null,records:new Map(),selected:new Set(),current:null,dirty:new Set(),rev:new Map(),timer:null,flushing:null,saveError:'',urls:new Map(),geoBusy:new Set(),photoJobs:0,importing:false};
+const state={db:null,records:new Map(),selected:new Set(),current:null,dirty:new Set(),rev:new Map(),timer:null,flushing:null,saveError:'',urls:new Map(),geoBusy:new Set(),photoJobs:0,importing:false,sync:null,generation:0,localTail:Promise.resolve(),applyGuard:null};
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uuid=()=>globalThis.crypto?.randomUUID?.()||'r-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
 const localTime=()=>{const d=new Date();return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,16)};
@@ -51,13 +54,16 @@ const dateText=v=>v?new Date(v).toLocaleString('zh-CN',{year:'numeric',month:'2-
 const nameOf=r=>r.values.name||r.values.address||'未命名房源';
 function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('toast').hidden=true,4500)}
 function errorMessage(e){return e?.name==='QuotaExceededError'?'本机存储空间不足. 请先导出备份, 再清理不需要的照片.':e?.name==='SecurityError'?'浏览器禁止本机存储. 请使用普通 Safari 窗口和固定安全网址.':e?.message||'保存失败, 请重试并导出备份.'}
-function openDB(){return new Promise((resolve,reject)=>{if(!globalThis.indexedDB){reject(new Error('此浏览器不支持本机数据库. 请使用 Safari 普通窗口.'));return}const req=indexedDB.open('qiju-viewings',1);req.onupgradeneeded=()=>req.result.createObjectStore('records',{keyPath:'id'});req.onsuccess=()=>{req.result.onversionchange=()=>{req.result.close();showError('页面版本已变化, 请先导出备份, 再刷新页面.')};resolve(req.result)};req.onerror=()=>reject(req.error);req.onblocked=()=>showError('数据库被其他窗口占用, 请关闭其他看房页面后重试.')})}
+function openDB(){return new Promise((resolve,reject)=>{if(!globalThis.indexedDB){reject(new Error('此浏览器不支持本机数据库. 请使用 Safari 普通窗口.'));return}const req=indexedDB.open('qiju-viewings',2);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains('records'))req.result.createObjectStore('records',{keyPath:'id'});if(!req.result.objectStoreNames.contains('sync'))req.result.createObjectStore('sync',{keyPath:'key'})};req.onsuccess=()=>{req.result.onversionchange=()=>{req.result.close();state.db=null;showError('页面版本已变化, 请先导出备份, 再刷新页面.')};resolve(req.result)};req.onerror=()=>reject(req.error);req.onblocked=()=>showError('数据库被其他窗口占用, 请关闭其他看房页面后重试.')})}
 function dbRead(){return new Promise((resolve,reject)=>{const tx=state.db.transaction('records','readonly'),req=tx.objectStore('records').getAll();req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
-function dbWrite(records,removeId){return new Promise((resolve,reject)=>{let tx;try{tx=state.db.transaction('records','readwrite');const store=tx.objectStore('records');if(removeId)store.delete(removeId);else records.forEach(r=>store.put(r));tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error||new Error('保存被中断.'))}catch(e){if(tx)try{tx.abort()}catch{}reject(e)}})}
+function queuedLocal(task){const result=state.localTail.then(task);state.localTail=result.catch(()=>{});return result;}
+function noteMutation(){state.generation++;state.applyGuard?.();}
+function rawLocalWrite({puts=[],removes=[],meta,clear=false,generation}){return new Promise((resolve,reject)=>{let tx;try{if(generation!==undefined&&generation!==state.generation)throw Object.assign(new Error('本机仍在编辑.'),{localChanged:true});tx=state.db.transaction(['records','sync'],'readwrite');if(generation!==undefined)state.applyGuard=()=>{try{tx.abort()}catch{}};const store=tx.objectStore('records');if(clear)store.clear();removes.forEach(id=>store.delete(id));puts.forEach(r=>store.put(r));if(meta)tx.objectStore('sync').put(meta);const finish=()=>{if(generation!==undefined)state.applyGuard=null;};tx.oncomplete=()=>{finish();resolve()};tx.onabort=()=>{finish();reject(generation!==undefined&&generation!==state.generation?Object.assign(new Error('本机仍在编辑.'),{localChanged:true}):tx.error||new Error('保存被中断.'))};tx.onerror=()=>{};}catch(e){if(tx)try{tx.abort()}catch{}reject(e)}})}
+function dbWrite(records,removeId){return queuedLocal(async()=>{const meta=structuredClone(state.sync||makeSyncMeta());for(const r of records){meta.pending[r.id]=uuid();delete meta.tombstones[r.id];}if(removeId){meta.pending[removeId]=uuid();meta.tombstones[removeId]=new Date().toISOString();}await rawLocalWrite({puts:records,removes:removeId?[removeId]:[],meta});state.sync=meta;if(removeId)state.records.delete(removeId);updateSyncStatus();scheduleSync();})}
 function showError(message){$('globalError').replaceChildren(document.createTextNode(message+' '));const b=document.createElement('button');b.textContent='重试保存';b.onclick=()=>flush();$('globalError').append(b);$('globalError').hidden=false}
 function updateSaveStatus(){const pending=state.dirty.size>0;$('saveStatus').textContent=state.saveError?'保存失败, 请重试或导出备份':state.flushing?'正在保存...':pending?'尚有修改待保存':'已保存到本机';$('saveStatus').classList.toggle('error',!!state.saveError)}
-function touch(id){const r=state.records.get(id);if(!r)return;r.updatedAt=new Date().toISOString();state.rev.set(id,(state.rev.get(id)||0)+1);state.dirty.add(id);clearTimeout(state.timer);state.timer=setTimeout(()=>flush(),350);updateSaveStatus()}
-function flush(){clearTimeout(state.timer);if(state.flushing)return state.flushing;state.saveError='';state.flushing=(async()=>{await Promise.resolve();try{if(!state.db)throw new Error('本机数据库未打开, 请导出备份保留记录后刷新重试.');while(state.dirty.size){const ids=[...state.dirty],revs=ids.map(id=>state.rev.get(id)),snapshots=ids.map(id=>structuredClone(state.records.get(id))).filter(Boolean);await dbWrite(snapshots);ids.forEach((id,i)=>{if(state.rev.get(id)===revs[i])state.dirty.delete(id)})}$('globalError').hidden=true;return true}catch(e){state.saveError=errorMessage(e);showError(state.saveError);return false}finally{state.flushing=null;updateSaveStatus()}})();updateSaveStatus();return state.flushing}
+function touch(id){const r=state.records.get(id);if(!r)return;noteMutation();r.updatedAt=new Date().toISOString();state.rev.set(id,(state.rev.get(id)||0)+1);state.dirty.add(id);clearTimeout(state.timer);state.timer=setTimeout(()=>flush(),350);updateSaveStatus();updateSyncStatus()}
+function flush(){clearTimeout(state.timer);if(state.flushing)return state.flushing;state.saveError='';state.flushing=(async()=>{await Promise.resolve();try{if(!state.db)throw new Error('本机数据库未打开, 请导出备份保留记录后刷新重试.');while(state.dirty.size){const ids=[...state.dirty],revs=ids.map(id=>state.rev.get(id)),snapshots=ids.map(id=>structuredClone(state.records.get(id))).filter(Boolean);await dbWrite(snapshots);ids.forEach((id,i)=>{if(state.rev.get(id)===revs[i])state.dirty.delete(id)})}$('globalError').hidden=true;return true}catch(e){state.saveError=errorMessage(e);showError(state.saveError);return false}finally{state.flushing=null;updateSaveStatus();updateSyncStatus()}})();updateSaveStatus();return state.flushing}
 function photoUrl(photo){if(!state.urls.has(photo.id))state.urls.set(photo.id,URL.createObjectURL(photo.blob));return state.urls.get(photo.id)}
 function releasePhoto(photo){if(state.urls.has(photo.id)){URL.revokeObjectURL(state.urls.get(photo.id));state.urls.delete(photo.id)}}
 function mapUrl(r){const p=r.location;return p?'https://uri.amap.com/marker?position='+p.longitude+','+p.latitude+'&coordinate=wgs84&name='+encodeURIComponent(nameOf(r)):safeMapLink(r.values.mapLink)}
@@ -76,23 +82,449 @@ function renderLocation(){const r=state.records.get(state.current);if(!r)return;
 function locate(id){const r=state.records.get(id);if(!r||state.geoBusy.has(id))return;if(!window.isSecureContext){toast('定位需要安全网页地址. 请通过 HTTPS 打开, 草稿已保留.');return}if(!navigator.geolocation){toast('当前浏览器不支持定位, 请粘贴地图分享链接.');return}state.geoBusy.add(id);if(state.current===id)renderLocation();navigator.geolocation.getCurrentPosition(p=>{state.geoBusy.delete(id);const record=state.records.get(id);if(!record)return;const c=p.coords;if(!Number.isFinite(c.latitude)||!Number.isFinite(c.longitude)){toast('定位结果无效, 请重试.');if(state.current===id)renderLocation();return}record.location={latitude:c.latitude,longitude:c.longitude,accuracy:c.accuracy,timestamp:new Date(p.timestamp).toISOString(),coordinateSystem:'WGS84'};touch(id);renderList();if(state.current===id)renderLocation();toast('已记录 '+nameOf(record)+' 的位置, 请核对小区及门牌.');},e=>{state.geoBusy.delete(id);if(state.current===id)renderLocation();toast(e.code===1?'位置权限未开启. 草稿已保留, 可在 Safari 网站设置中允许定位后重试.':e.code===3?'定位超时. 草稿已保留, 可到窗边或楼下重试.':'暂时无法获取位置. 草稿已保留, 可重试或粘贴地图链接.');},{enableHighAccuracy:true,timeout:15000,maximumAge:0})}
 function renderPhotos(){const r=state.records.get(state.current);if(!r)return;$('photos').innerHTML=r.photos.map(p=>'<div class="photo"><img src="'+photoUrl(p)+'" alt="'+esc(p.name||'现场照片')+'" tabindex="0" role="button" data-view-photo="'+esc(p.id)+'"><button type="button" data-remove-photo="'+esc(p.id)+'" aria-label="删除照片">×</button></div>').join('')}
 async function compressPhoto(file){if(!file.type.startsWith('image/')&&!/\.(heic|heif|jpe?g|png|webp)$/i.test(file.name))throw new Error('请选择图片文件.');if(file.size>40*1024*1024)throw new Error('单张照片超过 40 MB (Megabyte), 请先缩小图片.');const url=URL.createObjectURL(file);try{const img=await new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(new Error('无法读取 '+file.name+', 请改用相机照片或普通图片格式.'));im.src=url});const scale=Math.min(1,1600/Math.max(img.naturalWidth,img.naturalHeight)),canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.naturalWidth*scale));canvas.height=Math.max(1,Math.round(img.naturalHeight*scale));const ctx=canvas.getContext('2d');ctx.fillStyle='#ffffff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/jpeg',.8));canvas.width=canvas.height=0;if(!blob)throw new Error('图片压缩失败, 请重试.');return {id:uuid(),name:file.name.slice(0,500),type:'image/jpeg',blob}}finally{URL.revokeObjectURL(url)}}
-async function addPhotos(files){const id=state.current;if(!id||!files.length)return;state.photoJobs++;$('addPhotos').disabled=true;let count=0;const failures=[];try{for(const file of files){$('photoStatus').textContent='正在压缩 '+(count+failures.length+1)+' / '+files.length+' ...';try{const p=await compressPhoto(file),r=state.records.get(id);if(!r)break;r.photos.push(p);count++;touch(id);if(state.current===id)renderPhotos();renderList()}catch(e){failures.push(errorMessage(e))}}await flush()}finally{state.photoJobs--;$('addPhotos').disabled=state.photoJobs>0;$('photoStatus').textContent='已添加 '+count+' 张照片.'+(failures.length?' '+failures.join(' '):' 照片随备份一起导出.');if(failures.length)toast(failures[0])}}
+async function addPhotos(files){const id=state.current;if(!id||!files.length)return;state.photoJobs++;$('addPhotos').disabled=true;let count=0;const failures=[];try{for(const file of files){$('photoStatus').textContent='正在压缩 '+(count+failures.length+1)+' / '+files.length+' ...';try{const p=await compressPhoto(file),r=state.records.get(id);if(!r)break;r.photos.push(p);count++;touch(id);if(state.current===id)renderPhotos();renderList()}catch(e){failures.push(errorMessage(e))}}await flush()}finally{state.photoJobs--;$('addPhotos').disabled=state.photoJobs>0;$('photoStatus').textContent='已添加 '+count+' 张照片.'+(failures.length?' '+failures.join(' '):' 照片随备份一起导出.');if(failures.length)toast(failures[0]);scheduleSync()}}
 const blobData=blob=>new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(reader.error);reader.readAsDataURL(blob)});
 async function exportBackup(){if(state.photoJobs||state.importing){toast('请等待照片处理或导入完成后再备份.');return}$('exportBtn').disabled=true;try{await flush();const snapshot=structuredClone([...state.records.values()]);const records=await Promise.all(snapshot.map(async r=>({...r,photos:await Promise.all(r.photos.map(async p=>({id:p.id,name:p.name,type:p.type,data:await blobData(p.blob)})))})));const blob=new Blob([JSON.stringify({format:'qiju-viewings',version:1,exportedAt:new Date().toISOString(),records})],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='qiju-backup-'+localTime().replace(/[:T]/g,'-')+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);$('backupStatus').textContent='已生成 '+records.length+' 套房源的完整备份. 请在下载或分享界面保存文件.'+(state.dirty.size?' 本机保存失败的修改也已包含在备份中.':'')}catch(e){$('backupStatus').textContent='导出失败: '+errorMessage(e)}finally{$('exportBtn').disabled=false}}
 function validDate(s){return typeof s==='string'&&s.length<=40&&Number.isFinite(Date.parse(s))}
-function validId(s){return typeof s==='string'&&/^[a-zA-Z0-9_-]{1,100}$/.test(s)}
+function validId(s){return typeof s==='string'&&/^[a-zA-Z0-9_-]{1,100}$/.test(s)&&!['__proto__','constructor','prototype'].includes(s)}
 function validateRecord(raw,usedPhotoIds){if(!raw||!validId(raw.id)||!validDate(raw.createdAt)||!validDate(raw.updatedAt)||!raw.values||typeof raw.values!=='object'||Array.isArray(raw.values)||typeof raw.notes!=='string'||raw.notes.length>20000||!Array.isArray(raw.photos)||raw.photos.length>1000)throw new Error('备份中的房源结构不正确.');const values={};for(const f of fields){const v=raw.values[f[0]];if(v===undefined||v===''){values[f[0]]=f[2]==='select'?'unknown':'';continue}if(f[2]==='select'){if(!f[3].some(o=>o[0]===v))throw new Error('备份字段选项不正确: '+f[1]);values[f[0]]=v}else if(f[2]==='number'){if(typeof v!=='number'||!Number.isFinite(v)||v<0||v>1e8)throw new Error('备份数值不正确: '+f[1]);values[f[0]]=v}else{if(typeof v!=='string'||v.length>(f[2]==='url'?4000:500))throw new Error('备份文字字段不正确.');if(f[2]==='datetime-local'&&(!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(v)||!validDate(v)))throw new Error('备份看房时间不正确.');values[f[0]]=v}}let location=null;if(raw.location!==null&&raw.location!==undefined){const p=raw.location;if(p.coordinateSystem!=='WGS84'||!Number.isFinite(p.latitude)||Math.abs(p.latitude)>90||!Number.isFinite(p.longitude)||Math.abs(p.longitude)>180||!Number.isFinite(p.accuracy)||p.accuracy<0||!validDate(p.timestamp))throw new Error('备份定位数据不正确.');location={latitude:p.latitude,longitude:p.longitude,accuracy:p.accuracy,timestamp:p.timestamp,coordinateSystem:'WGS84'}}const photos=raw.photos.map(p=>{if(!p||!validId(p.id)||usedPhotoIds.has(p.id)||typeof p.name!=='string'||p.name.length>500||typeof p.data!=='string'||p.data.length>16*1024*1024)throw new Error('备份照片结构不正确.');const match=/^data:(image\/(?:jpeg|png|webp));base64,([A-Za-z0-9+/]*={0,2})$/.exec(p.data);if(!match||!match[2]||match[2].length%4!==0||p.type!==match[1])throw new Error('备份照片格式不正确.');const binary=atob(match[2]);const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));const signature=match[1]==='image/jpeg'?bytes[0]===255&&bytes[1]===216&&bytes[2]===255:match[1]==='image/png'?bytes[0]===137&&binary.slice(1,4)==='PNG':binary.slice(0,4)==='RIFF'&&binary.slice(8,12)==='WEBP';if(!signature)throw new Error('备份照片内容不正确.');usedPhotoIds.add(p.id);return {id:p.id,name:p.name,type:match[1],blob:new Blob([bytes],{type:match[1]})}});return {id:raw.id,createdAt:raw.createdAt,updatedAt:raw.updatedAt,values,notes:raw.notes,location,photos}}
-async function importBackup(file){if(!file)return;if(state.photoJobs||state.importing){toast('请等待当前操作完成.');return}if(file.size>120*1024*1024){toast('备份超过 120 MB, 请在电脑上整理后再导入.');return}state.importing=true;$('importBtn').disabled=true;try{if(!await flush())throw new Error('请先解决当前记录的保存错误, 或导出备份.');$('backupStatus').textContent='正在校验备份...';const data=JSON.parse(await file.text());if(!data||data.format!=='qiju-viewings'||data.version!==1||!Array.isArray(data.records)||data.records.length>10000)throw new Error('不是受支持的看房备份文件.');const incomingIds=new Set(),usedPhotoIds=new Set([...state.records.values()].flatMap(r=>r.photos.map(p=>p.id)));let skipped=0;const incoming=[];for(const raw of data.records){if(!raw||!validId(raw.id)||incomingIds.has(raw.id))throw new Error('备份存在无效或重复的房源标识.');incomingIds.add(raw.id);if(state.records.has(raw.id)){skipped++;continue}incoming.push(validateRecord(raw,usedPhotoIds))}await dbWrite(incoming);incoming.forEach(r=>state.records.set(r.id,r));renderList();$('backupStatus').textContent='导入完成: 新增 '+incoming.length+' 套, 跳过已有 '+skipped+' 套. 原有记录未被覆盖.';toast('备份导入完成.')}catch(e){$('backupStatus').textContent='导入失败, 未写入任何导入记录: '+(e instanceof SyntaxError?'文件内容不是有效的备份格式.':errorMessage(e))}finally{state.importing=false;$('importBtn').disabled=false;$('importInput').value=''}}
+async function importBackup(file){if(!file)return;if(state.photoJobs||state.importing){toast('请等待当前操作完成.');return}if(file.size>120*1024*1024){toast('备份超过 120 MB, 请在电脑上整理后再导入.');return}noteMutation();state.importing=true;$('importBtn').disabled=true;try{if(!await flush())throw new Error('请先解决当前记录的保存错误, 或导出备份.');$('backupStatus').textContent='正在校验备份...';const data=JSON.parse(await file.text());if(!data||data.format!=='qiju-viewings'||data.version!==1||!Array.isArray(data.records)||data.records.length>10000)throw new Error('不是受支持的看房备份文件.');const incomingIds=new Set(),usedPhotoIds=new Set([...state.records.values()].flatMap(r=>r.photos.map(p=>p.id)));let skipped=0;const incoming=[];for(const raw of data.records){if(!raw||!validId(raw.id)||incomingIds.has(raw.id))throw new Error('备份存在无效或重复的房源标识.');incomingIds.add(raw.id);if(state.records.has(raw.id)){skipped++;continue}incoming.push(validateRecord(raw,usedPhotoIds))}await dbWrite(incoming);incoming.forEach(r=>state.records.set(r.id,r));noteMutation();scheduleSync();renderList();$('backupStatus').textContent='导入完成: 新增 '+incoming.length+' 套, 跳过已有 '+skipped+' 套. 原有记录未被覆盖.';toast('备份导入完成.')}catch(e){$('backupStatus').textContent='导入失败, 未写入任何导入记录: '+(e instanceof SyntaxError?'文件内容不是有效的备份格式.':errorMessage(e))}finally{state.importing=false;$('importBtn').disabled=false;$('importInput').value='';scheduleSync();updateSyncStatus()}}
 function renderComparison(){const records=[...state.selected].map(id=>state.records.get(id)).filter(Boolean);if(records.length<2)return;let html='<table class="comparison"><thead><tr><th>现场记录</th>'+records.map(r=>'<th>'+esc(nameOf(r))+'</th>').join('')+'</tr></thead><tbody>';for(const section of sections){html+='<tr class="group"><td>'+section.title+'</td>'+records.map(()=>'<td></td>').join('')+'</tr>';for(const f of section.fields)html+='<tr><td>'+f[1]+'</td>'+records.map(r=>'<td>'+esc(displayValue(r,f))+'</td>').join('')+'</tr>'}html+='<tr><td>现场位置</td>'+records.map(r=>'<td>'+(mapUrl(r)?'<a href="'+esc(mapUrl(r))+'" target="_blank" rel="noopener noreferrer">在地图中查看 ↗</a>':'未记录')+'</td>').join('')+'</tr><tr><td>现场照片</td>'+records.map(r=>'<td>'+(r.photos[0]?'<img src="'+photoUrl(r.photos[0])+'" alt="房源照片"><br>共 '+r.photos.length+' 张':'未添加')+'</td>').join('')+'</tr><tr><td>现场备注</td>'+records.map(r=>'<td style="white-space:pre-wrap">'+esc(r.notes||'未填写')+'</td>').join('')+'</tr></tbody></table>';$('comparison').innerHTML=html;modalOpen('compareModal')}
 $('newBtn').onclick=()=>newRecord();$('arriveBtn').onclick=()=>newRecord(true);$('helpBtn').onclick=()=>modalOpen('helpModal');$('backupBtn').onclick=()=>modalOpen('backupModal');$('closeEditor').onclick=async()=>{if(!$('recordForm').reportValidity())return;await flush();renderList();modalClose('editor')};$('retrySave').onclick=async()=>{if(!$('recordForm').reportValidity())return;if(await flush())toast('已保存到本机.')};$('locateBtn').onclick=()=>locate(state.current);$('search').oninput=renderList;$('compareBtn').onclick=renderComparison;$('clearCompare').onclick=()=>{state.selected.clear();renderList()};$('exportBtn').onclick=exportBackup;$('importBtn').onclick=()=>$('importInput').click();$('importInput').onchange=e=>importBackup(e.target.files[0]);$('addPhotos').onclick=()=>$('photoInput').click();$('photoInput').onchange=e=>{const files=[...e.target.files];e.target.value='';addPhotos(files)};
 $('cards').onclick=e=>{const b=e.target.closest('[data-edit]');if(b)openEditor(b.dataset.edit);if(e.target.closest('#emptyNew'))newRecord()};$('cards').onchange=e=>{const id=e.target.dataset.select;if(!id)return;e.target.checked?state.selected.add(id):state.selected.delete(id);renderList()};
 function editField(e){const key=e.target.dataset.field,r=state.records.get(state.current);if(!key||!r)return;const f=fieldMap.get(key);if(f[2]==='number'){e.target.setCustomValidity('');if(!e.target.validity.valid){e.target.setCustomValidity('请输入 0 到 100000000 之间的数值.');e.target.reportValidity();return}r.values[key]=e.target.value===''?'':Number(e.target.value)}else r.values[key]=e.target.value;touch(r.id);if(key==='name'||key==='address')$('editorTitle').textContent=nameOf(r);renderList()}
 $('recordForm').oninput=editField;$('recordForm').onsubmit=e=>e.preventDefault();$('notes').oninput=e=>{const r=state.records.get(state.current);if(r){r.notes=e.target.value;touch(r.id);renderList()}};
 $('photos').onclick=e=>{const remove=e.target.closest('[data-remove-photo]'),view=e.target.closest('[data-view-photo]'),r=state.records.get(state.current);if(!r)return;if(remove&&confirm('删除这张照片?')){const i=r.photos.findIndex(p=>p.id===remove.dataset.removePhoto);if(i>=0){releasePhoto(r.photos[i]);r.photos.splice(i,1);touch(r.id);renderPhotos();renderList()}}else if(view){const p=r.photos.find(p=>p.id===view.dataset.viewPhoto);if(p){$('largePhoto').src=photoUrl(p);modalOpen('lightbox')}}};$('photos').onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&e.target.dataset.viewPhoto){e.preventDefault();e.target.click()}};
-$('deleteBtn').onclick=async()=>{const id=state.current,r=state.records.get(id);if(!r)return;if(state.photoJobs){toast('请等待照片处理完成后再删除.');return}if(!confirm('删除 '+nameOf(r)+' 及其全部照片? 此操作无法撤销.'))return;$('deleteBtn').disabled=true;try{if(!await flush())throw new Error('保存尚未完成, 请解决保存错误后重试删除.');await dbWrite([],id);r.photos.forEach(releasePhoto);state.records.delete(id);state.dirty.delete(id);state.rev.delete(id);state.selected.delete(id);state.current=null;modalClose('editor');renderList();toast('房源已删除.')}catch(e){toast(errorMessage(e))}finally{$('deleteBtn').disabled=false}};
+$('deleteBtn').onclick=async()=>{const id=state.current,r=state.records.get(id);if(!r)return;if(state.photoJobs){toast('请等待照片处理完成后再删除.');return}if(!confirm('删除 '+nameOf(r)+' 及其全部照片? 此操作无法撤销.'))return;noteMutation();$('deleteBtn').disabled=true;try{if(!await flush())throw new Error('保存尚未完成, 请解决保存错误后重试删除.');await dbWrite([],id);r.photos.forEach(releasePhoto);state.records.delete(id);state.dirty.delete(id);state.rev.delete(id);state.selected.delete(id);state.current=null;modalClose('editor');renderList();updateSyncStatus();toast('房源已删除, 删除状态将在授权后同步.')}catch(e){toast(errorMessage(e))}finally{$('deleteBtn').disabled=false}};
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>modalClose(b.dataset.close));document.addEventListener('keydown',e=>{const visible=[...document.querySelectorAll('.modal:not([hidden])')],top=visible.at(-1);if(!top)return;if(e.key==='Escape'){e.preventDefault();if(top.id==='editor')$('closeEditor').click();else modalClose(top.id)}if(e.key==='Tab'){const focusable=[...top.querySelectorAll('button:not(:disabled),a[href],input:not([hidden]),select,textarea,[tabindex="0"]')].filter(el=>el.getClientRects().length);const first=focusable[0],last=focusable.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus()}}});
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')flush()});window.addEventListener('pagehide',()=>flush());window.addEventListener('beforeunload',e=>{if(state.dirty.size||state.photoJobs||state.importing){e.preventDefault();e.returnValue=''}});
-(async()=>{try{state.db=await openDB();(await dbRead()).forEach(r=>state.records.set(r.id,r));renderList()}catch(e){showError(errorMessage(e));$('cards').innerHTML='<div class="empty"><h3>暂时无法读取本机记录</h3><p>请使用普通 Safari 窗口, 允许网站存储后刷新重试.</p></div>'}})();
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')flush()});window.addEventListener('pagehide',()=>{flush();disconnectSync(false)});window.addEventListener('beforeunload',e=>{if(state.dirty.size||state.photoJobs||state.importing){e.preventDefault();e.returnValue=''}});
+</script>
+<script id="sync-core">
+// Embedded into index.html by bundle-sync.py. No browser storage or credentials here.
+const SYNC_REPO = 'isotropy44/rental-viewing-data';
+const SYNC_BRANCH = 'main';
+const SYNC_PATH = 'data/records.json';
+const emptySyncDoc = () => ({format:'qiju-sync',version:1,records:[]});
+const copy = value => value === undefined ? undefined : structuredClone(value);
+function stableJSON(value) {
+  if (value === undefined) return 'undefined';
+  if (value === null || typeof value !== 'object') return JSON.stringify(value);
+  if (Array.isArray(value)) return '['+value.map(stableJSON).join(',')+']';
+  return '{'+Object.keys(value).sort().map(k=>JSON.stringify(k)+':'+stableJSON(value[k])).join(',')+'}';
+}
+function semantic(value) {
+  if (Array.isArray(value)) return value.map(semantic);
+  if (!value || typeof value !== 'object') return value;
+  return Object.fromEntries(Object.entries(value).filter(([k])=>!['updatedAt','blobSha'].includes(k)).map(([k,v])=>[k,semantic(v)]));
+}
+const same = (a,b) => stableJSON(semantic(a)) === stableJSON(semantic(b));
+const recordMap = doc => new Map(doc.records.map(r=>[r.id,r]));
+function makeSyncMeta() {
+  return {key:'state',repo:SYNC_REPO,branch:SYNC_BRANCH,base:emptySyncDoc(),head:null,
+    pending:{},tombstones:{},conflicts:[],resolutions:{},flight:null,lastSyncAt:null};
+}
+function mergeSyncDocs(base, local, remote, resolutions={}) {
+  const bm=recordMap(base),lm=recordMap(local),rm=recordMap(remote),conflicts=[],records=[];
+  function choose(id,path,label,b,l,r) {
+    if (same(l,r)) return copy(l);
+    if (same(l,b)) return copy(r);
+    if (same(r,b)) return copy(l);
+    const key=JSON.stringify([id,...path]);
+    const fingerprint=stableJSON([semantic(l),semantic(r)]);
+    const choice=resolutions[key];
+    if (choice && choice.fingerprint===fingerprint) return copy(choice.side==='local'?l:r);
+    conflicts.push({key,id,path,label,local:copy(l),remote:copy(r),fingerprint});
+    return copy(l);
+  }
+  for (const id of [...new Set([...bm.keys(),...lm.keys(),...rm.keys()])].sort()) {
+    const b=bm.get(id),l=lm.get(id),r=rm.get(id);
+    // Missing entries carry no deletion intent. Only explicit tombstones delete records.
+    if (!l && !r) continue;
+    if (!l) { records.push(copy(r));continue; }
+    if (!r) { records.push(copy(l));continue; }
+    if (l.deletedAt && r.deletedAt) {records.push({id,deletedAt:[l.deletedAt,r.deletedAt].sort().at(-1)});continue;}
+    if (same(l,r)) {records.push({...copy(r),...(!r.deletedAt?{updatedAt:[l.updatedAt,r.updatedAt].sort().at(-1)}:{})});continue;}
+    if (l.deletedAt || r.deletedAt) {
+      const result=choose(id,['$record'],'删除与保留房源',b,l,r);
+      if(result)records.push(result);
+      continue;
+    }
+    const result={id,createdAt:choose(id,['createdAt'],'创建时间',b?.createdAt,l.createdAt,r.createdAt),
+      updatedAt:[l.updatedAt,r.updatedAt].sort().at(-1),values:{},notes:'',location:null,photos:[]};
+    for (const f of fields) result.values[f[0]]=choose(id,['values',f[0]],f[1],b?.values?.[f[0]],l.values[f[0]],r.values[f[0]]);
+    result.notes=choose(id,['notes'],'现场备注',b?.notes,l.notes,r.notes);
+    result.location=choose(id,['location'],'现场定位',b?.location,l.location,r.location);
+    const bp=new Map((b?.photos||[]).map(p=>[p.id,p])),lp=new Map(l.photos.map(p=>[p.id,p])),rp=new Map(r.photos.map(p=>[p.id,p]));
+    // Remote order is stable, with genuinely new local photos appended.
+    for (const pid of new Set([...rp.keys(),...lp.keys(),...bp.keys()])) {
+      const p=choose(id,['photos',pid],'照片 '+pid,bp.get(pid),lp.get(pid),rp.get(pid));
+      if(p)result.photos.push(p);
+    }
+    records.push(result);
+  }
+  return {doc:{format:'qiju-sync',version:1,records},conflicts};
+}
+function commonBaseAfterRebase(sent, before, conflicts) {
+  const result=copy(sent),map=recordMap(result),bm=recordMap(before);
+  // Conflicting fields keep their old common ancestor. Other fields acknowledge the commit.
+  for (const c of conflicts) {
+    const previous=bm.get(c.id);
+    if(c.path[0]==='$record') {if(previous)map.set(c.id,copy(previous));else map.delete(c.id);continue;}
+    const record=map.get(c.id);
+    if(!record || record.deletedAt)continue;
+    if(c.path[0]==='photos') {
+      record.photos=record.photos.filter(p=>p.id!==c.path[1]);
+      const old=previous?.photos?.find(p=>p.id===c.path[1]);if(old)record.photos.push(copy(old));
+    } else if(c.path[0]==='values') record.values[c.path[1]]=copy(previous?.values?.[c.path[1]]);
+    else record[c.path[0]]=copy(previous?.[c.path[0]]);
+  }
+  result.records=[...map.values()];return result;
+}
+function validateSyncDoc(raw) {
+  if(!raw || raw.format!=='qiju-sync' || raw.version!==1 || !Array.isArray(raw.records) || raw.records.length>10000)
+    throw new Error('远端数据格式不受支持, 已保留本机记录.');
+  const ids=new Set(),photoIds=new Set();
+  const records=raw.records.map(r=>{
+    if(!r || !validId(r.id) || ids.has(r.id))throw new Error('远端房源标识无效或重复.');ids.add(r.id);
+    if(r.deletedAt) {if(!validDate(r.deletedAt))throw new Error('远端删除标记无效.');return {id:r.id,deletedAt:r.deletedAt};}
+    const clean=validateRecord({...r,photos:[]},new Set());
+    if(!Array.isArray(r.photos) || r.photos.length>1000)throw new Error('远端照片列表无效.');
+    clean.photos=r.photos.map(p=>{
+      const ext={'image/jpeg':'jpg','image/png':'png','image/webp':'webp'}[p?.type];
+      if(!p || !validId(p.id) || photoIds.has(p.id) || typeof p.name!=='string' || p.name.length>500 ||
+        !ext || !/^[a-f0-9]{64}$/.test(p.hash) || p.path!==`photos/${p.hash}.${ext}` || !/^[a-f0-9]{40}$/.test(p.blobSha))
+        throw new Error('远端照片引用无效.');
+      photoIds.add(p.id);return {id:p.id,name:p.name,type:p.type,hash:p.hash,path:p.path,blobSha:p.blobSha};
+    });return clean;
+  });return {format:'qiju-sync',version:1,records};
+}
+function bytesBase64(bytes) {
+  let binary='';for(let i=0;i<bytes.length;i+=16384)binary+=String.fromCharCode(...bytes.subarray(i,i+16384));return btoa(binary);
+}
+function base64Bytes(text) {
+  const binary=atob(text.replace(/\s/g,''));return Uint8Array.from(binary,c=>c.charCodeAt(0));
+}
+async function digestBlob(blob) {
+  const bytes=await blob.arrayBuffer();
+  const hash=await crypto.subtle.digest('SHA-256',bytes);
+  return [...new Uint8Array(hash)].map(v=>v.toString(16).padStart(2,'0')).join('');
+}
+function checkImageBytes(bytes,type) {
+  const text=(a,b)=>String.fromCharCode(...bytes.subarray(a,b));
+  return type==='image/jpeg'?bytes[0]===255&&bytes[1]===216&&bytes[2]===255:
+    type==='image/png'?bytes[0]===137&&text(1,4)==='PNG':type==='image/webp'&&text(0,4)==='RIFF'&&text(8,12)==='WEBP';
+}
+class SyncError extends Error {
+  constructor(message,options={}){super(message);Object.assign(this,options);}
+}
+class GitHubRemote {
+  constructor(token,fetcher=fetch){this.token=token;this.fetcher=fetcher;this.controllers=new Set();}
+  close(){this.token='';for(const c of this.controllers)c.abort();this.controllers.clear();}
+  async request(path,method='GET',body) {
+    if(!this.token)throw new SyncError('请重新输入同步令牌.',{auth:true});
+    if(path!==''&&!path.startsWith('/'))throw new Error('无效的仓库请求.');
+    const controller=new AbortController();this.controllers.add(controller);
+    const timeout=setTimeout(()=>controller.abort(),25000);
+    try {
+      const response=await this.fetcher('https://api.github.com/repos/'+SYNC_REPO+path,{
+        method,headers:{Accept:'application/vnd.github+json',Authorization:'Bearer '+this.token,
+          'X-GitHub-Api-Version':'2022-11-28',...(body?{'Content-Type':'application/json'}:{})},
+        ...(body?{body:JSON.stringify(body)}:{}),signal:controller.signal,redirect:'error',credentials:'omit',cache:'no-store'});
+      if(!response.ok){
+        const retry=response.headers.get('retry-after'),remaining=response.headers.get('x-ratelimit-remaining');
+        const reset=Number(response.headers.get('x-ratelimit-reset'))*1000;
+        const limited=response.status===429 || (response.status===403&&(retry!==null||remaining==='0'));
+        let wait=60000;
+        if(retry!==null){const n=Number(retry);wait=Number.isFinite(n)?n*1000:Date.parse(retry)-Date.now();}
+        else if(reset>Date.now())wait=reset-Date.now();
+        // Never surface response bodies, which may contain user data or service diagnostics.
+        throw new SyncError(limited?'GitHub 暂时限流, 将在等待后重试.':response.status===401?'令牌已失效, 请重新授权.':
+          response.status===403?'令牌缺少数据仓库的内容读写权限.':response.status===404?'找不到数据仓库或分支, 请检查令牌授权范围.':
+          [409,422].includes(response.status)?'远端版本发生变化.':'GitHub 请求失败, 本机记录已保留.',
+          {status:response.status,auth:response.status===401||(response.status===403&&!limited),retryAfter:limited?Math.max(1000,wait):null});
+      }
+      return await response.json();
+    } catch(e) {
+      if(e instanceof SyncError)throw e;
+      throw new SyncError(e?.name==='AbortError'?'同步请求已中断, 本机记录已保留.':'网络连接失败, 本机记录已保留.');
+    } finally {clearTimeout(timeout);this.controllers.delete(controller);}
+  }
+  async verifyPrivate() {
+    const repo=await this.request('');
+    if(repo.private!==true)throw new SyncError('数据仓库必须是私有仓库, 已停止同步.',{fatal:true});
+  }
+  async read() {
+    const ref=await this.request('/git/ref/heads/'+SYNC_BRANCH);
+    const head=ref.object.sha,commit=await this.request('/git/commits/'+head);
+    const tree=await this.request('/git/trees/'+commit.tree.sha+'?recursive=1');
+    if(tree.truncated)throw new SyncError('数据仓库目录过大, 请先整理仓库.',{fatal:true});
+    const files=new Map(tree.tree.filter(e=>e.type==='blob').map(e=>[e.path,e.sha]));
+    let doc=emptySyncDoc();
+    if(files.has(SYNC_PATH)){
+      const blob=await this.request('/git/blobs/'+files.get(SYNC_PATH));
+      if(blob.size>10*1024*1024)throw new SyncError('远端元数据过大, 已停止读取.',{fatal:true});
+      try{doc=validateSyncDoc(JSON.parse(new TextDecoder().decode(base64Bytes(blob.content))));}
+      catch(e){throw new SyncError(e.message||'远端数据损坏.',{fatal:true});}
+    }
+    return {head,tree:commit.tree.sha,files,doc};
+  }
+  async containsCommit(commit,head) {
+    if(commit===head)return true;
+    const comparison=await this.request('/compare/'+commit+'...'+head);
+    return comparison.status==='ahead'||comparison.status==='identical';
+  }
+  async photo(ref) {
+    const result=await this.request('/git/blobs/'+ref.blobSha);
+    if(result.size>16*1024*1024)throw new SyncError('远端照片超过支持的大小.',{fatal:true});
+    const bytes=base64Bytes(result.content),blob=new Blob([bytes],{type:ref.type});
+    if(!checkImageBytes(bytes,ref.type)||await digestBlob(blob)!==ref.hash)
+      throw new SyncError('远端照片校验失败, 本机记录未被覆盖.',{fatal:true});
+    return blob;
+  }
+  async stage(snapshot,doc,assets) {
+    const prepared=copy(doc),entries=[];
+    for(const record of prepared.records){
+      if(record.deletedAt)continue;
+      for(const photo of record.photos){
+        let sha=snapshot.files.get(photo.path);
+        if(!sha){
+          const blob=assets.get(photo.hash);if(!blob)throw new Error('缺少待上传照片, 请保留原设备并重试.');
+          sha=(await this.request('/git/blobs','POST',{content:bytesBase64(new Uint8Array(await blob.arrayBuffer())),encoding:'base64'})).sha;
+          snapshot.files.set(photo.path,sha);entries.push({path:photo.path,mode:'100644',type:'blob',sha});
+        }
+        photo.blobSha=sha;
+      }
+    }
+    const metadata=await this.request('/git/blobs','POST',{content:JSON.stringify(prepared),encoding:'utf-8'});
+    entries.push({path:SYNC_PATH,mode:'100644',type:'blob',sha:metadata.sha});
+    const tree=await this.request('/git/trees','POST',{base_tree:snapshot.tree,tree:entries});
+    const commit=await this.request('/git/commits','POST',{message:'Sync rental viewing records',tree:tree.sha,parents:[snapshot.head]});
+    return {commit:commit.sha,sent:prepared};
+  }
+  async publish(commit){await this.request('/git/refs/heads/'+SYNC_BRANCH,'PATCH',{sha:commit,force:false});}
+}
+class GitHubSynchronizer {
+  constructor(adapter){this.adapter=adapter;this.remote=null;this.running=null;this.epoch=0;}
+  connect(token,fetcher){this.disconnect();this.remote=new GitHubRemote(token,fetcher);this.epoch++;}
+  disconnect(){this.epoch++;this.remote?.close();this.remote=null;}
+  async run() {
+    if(this.running)return this.running;
+    if(!this.remote)throw new SyncError('请先输入同步令牌.',{auth:true});
+    const epoch=this.epoch,remote=this.remote;
+    const check=()=>{if(epoch!==this.epoch)throw new SyncError('同步连接已断开.',{auth:true});};
+    this.running=(async()=>{
+      await remote.verifyPrivate();check();
+      for(let attempt=0;attempt<3;attempt++) {
+        let snapshot=await remote.read();check();
+        let local=await this.adapter.capture();check();
+        if(local.meta.flight){
+          const flight=local.meta.flight;
+          if(await remote.containsCommit(flight.commit,snapshot.head)){
+            await this.reconcile(flight.before,flight.sent,flight.commit,remote,check);
+          }else await this.adapter.meta(m=>{m.flight=null;});
+          local=await this.adapter.capture();check();
+        }
+        // A valid writer never drops tombstones or existing IDs without a deletion marker.
+        const remoteIds=new Set(snapshot.doc.records.map(r=>r.id));
+        if(local.meta.head && local.meta.base.records.some(r=>!remoteIds.has(r.id)))
+          throw new SyncError('远端缺少历史记录或删除标记, 请检查仓库后重试.',{fatal:true});
+        const merged=mergeSyncDocs(local.meta.base,local.doc,snapshot.doc,local.meta.resolutions);
+        if(merged.conflicts.length){await this.adapter.conflicts(merged.conflicts);return {conflicts:true};}
+        if(same(merged.doc,snapshot.doc)) {
+          await this.reconcile(local.doc,snapshot.doc,snapshot.head,remote,check);
+          return {ok:true};
+        }
+        const staged=await remote.stage(snapshot,merged.doc,local.assets);check();
+        // Persist intent before advancing the branch. A lost response can then be recovered.
+        await this.adapter.meta(m=>{m.flight={commit:staged.commit,before:local.doc,sent:staged.sent};});check();
+        try {await remote.publish(staged.commit);}
+        catch(e){
+          if([409,422].includes(e.status)){continue;}
+          throw e;
+        }
+        check();await this.reconcile(local.doc,staged.sent,staged.commit,remote,check);
+        return {ok:true};
+      }
+      throw new SyncError('两端仍在同时修改, 本机修改已保留, 稍后重试.');
+    })().finally(()=>{this.running=null;});
+    return this.running;
+  }
+  async reconcile(before,sent,head,remote,check) {
+    // Re-read local changes after network I/O, rather than acknowledging an old snapshot.
+    for(let attempt=0;attempt<5;attempt++) {
+      const current=await this.adapter.capture();check();
+      const late=mergeSyncDocs(before,current.doc,sent,current.meta.resolutions);
+      const base=commonBaseAfterRebase(sent,before,late.conflicts);
+      const assets=new Map(current.assets);
+      for(const record of late.doc.records)if(!record.deletedAt)for(const photo of record.photos){
+        if(!assets.has(photo.hash)){assets.set(photo.hash,await remote.photo(photo));check();}
+      }
+      try {
+        await this.adapter.apply({generation:current.generation,doc:late.doc,base,head,assets,conflicts:late.conflicts,sent});
+        return;
+      }catch(e){if(!e.localChanged)throw e;}
+    }
+    throw new SyncError('当前仍在编辑, 修改已保留, 稍后继续同步.');
+  }
+}
+
+</script>
+<script id="sync-ui">
+// Browser adapter. Tokens live only inside GitHubRemote instances, never in persisted metadata.
+const syncRuntime={busy:false,error:'',fatal:false,firstDirty:0,debounce:null,deadline:null,retry:null,failures:0,poll:null};
+const photoDigests=new WeakMap();
+function readSyncMeta(){return new Promise((resolve,reject)=>{const tx=state.db.transaction('sync','readonly'),req=tx.objectStore('sync').get('state');req.onsuccess=()=>{const meta=req.result||makeSyncMeta();if(!req.result)for(const id of state.records.keys())meta.pending[id]=uuid();if(meta.repo!==SYNC_REPO||meta.branch!==SYNC_BRANCH){reject(new Error('本机同步目标不匹配, 请先导出备份.'));return}resolve(meta)};req.onerror=()=>reject(req.error)})}
+function persistSyncMeta(mutate){return queuedLocal(async()=>{const meta=copy(state.sync||makeSyncMeta());mutate(meta);await rawLocalWrite({meta});state.sync=meta;updateSyncStatus();})}
+function cloneRecords(){return [...state.records.values()].map(r=>({...copy({...r,photos:[]}),photos:r.photos.map(p=>({...p,blob:p.blob}))}))}
+async function captureSyncLocal(){
+  for(let attempt=0;attempt<5;attempt++){
+    if(state.photoJobs||state.importing)throw new SyncError('照片或备份仍在处理中, 完成后会继续同步.');
+    if(!await flush())throw new SyncError('本机保存失败, 请先重试保存或导出备份.',{fatal:true});
+    await state.localTail;
+    const generation=state.generation,raw=cloneRecords(),meta=copy(state.sync),assets=new Map();
+    const records=[];
+    for(const r of raw){
+      const wire={...r,photos:[]};
+      for(const p of r.photos){
+        if(!photoDigests.has(p.blob))photoDigests.set(p.blob,digestBlob(p.blob));
+        const hash=await photoDigests.get(p.blob),ext={'image/jpeg':'jpg','image/png':'png','image/webp':'webp'}[p.type];
+        if(!ext)throw new SyncError('存在不支持的照片格式, 请先导出备份检查.',{fatal:true});
+        assets.set(hash,p.blob);
+        wire.photos.push({id:p.id,name:p.name,type:p.type,hash,path:`photos/${hash}.${ext}`,
+          ...(p.hash===hash&&p.blobSha?{blobSha:p.blobSha}:{})});
+      }
+      records.push(wire);
+    }
+    for(const [id,deletedAt]of Object.entries(meta.tombstones))if(!state.records.has(id))records.push({id,deletedAt});
+    if(generation===state.generation&&!state.dirty.size)return {generation,doc:{format:'qiju-sync',version:1,records:records.sort((a,b)=>a.id.localeCompare(b.id))},meta,assets};
+  }
+  throw new SyncError('当前仍在编辑, 修改已保留, 稍后继续同步.');
+}
+async function applySyncCheckpoint({generation,doc,base,head,assets,conflicts,sent}){
+  return queuedLocal(async()=>{
+    if(generation!==state.generation||state.dirty.size)throw Object.assign(new Error('本机仍在编辑.'),{localChanged:true});
+    const oldMeta=copy(state.sync),meta=copy(state.sync),puts=[],tombstones={},remote=recordMap(sent),pending={};
+    for(const r of doc.records){
+      if(r.deletedAt)tombstones[r.id]=r.deletedAt;
+      else puts.push({...r,photos:r.photos.map(p=>{const blob=assets.get(p.hash);if(!blob)throw new Error('照片尚未完整下载.');return {...p,blob}})});
+      if(!same(r,remote.get(r.id)))pending[r.id]=uuid();
+    }
+    Object.assign(meta,{base:copy(base),head,pending,tombstones,conflicts:copy(conflicts),resolutions:{},flight:null});
+    if(!conflicts.length)meta.lastSyncAt=new Date().toISOString();
+    await rawLocalWrite({puts,meta,clear:true,generation});
+    if(generation!==state.generation){
+      // Extremely late input after a transaction became inactive: restore the unacknowledged
+      // local state before releasing the write queue, retaining the commit recovery journal.
+      const restore=cloneRecords();restore.forEach(r=>oldMeta.pending[r.id]=uuid());
+      await rawLocalWrite({puts:restore,meta:oldMeta,clear:true});
+      state.sync=oldMeta;
+      throw Object.assign(new Error('本机仍在编辑.'),{localChanged:true});
+    }
+    for(const r of state.records.values())r.photos.forEach(releasePhoto);
+    state.records=new Map(puts.map(r=>[r.id,r]));state.sync=meta;state.generation++;
+    state.selected=new Set([...state.selected].filter(id=>state.records.has(id)));
+    refreshSyncedEditor();renderList();updateSyncStatus();
+  });
+}
+function refreshSyncedEditor(){
+  if($('editor').hidden||!state.current)return;
+  const r=state.records.get(state.current);
+  if(!r){modalClose('editor');state.current=null;toast('这套房源已在另一端删除.');return}
+  $('editorTitle').textContent=nameOf(r);
+  // Keep the focused input and its caret intact; all actual input events already update state.
+  for(const f of fields){const el=$('f-'+f[0]);if(el&&el!==document.activeElement)el.value=r.values[f[0]]??'';}
+  if($('notes')!==document.activeElement)$('notes').value=r.notes;
+  renderLocation();renderPhotos();updateSaveStatus();
+}
+const synchronizer=new GitHubSynchronizer({capture:captureSyncLocal,meta:persistSyncMeta,
+  conflicts:items=>persistSyncMeta(m=>{m.conflicts=copy(items)}),apply:applySyncCheckpoint});
+function clearSyncTimers(){for(const key of ['debounce','deadline','retry','poll']){clearTimeout(syncRuntime[key]);syncRuntime[key]=null}syncRuntime.firstDirty=0}
+function updateSyncStatus(){
+  const meta=state.sync,pending=state.dirty.size+(meta?Object.keys(meta.pending).length:0);
+  let title='已保存本机 · 待授权同步';
+  if(state.saveError)title='本机保存失败';
+  else if(state.dirty.size||state.flushing)title='正在保存本机...';
+  else if(syncRuntime.busy)title='同步中...';
+  else if(meta?.conflicts.length)title='存在冲突 · 待处理';
+  else if(!synchronizer.remote)title=pending?'已保存本机 · 待授权同步':'已保存本机 · 待授权同步';
+  else if(syncRuntime.error)title='同步失败 · 本机记录已保留';
+  else if(pending)title='已保存本机 · 待同步';
+  else if(meta?.lastSyncAt)title='已同步 · '+dateText(meta.lastSyncAt);
+  else title='已授权 · 等待首次同步';
+  $('syncIndicator').textContent=title;$('syncIndicator').classList.toggle('problem',!!syncRuntime.error||!!meta?.conflicts.length);
+  $('syncStatusText').textContent=title;
+  $('syncStatusDetail').textContent=syncRuntime.error||(meta?.conflicts.length?meta.conflicts.length+' 项需要选择.':pending?'有待同步修改, 请保持页面打开.':meta?.lastSyncAt?'最近完整同步: '+dateText(meta.lastSyncAt):'连接后会检查并合并两端记录.');
+  $('syncAuthFields').hidden=!!synchronizer.remote;$('syncNow').disabled=!synchronizer.remote||syncRuntime.busy;
+  $('disconnectSync').disabled=!synchronizer.remote;$('connectSync').disabled=syncRuntime.busy||!state.db;
+  $('showConflicts').hidden=!meta?.conflicts.length;
+}
+function schedulePoll(){clearTimeout(syncRuntime.poll);if(synchronizer.remote&&!syncRuntime.fatal&&document.visibilityState!=='hidden')syncRuntime.poll=setTimeout(()=>runSync(),30000)}
+function scheduleSync(){
+  if(!synchronizer.remote||syncRuntime.fatal||document.visibilityState==='hidden')return;
+  if(state.photoJobs||state.importing){schedulePoll();return}
+  if(!Object.keys(state.sync?.pending||{}).length&&!state.dirty.size)return;
+  if(!syncRuntime.firstDirty){syncRuntime.firstDirty=Date.now();syncRuntime.deadline=setTimeout(()=>runSync(),30000)}
+  clearTimeout(syncRuntime.debounce);syncRuntime.debounce=setTimeout(()=>runSync(),5000);
+}
+async function runSync(){
+  if(!synchronizer.remote||syncRuntime.busy||document.visibilityState==='hidden')return;
+  clearTimeout(syncRuntime.debounce);clearTimeout(syncRuntime.deadline);clearTimeout(syncRuntime.retry);clearTimeout(syncRuntime.poll);
+  syncRuntime.firstDirty=0;syncRuntime.busy=true;syncRuntime.error='';syncRuntime.fatal=false;updateSyncStatus();
+  try{
+    await synchronizer.run();syncRuntime.failures=0;
+  }catch(e){
+    syncRuntime.error=e instanceof SyncError||e?.localChanged?e.message:'同步未完成, 本机记录已保留, 请稍后重试.';
+    if(e.auth){disconnectSync(false);syncRuntime.error=e.message;}
+    else if(e.fatal)syncRuntime.fatal=true;
+    else if(synchronizer.remote){const waits=[5000,15000,60000],wait=e.retryAfter??waits[Math.min(syncRuntime.failures++,2)];syncRuntime.retry=setTimeout(()=>runSync(),wait);}
+  }finally{
+    syncRuntime.busy=false;updateSyncStatus();
+    if(!syncRuntime.retry&&!state.sync?.conflicts.length){scheduleSync();schedulePoll();}
+  }
+}
+function disconnectSync(notify=true){synchronizer.disconnect();clearSyncTimers();syncRuntime.fatal=false;syncRuntime.error='';$('syncToken').value='';updateSyncStatus();if(notify)toast('已清除当前页面中的令牌, 本机记录和待同步修改仍保留.')}
+function conflictText(value,c){
+  if(c.path[0]==='$record')return value?.deletedAt?'删除房源':'保留房源: '+(value?.values?.name||value?.values?.address||'未命名房源');
+  if(c.path[0]==='photos')return value?'保留照片: '+value.name:'删除照片';
+  if(value===undefined||value===null||value==='unknown'||value==='')return '未确认';
+  if(c.path[0]==='values'){const f=fieldMap.get(c.path[1]);if(f?.[2]==='select')return f[3].find(o=>o[0]===value)?.[1]||String(value)}
+  if(c.path[0]==='location')return value.latitude+', '+value.longitude+' / '+dateText(value.timestamp);
+  return typeof value==='object'?JSON.stringify(value):String(value);
+}
+function showSyncConflicts(){
+  const conflicts=state.sync?.conflicts||[];
+  $('conflictList').innerHTML=conflicts.map((c,i)=>'<section class="conflict-item"><h3>'+esc(nameOf(state.records.get(c.id)||{values:{name:c.local?.values?.name||c.remote?.values?.name||c.id}}))+' / '+esc(c.label)+'</h3>'+['local','remote'].map(side=>'<label class="conflict-option"><input type="radio" name="conflict-'+i+'" value="'+side+'"> '+(side==='local'?'保留本机':'采用远端')+'<pre>'+esc(conflictText(c[side],c))+'</pre></label>').join('')+'</section>').join('');
+  modalOpen('conflictModal');
+}
+$('syncBtn').onclick=$('syncIndicator').onclick=()=>{updateSyncStatus();modalOpen('syncModal')};
+$('connectSync').onclick=async()=>{
+  const token=$('syncToken').value.trim();$('syncToken').value='';
+  if(!token){toast('请先输入只授权数据仓库的专用令牌.');return}
+  if(!token.startsWith('github_pat_')){toast('请使用只授权数据仓库的细粒度令牌.');return}
+  synchronizer.connect(token);syncRuntime.error='';syncRuntime.fatal=false;syncRuntime.failures=0;await runSync();
+};
+$('syncNow').onclick=()=>{syncRuntime.fatal=false;runSync()};$('disconnectSync').onclick=()=>disconnectSync();
+$('syncBackup').onclick=()=>{modalClose('syncModal');modalOpen('backupModal');exportBackup()};$('showConflicts').onclick=showSyncConflicts;
+$('resolveConflicts').onclick=async()=>{
+  const conflicts=state.sync?.conflicts||[],choices={};
+  for(let i=0;i<conflicts.length;i++){
+    const input=document.querySelector('input[name="conflict-'+i+'"]:checked');
+    if(!input){toast('请为每一项冲突选择保留哪一端.');return}
+    choices[conflicts[i].key]={side:input.value,fingerprint:conflicts[i].fingerprint};
+  }
+  try{await persistSyncMeta(m=>{m.resolutions=choices;m.conflicts=[]});modalClose('conflictModal');runSync()}
+  catch{toast('冲突选择保存失败, 请先导出备份后重试.')}
+};
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='hidden'){clearSyncTimers();}
+  else if(synchronizer.remote){runSync();}
+});
+window.addEventListener('online',()=>{if(synchronizer.remote)runSync()});
+window.addEventListener('offline',()=>{if(synchronizer.remote){syncRuntime.error='当前离线, 修改已保存在本机.';updateSyncStatus()}});
+
+</script>
+<script id="boot-code">
+(async()=>{try{state.db=await openDB();(await dbRead()).forEach(r=>state.records.set(r.id,r));state.sync=await readSyncMeta();await persistSyncMeta(()=>{});renderList();updateSyncStatus();}catch(e){showError(errorMessage(e));$('cards').innerHTML='<div class="empty"><h3>暂时无法读取本机记录</h3><p>请使用普通 Safari 窗口, 允许网站存储后刷新重试.</p></div>'}})();
 </script>
 </body>
 </html>
