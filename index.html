@@ -30,7 +30,7 @@
 <div id="helpModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle" hidden><section class="panel" style="max-width:600px"><header class="panel-header"><h2 id="helpTitle">看房之前</h2><button class="btn" data-close="helpModal">关闭</button></header><div class="panel-content help-content"><h3>1. 用固定地址, 在 Safari 打开</h3><p>将本文件上传至支持 HTTPS (Hypertext Transfer Protocol Secure) 的静态网站空间, 再用 iPhone Safari 打开链接. 可在分享菜单中添加到主屏幕, 但请先确认该入口能读取原有记录. 直接预览文件附件不适合作为正式使用入口.</p><h3>2. 到场建档, 边看边填</h3><p>点击到场建档并定位, 首次允许浏览器访问位置. 室内定位可能有偏差, 请核对地图, 小区及门牌自行补充. 定位失败不影响填写, 可重试或粘贴地图分享链接. 通勤时间请参照地图导航填写.</p><h3>3. 自动保存, 定期备份</h3><p>记录与压缩后的照片先保存在当前浏览器的 IndexedDB 数据库中. 通过同步入口授权后, 自动与独立私有仓库双向同步. 每次刷新或重新打开页面需再次输入专用令牌, 待同步修改会保留. 未授权的设备可通过备份导入记录. 清理网站数据, 隐私浏览或系统存储清理可能导致数据丢失.</p><h3>4. 先记录事实, 再定评分</h3><p>所有条件默认未确认. 首页勾选至少 2 套房源即可对比. 本版不计算分数, 不自动推断地址, 不后台持续定位.</p></div></section></div>
 <div id="lightbox" class="modal lightbox" role="dialog" aria-modal="true" aria-label="查看照片" hidden><button class="btn" data-close="lightbox">关闭照片</button><img id="largePhoto" alt="房源现场照片"></div>
 <div id="toast" class="toast" role="status" hidden></div>
-<div id="syncModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="syncTitle" hidden><section class="panel" style="max-width:600px"><header class="panel-header"><div><h2 id="syncTitle">同步你的看房记录</h2><span class="subtle">本机先保存, 再与 GitHub 私有仓库同步</span></div><button class="btn" data-close="syncModal">关闭</button></header><div class="panel-content sync-stack"><div class="sync-status-box"><strong id="syncStatusText" role="status">待授权</strong><div id="syncStatusDetail" class="subtle"></div></div><div><div class="sync-label">固定的数据仓库</div><p style="overflow-wrap:anywhere"><a href="https://github.com/isotropy44/rental-viewing-data" target="_blank" rel="noopener noreferrer">isotropy44/rental-viewing-data ↗</a></p></div><div id="syncAuthFields"><p class="subtle">创建 PAT (Personal Access Token) 时, 仅选择上面的数据仓库, 授予 Contents 的 Read and write 权限, 有效期建议 30 天. 每次刷新或重新打开页面需要重新输入, 页面不会保存令牌.</p><p><a href="https://github.com/settings/personal-access-tokens/new?name=Rental%20Viewing%20Sync&amp;target_name=isotropy44&amp;expires_in=30&amp;contents=write" target="_blank" rel="noopener noreferrer">前往 GitHub 创建专用令牌 ↗</a></p><label class="field" for="syncToken">专用令牌<input id="syncToken" type="password" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="只在当前页面内存中使用"></label><p class="subtle">首次连接前建议先导出完整备份. 连接后将双向合并当前本机记录与私有仓库中的记录.</p><div class="sync-actions"><button class="btn primary" id="connectSync">连接并自动同步</button><button class="btn" id="syncBackup">先导出完整备份</button></div></div><div class="sync-actions"><button class="btn primary" id="syncNow">立即同步</button><button class="btn" id="disconnectSync">断开连接</button><button class="btn" id="showConflicts" hidden>处理冲突</button></div><p class="subtle">编辑结束 5 秒后同步, 连续编辑最多等待 30 秒. 仅在页面运行且已授权时同步, 不保证锁屏后继续上传. 删除状态会同步, Git 历史中的旧照片仍会保留.</p></div></section></div>
+<div id="syncModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="syncTitle" hidden><section class="panel" style="max-width:600px"><header class="panel-header"><div><h2 id="syncTitle">同步你的看房记录</h2><span class="subtle">本机先保存, 再与 GitHub 私有仓库同步</span></div><button class="btn" data-close="syncModal">关闭</button></header><div class="panel-content sync-stack"><div class="sync-status-box"><strong id="syncStatusText" role="status">待授权</strong><div id="syncStatusDetail" class="subtle"></div></div><div><div class="sync-label">固定的数据仓库</div><p style="overflow-wrap:anywhere"><a href="https://github.com/isotropy44/rental-viewing-data" target="_blank" rel="noopener noreferrer">isotropy44/rental-viewing-data ↗</a></p></div><div id="syncAuthFields"><p class="subtle">创建 PAT (Personal Access Token) 时, 仅选择上面的数据仓库, 授予 Contents 的 Read and write 权限, 有效期建议 30 天. 每次刷新或重新打开页面需要重新输入, 页面不会保存令牌.</p><p><a href="https://github.com/settings/personal-access-tokens/new?name=Rental%20Viewing%20Sync&amp;target_name=isotropy44&amp;expires_in=30&amp;contents=write" target="_blank" rel="noopener noreferrer">前往 GitHub 创建专用令牌 ↗</a></p><label class="field" for="syncToken">专用令牌<input id="syncToken" type="password" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="只在当前页面内存中使用"></label><p class="subtle">首次连接前建议先导出完整备份. 连接后将双向合并当前本机记录与私有仓库中的记录.</p><div class="sync-actions"><button class="btn primary" id="connectSync">连接并自动同步</button><button class="btn" id="syncBackup">先导出完整备份</button></div></div><div class="sync-actions"><button class="btn primary" id="syncNow">立即同步</button><button class="btn" id="disconnectSync">断开连接</button><button class="btn" id="showConflicts" hidden>处理冲突</button><button class="btn" id="checkSyncNetwork">检查网络</button></div><p id="syncNetworkResult" class="subtle" role="status"></p><p class="subtle">编辑结束 5 秒后同步, 连续编辑最多等待 30 秒. 仅在页面运行且已授权时同步, 不保证锁屏后继续上传. 删除状态会同步, Git 历史中的旧照片仍会保留.</p></div></section></div>
 <div id="conflictModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="conflictTitle" hidden><section class="panel"><header class="panel-header"><div><h2 id="conflictTitle">两端有不同修改</h2><span class="subtle">逐项选择后再继续同步, 本机记录已保留</span></div><button class="btn" data-close="conflictModal">稍后处理</button></header><div class="panel-content"><div id="conflictList"></div><p><button class="btn primary" id="resolveConflicts">按选择继续同步</button></p></div></section></div>
 <input type="file" id="photoInput" accept="image/*" multiple hidden><input type="file" id="importInput" accept=".json,application/json" hidden>
 <script>
@@ -217,6 +217,36 @@ function checkImageBytes(bytes,type) {
 class SyncError extends Error {
   constructor(message,options={}){super(message);Object.assign(this,options);}
 }
+function syncRequestStage(path,method) {
+  if(path==='')return '检查仓库权限';
+  if(path.startsWith('/compare/'))return '确认上次提交';
+  if(method==='PATCH')return '发布同步提交';
+  if(method==='POST')return path==='/git/blobs'?'上传文件':path==='/git/trees'?'创建文件目录':'创建同步提交';
+  if(path.startsWith('/git/ref/'))return '读取分支';
+  if(path.startsWith('/git/commits/'))return '读取提交';
+  if(path.startsWith('/git/trees/'))return '读取文件目录';
+  return '下载记录或照片';
+}
+const validSyncToken=token=>/^github_pat_[A-Za-z0-9_]+$/.test(token);
+async function checkGitHubNetwork(fetcher=fetch) {
+  // Public requests only. Never read or forward the synchronizer's credential.
+  for(const preflight of [false,true]){
+    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),10000);
+    const stage=preflight?'跨域请求':'基础连接';
+    try{
+      const response=await fetcher('https://api.github.com/',{method:'GET',
+        headers:preflight?{Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'}:{},
+        credentials:'omit',redirect:'error',cache:'no-store',signal:controller.signal});
+      if(!response.ok)throw new SyncError(stage+'收到状态码 '+response.status+'. 请检查网络, 或稍后重试.');
+      let body;try{body=await response.json()}catch{throw new SyncError(stage+'未收到有效的接口响应. 请检查网络或代理是否拦截请求.')}
+      if(body?.current_user_url!=='https://api.github.com/user')throw new SyncError(stage+'返回了异常内容. 请检查网络或代理设置.');
+    }catch(e){
+      if(e instanceof SyncError)throw e;
+      throw new SyncError(stage+(e?.name==='AbortError'?'超时':'无法访问 api.github.com')+'. 请检查该浏览器的网络或代理设置.');
+    }finally{clearTimeout(timer)}
+  }
+  return '网络检查通过. 尚未验证令牌和仓库权限, 请点击立即同步, 或输入令牌连接.';
+}
 class GitHubRemote {
   constructor(token,fetcher=fetch){this.token=token;this.fetcher=fetcher;this.controllers=new Set();}
   close(){this.token='';for(const c of this.controllers)c.abort();this.controllers.clear();}
@@ -225,11 +255,14 @@ class GitHubRemote {
     if(path!==''&&!path.startsWith('/'))throw new Error('无效的仓库请求.');
     const controller=new AbortController();this.controllers.add(controller);
     const timeout=setTimeout(()=>controller.abort(),25000);
+    const stage=syncRequestStage(path,method);
     try {
-      const response=await this.fetcher('https://api.github.com/repos/'+SYNC_REPO+path,{
+      let response;
+      try {response=await this.fetcher('https://api.github.com/repos/'+SYNC_REPO+path,{
         method,headers:{Accept:'application/vnd.github+json',Authorization:'Bearer '+this.token,
           'X-GitHub-Api-Version':'2022-11-28',...(body?{'Content-Type':'application/json'}:{})},
-        ...(body?{body:JSON.stringify(body)}:{}),signal:controller.signal,redirect:'error',credentials:'omit',cache:'no-store'});
+        ...(body?{body:JSON.stringify(body)}:{}),signal:controller.signal,redirect:'error',credentials:'omit',cache:'no-store'});}
+      catch(e){throw new SyncError(stage+': '+(e?.name==='AbortError'?'请求超时或已中断.':'浏览器未收到 api.github.com 的响应. 请检查网络或代理设置, 可点击检查网络.')+' 本机记录已保留.');}
       if(!response.ok){
         const retry=response.headers.get('retry-after'),remaining=response.headers.get('x-ratelimit-remaining');
         const reset=Number(response.headers.get('x-ratelimit-reset'))*1000;
@@ -238,15 +271,13 @@ class GitHubRemote {
         if(retry!==null){const n=Number(retry);wait=Number.isFinite(n)?n*1000:Date.parse(retry)-Date.now();}
         else if(reset>Date.now())wait=reset-Date.now();
         // Never surface response bodies, which may contain user data or service diagnostics.
-        throw new SyncError(limited?'GitHub 暂时限流, 将在等待后重试.':response.status===401?'令牌已失效, 请重新授权.':
+        throw new SyncError(stage+' (状态码 '+response.status+'): '+(limited?'GitHub 暂时限流, 将在等待后重试.':response.status===401?'令牌无效或已过期, 请重新授权.':
           response.status===403?'令牌缺少数据仓库的内容读写权限.':response.status===404?'找不到数据仓库或分支, 请检查令牌授权范围.':
-          [409,422].includes(response.status)?'远端版本发生变化.':'GitHub 请求失败, 本机记录已保留.',
+          [409,422].includes(response.status)?'远端版本发生变化.':'GitHub 请求失败, 本机记录已保留.'),
           {status:response.status,auth:response.status===401||(response.status===403&&!limited),retryAfter:limited?Math.max(1000,wait):null});
       }
-      return await response.json();
-    } catch(e) {
-      if(e instanceof SyncError)throw e;
-      throw new SyncError(e?.name==='AbortError'?'同步请求已中断, 本机记录已保留.':'网络连接失败, 本机记录已保留.');
+      try{return await response.json()}
+      catch(e){throw new SyncError(stage+': '+(e?.name==='SyntaxError'?'GitHub 响应不是有效的 JSON (JavaScript Object Notation), 请检查网络或代理是否拦截请求.':'响应读取中断, 请稍后重试.')+' 本机记录已保留.');}
     } finally {clearTimeout(timeout);this.controllers.delete(controller);}
   }
   async verifyPrivate() {
@@ -501,7 +532,14 @@ $('connectSync').onclick=async()=>{
   const token=$('syncToken').value.trim();$('syncToken').value='';
   if(!token){toast('请先输入只授权数据仓库的专用令牌.');return}
   if(!token.startsWith('github_pat_')){toast('请使用只授权数据仓库的细粒度令牌.');return}
+  if(!validSyncToken(token)){toast('令牌包含空格或其他无效字符, 请只复制生成的令牌本身.');return}
   synchronizer.connect(token);syncRuntime.error='';syncRuntime.fatal=false;syncRuntime.failures=0;await runSync();
+};
+$('checkSyncNetwork').onclick=async()=>{
+  $('checkSyncNetwork').disabled=true;$('syncNetworkResult').textContent='正在检查 api.github.com, 不使用令牌或房源数据...';
+  try{$('syncNetworkResult').textContent=await checkGitHubNetwork()}
+  catch(e){$('syncNetworkResult').textContent=e instanceof SyncError?e.message:'网络检查未完成, 请稍后重试.'}
+  finally{$('checkSyncNetwork').disabled=false}
 };
 $('syncNow').onclick=()=>{syncRuntime.fatal=false;runSync()};$('disconnectSync').onclick=()=>disconnectSync();
 $('syncBackup').onclick=()=>{modalClose('syncModal');modalOpen('backupModal');exportBackup()};$('showConflicts').onclick=showSyncConflicts;
