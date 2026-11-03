@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dqFWrkisFz4Y0o2Icm7J+5rb7+mwAIasOHEnMDIHVCM=' 'sha256-C+Cd2JBR437DlLuiwF8S49X6FS1vLx+OxVD5oAeL158=' 'sha256-0O+eTlsm3bafMSLxtbH+RtkFHWtFZ1PL3DaLO2LumDk=' 'sha256-KLaLUpDH0qOsoYLglJ9UqSRmOHw1rhvhIiArpHrT/Go=' 'sha256-fOvkk0/yTpROTPja6CTEe2UtiysubcpR6YgZ05HvgRU=' 'sha256-2svj0RaS4BEuNbwBVFaQFwUBbYohTUjMPrLbmSQSjO0='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dqFWrkisFz4Y0o2Icm7J+5rb7+mwAIasOHEnMDIHVCM=' 'sha256-C+Cd2JBR437DlLuiwF8S49X6FS1vLx+OxVD5oAeL158=' 'sha256-0O+eTlsm3bafMSLxtbH+RtkFHWtFZ1PL3DaLO2LumDk=' 'sha256-KLaLUpDH0qOsoYLglJ9UqSRmOHw1rhvhIiArpHrT/Go=' 'sha256-lLl+hgkz0Bnz/XzWL16qwNFNzkNwXiFPhpUBmAx+qSw=' 'sha256-2svj0RaS4BEuNbwBVFaQFwUBbYohTUjMPrLbmSQSjO0='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f5f3ec">
 <meta name="description" content="属于自己的看房记录, 保存现场细节, 再慢慢做决定.">
@@ -850,7 +850,11 @@ function refreshRatingControls(){
   if(c.mode==='manual'){const input=$('rating-'+c.id);if(input){input.disabled=!profile;if(input!==document.activeElement)input.value=r.ratings?.[c.id]??'';}}
  }
  criterionBundles.forEach(bundle=>$('bundle-'+bundle.id)?.classList.toggle('criterion-red',!!s?.items.some(item=>bundle.members.includes(item.id)&&item.red)));
- scoringGroups.forEach((_,i)=>{const items=s?.items.filter(x=>criterionMap.get(x.id).group===i&&x.weight>0)||[];const el=$('group-status-'+i);if(el)el.textContent=s?'已确认 '+items.filter(x=>x.score!==null).length+'/'+items.length+' · 红项 '+items.filter(x=>x.red).length:'';});
+ scoringGroups.forEach((_,i)=>{
+  const items=s?.items.filter(x=>criterionMap.get(x.id).group===i&&x.weight>0)||[],el=$('group-status-'+i);
+  const weight=items.reduce((sum,item)=>sum+item.weight,0),earned=items.reduce((sum,item)=>sum+item.weight*(item.score??0),0);
+  if(el)el.textContent=s?'已确认 '+items.filter(x=>x.score!==null).length+'/'+items.length+' · 红项 '+items.filter(x=>x.red).length+(weight?' · '+(100*earned/(5*weight)).toFixed(1)+' / 100':' · 不计分'):'';
+ });
 }
 const originalEditField=editField;
 $('recordForm').oninput=e=>{
