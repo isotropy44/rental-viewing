@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-nUhngHMZAcN0H4/toGJk16q7/6J+QIOEbjr8m02ViVE=' 'sha256-8i4ARMJJUAd4apdRbH4OEb2CFN51TfA8kEVJVaDQvQ0=' 'sha256-0O+eTlsm3bafMSLxtbH+RtkFHWtFZ1PL3DaLO2LumDk=' 'sha256-KLaLUpDH0qOsoYLglJ9UqSRmOHw1rhvhIiArpHrT/Go=' 'sha256-SZUYahEW4XlDIJ6BFpysn8qpRRNFHq+X9UCiNGqX5Dw=' 'sha256-2svj0RaS4BEuNbwBVFaQFwUBbYohTUjMPrLbmSQSjO0='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-nUhngHMZAcN0H4/toGJk16q7/6J+QIOEbjr8m02ViVE=' 'sha256-8i4ARMJJUAd4apdRbH4OEb2CFN51TfA8kEVJVaDQvQ0=' 'sha256-0O+eTlsm3bafMSLxtbH+RtkFHWtFZ1PL3DaLO2LumDk=' 'sha256-KLaLUpDH0qOsoYLglJ9UqSRmOHw1rhvhIiArpHrT/Go=' 'sha256-fRcVUp1hGAjRNzkeb+5C8BG5f47PQhT95IbwD77Tzv0=' 'sha256-2svj0RaS4BEuNbwBVFaQFwUBbYohTUjMPrLbmSQSjO0='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f5f3ec">
 <meta name="description" content="属于自己的看房记录, 保存现场细节, 再慢慢做决定.">
@@ -48,6 +48,13 @@ body.dialog-open{overflow:hidden}
 .form-grid.basic-grid>.field{grid-column:auto}
 .basic-grid input{display:block;min-inline-size:0;max-width:100%;overflow:hidden}
 .basic-grid input[type="datetime-local"]::-webkit-date-and-time-value{min-width:0;text-align:left;overflow:hidden;text-overflow:ellipsis}
+
+.basic-grid input{height:48px;min-height:48px;max-height:48px;line-height:24px;padding:11px 10px;appearance:none;-webkit-appearance:none;box-sizing:border-box}
+.basic-grid input[type="datetime-local"]::-webkit-date-and-time-value{min-height:24px;line-height:24px;padding:0;font:inherit}
+.basic-grid input[type="datetime-local"]::-webkit-datetime-edit{padding:0}
+.basic-time-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:0 18px 18px}
+.basic-time-actions .btn{font-size:12px;font-weight:500}
+@media(max-width:560px){.basic-time-actions{padding:0 14px 17px}}
 </style>
 </head>
 <body>
@@ -847,7 +854,7 @@ function criteriaGroupHtml(group,r){
 openEditor=function(id){
  const r=state.records.get(id);if(!r)return;state.current=id;$('editorTitle').textContent=nameOf(r);
  const basic=sections[0];
- $('recordForm').innerHTML='<details class="form-section" open><summary>基本资料</summary><div class="form-grid basic-grid">'+basic.fields.map(f=>observationField(f,r)).join('')+'</div></details>'+scoringGroups.map((title,i)=>'<details class="form-section" '+(i===0?'open':'')+'><summary>'+title+' <small id="group-status-'+i+'"></small></summary><div class="criteria-list">'+criteriaGroupHtml(i,r)+'</div></details>').join('');
+ $('recordForm').innerHTML='<details class="form-section" open><summary>基本资料</summary><div class="form-grid basic-grid">'+basic.fields.map(f=>observationField(f,r)).join('')+'</div><div class="basic-time-actions"><button type="button" class="btn" data-record-time>记录当前看房时间</button><span class="subtle">新增房源时自动记录, 也可手动调整.</span></div></details>'+scoringGroups.map((title,i)=>'<details class="form-section" '+(i===0?'open':'')+'><summary>'+title+' <small id="group-status-'+i+'"></small></summary><div class="criteria-list">'+criteriaGroupHtml(i,r)+'</div></details>').join('');
  $('notes').value=r.notes;refreshRatingControls();renderLocation();renderPhotos();updateSaveStatus();modalOpen('editor');$('editor').querySelector('.panel').scrollTop=0;
 };
 function refreshRatingControls(){
@@ -874,6 +881,12 @@ $('recordForm').oninput=e=>{
  if(id){const c=criterionMap.get(id),r=state.records.get(state.current);if(!r||c?.mode!=='manual'||!state.sync.preferences)return;const n=e.target.value===''?null:Number(e.target.value);if(n!==null&&(!Number.isInteger(n)||n<0||n>5))return;r.ratings??={};r.ratings[id]=n;touch(r.id);renderList();}
  else originalEditField(e);
  refreshRatingControls();
+};
+$('recordForm').onclick=e=>{
+ if(!e.target.closest('[data-record-time]'))return;
+ const r=state.records.get(state.current);if(!r)return;
+ r.values.viewedAt=localTime();$('f-viewedAt').value=r.values.viewedAt;
+ touch(r.id);renderList();toast('已记录当前看房时间, 正在保存.');
 };
 $('sortRecords').onchange=renderList;
 function preferencesDescription(profile){
