@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-N742Uprc06DKZOKE/CB1KzBwqReCu0MT+HC4c1JBvOo=' 'sha256-VVxz+TKi94g3eWXNcwLALJe2rnbkn1XoZLfY3mc/KTg=' 'sha256-iB+yzc9sHBhAZz83STDHBUBHUxttrwaHQcy4O4M6rt8=' 'sha256-KLaLUpDH0qOsoYLglJ9UqSRmOHw1rhvhIiArpHrT/Go=' 'sha256-fRcVUp1hGAjRNzkeb+5C8BG5f47PQhT95IbwD77Tzv0=' 'sha256-2svj0RaS4BEuNbwBVFaQFwUBbYohTUjMPrLbmSQSjO0='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-HAZkmZlAlORhCBf8osKqr2jzh4ozcvN2iYdJMkwzyyM=' 'sha256-QnbpYOxYdIoh/S39QTbWXusgcF7P4SRapyobsPQhkkY=' 'sha256-m9T2Yfgv+51slqn6eLVZVMO7Z4NfKc6XV0CtfoIHF9U=' 'sha256-7ialObrFwxZsX6OLyhof/pPKQ9JG+QISnG6HMktxUZI=' 'sha256-+Uj20D0AzL+zoE1d2N3GtWC6xEgdhoj9M4rTRH5ZY+E=' 'sha256-2svj0RaS4BEuNbwBVFaQFwUBbYohTUjMPrLbmSQSjO0='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f5f3ec">
 <meta name="description" content="属于自己的看房记录, 保存现场细节, 再慢慢做决定.">
@@ -63,6 +63,13 @@ body.dialog-open{overflow:hidden}
 .card-name h3{min-width:0;margin:0}
 .card-contact{font-size:12px;font-weight:700;line-height:1.5;color:var(--muted);overflow-wrap:anywhere;max-width:100%}
 .card-title{margin-bottom:8px}
+
+.station-access .form-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.station-access .field{font-size:11px}
+.station-access .form-grid input{padding:11px 6px}
+.station-access .rating-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:end}
+.station-access .rating-row .field{width:auto;min-width:0}
+.station-access .rating-status{min-width:0;padding-bottom:8px;overflow-wrap:anywhere}
 </style>
 </head>
 <body>
@@ -124,7 +131,7 @@ const dateText=v=>v?new Date(v).toLocaleString('zh-CN',{year:'numeric',month:'2-
 const nameOf=r=>r.values.name||r.values.address||'未命名房源';
 function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('toast').hidden=true,4500)}
 function errorMessage(e){return e?.name==='QuotaExceededError'?'本机存储空间不足. 请先导出备份, 再清理不需要的照片.':e?.name==='SecurityError'?'浏览器禁止本机存储. 请使用普通 Safari 窗口和固定安全网址.':e?.message||'保存失败, 请重试并导出备份.'}
-function openDB(){return new Promise((resolve,reject)=>{if(!globalThis.indexedDB){reject(new Error('此浏览器不支持本机数据库. 请使用 Safari 普通窗口.'));return}const req=indexedDB.open('qiju-viewings',3);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains('records'))req.result.createObjectStore('records',{keyPath:'id'});if(!req.result.objectStoreNames.contains('sync'))req.result.createObjectStore('sync',{keyPath:'key'});const cursor=req.transaction.objectStore('records').openCursor();cursor.onsuccess=()=>{const c=cursor.result;if(c){c.update(migrateScoringRecord(c.value));c.continue()}}};req.onsuccess=()=>{req.result.onversionchange=()=>{req.result.close();state.db=null;showError('页面版本已变化, 请先导出备份, 再刷新页面.')};resolve(req.result)};req.onerror=()=>reject(req.error);req.onblocked=()=>showError('数据库被其他窗口占用, 请关闭其他看房页面后重试.')})}
+function openDB(){return new Promise((resolve,reject)=>{if(!globalThis.indexedDB){reject(new Error('此浏览器不支持本机数据库. 请使用 Safari 普通窗口.'));return}const req=indexedDB.open('qiju-viewings',4);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains('records'))req.result.createObjectStore('records',{keyPath:'id'});if(!req.result.objectStoreNames.contains('sync'))req.result.createObjectStore('sync',{keyPath:'key'});const cursor=req.transaction.objectStore('records').openCursor();cursor.onsuccess=()=>{const c=cursor.result;if(c){c.update(migrateScoringRecord(c.value));c.continue()}}};req.onsuccess=()=>{req.result.onversionchange=()=>{req.result.close();state.db=null;showError('页面版本已变化, 请先导出备份, 再刷新页面.')};resolve(req.result)};req.onerror=()=>reject(req.error);req.onblocked=()=>showError('数据库被其他窗口占用, 请关闭其他看房页面后重试.')})}
 function dbRead(){return new Promise((resolve,reject)=>{const tx=state.db.transaction('records','readonly'),req=tx.objectStore('records').getAll();req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
 function queuedLocal(task){const result=state.localTail.then(task);state.localTail=result.catch(()=>{});return result;}
 function noteMutation(){state.generation++;state.applyGuard?.();}
@@ -209,9 +216,7 @@ const criteria=[
  criterion('beike',0,'是否贝壳省心租',['beike'],'boolean'),
  criterion('commute',1,'高峰门到门通勤',['commuteMinutes'],'commute','从房门到办公地点, 包含步行, 等候和换乘.'),
  criterion('schedule',1,'地铁班次信息',['station','metroLines','scheduleNotes'],'info','记录常用方向, 高峰间隔, 首末班和核验日期; 照片可附时刻表.'),
- criterion('stationDistance',1,'到地铁站的距离',['stationDistance']),
- criterion('walk',1,'步行到站时间',['walkMinutes']),
- criterion('bike',1,'骑行到站时间',['bikeMinutes']),
+ criterion('stationAccess',1,'地铁到站便利性',['stationDistance','walkMinutes','bikeMinutes'],'manual','整体评价到站距离, 步行时间及骑行时间, 三项共用一个评分.'),
  criterion('livingOpening',2,'客厅外窗或封闭阳台',['livingOpeningNotes'],'manual','客厅有直接外窗, 或连接已封窗的阳台.'),
  criterion('elevator',2,'电梯',['elevator'],'boolean'),
  criterion('orientation',2,'主要朝向',['orientation'],'orientation'),
@@ -244,6 +249,9 @@ const criteria=[
  criterion('cats',6,'允许养猫',['cats'],'boolean'),
  criterion('convenience',6,'日常便利与公共安全',['convenienceNotes'])
 ];
+const legacyStationRatingIds=['stationDistance','walk','bike'];
+const ratingFields=[...criteria.filter(c=>c.mode==='manual'),...legacyStationRatingIds.map((id,i)=>({id,label:['原到站距离','原步行时间','原骑行时间'][i]}))];
+const ratingFieldIds=new Set(ratingFields.map(c=>c.id));
 const criterionMap=new Map(criteria.map(c=>[c.id,c]));
 function criterionDependencies(c){
  const prerequisite={bedroomAcAge:'bedroomAc',bedroomAcEnergy:'bedroomAc',livingAcAge:'livingAc',livingAcEnergy:'livingAc',fridgeEnergy:'fridgeDoors'}[c.id];
@@ -268,11 +276,11 @@ sections.splice(0,sections.length,{title:'基本资料',fields:['name','address'
  ...scoringGroups.map((title,i)=>({title,fields:criteria.filter(c=>c.group===i).flatMap(c=>c.keys.map(k=>fieldMap.get(k)))})));
 const ratingLabels=['0 · 不满足','1 · 明显不足','2 · 较多不足','3 · 基本满足','4 · 接近满足','5 · 完全满足'];
 function validateRatings(raw){
- const result=Object.fromEntries(criteria.filter(c=>c.mode==='manual').map(c=>[c.id,null]));
+ const result=Object.fromEntries(ratingFields.map(c=>[c.id,null]));
  if(raw===undefined)return result;
  if(!raw||typeof raw!=='object'||Array.isArray(raw))throw new Error('评分记录格式无效.');
  for(const [id,value]of Object.entries(raw)){
-  if(!criterionMap.has(id)||criterionMap.get(id).mode!=='manual'||(value!==null&&(!Number.isInteger(value)||value<0||value>5)))throw new Error('评分记录内容无效.');
+  if(!ratingFieldIds.has(id)||(value!==null&&(!Number.isInteger(value)||value<0||value>5)))throw new Error('评分记录内容无效.');
   result[id]=value;
  }return result;
 }
@@ -281,7 +289,15 @@ function validatePreferences(raw){
  const plain=v=>v&&typeof v==='object'&&!Array.isArray(v);
  const exact=(obj,keys)=>plain(obj)&&Object.keys(obj).length===keys.length&&keys.every(k=>Object.hasOwn(obj,k));
  const thresholdKeys=['costLimit','flexibleCostLimit','maxCommuteMinutes','minArea','minFloor','topFloorBuffer','allowedOrientations'];
- if(!exact(raw,['format','version','weights','thresholds'])||raw.format!=='qiju-preferences'||raw.version!==1||
+ // Rule v1 rated the three station observations separately. Preserve every other preference.
+ if(raw.version===1){
+  const oldIds=criteria.filter(c=>c.id!=='stationAccess').map(c=>c.id).concat(legacyStationRatingIds);
+  if(!exact(raw,['format','version','weights','thresholds'])||!exact(raw.weights,oldIds)||Object.values(raw.weights).some(w=>!Number.isInteger(w)||w<0||w>10))throw new Error('旧个人规则文件格式无效.');
+  const weights={...raw.weights,stationAccess:Math.min(10,legacyStationRatingIds.reduce((sum,id)=>sum+raw.weights[id],0))};
+  legacyStationRatingIds.forEach(id=>delete weights[id]);raw={...raw,version:2,weights};
+ }
+
+ if(!exact(raw,['format','version','weights','thresholds'])||raw.format!=='qiju-preferences'||raw.version!==2||
     !exact(raw.weights,criteria.map(c=>c.id))||!exact(raw.thresholds,thresholdKeys))throw new Error('个人规则文件格式不受支持.');
  const weights={};for(const c of criteria){const w=raw.weights[c.id];if(!Number.isInteger(w)||w<0||w>10)throw new Error('权重必须是 0 至 10 的整数.');weights[c.id]=w;}
  if(!Object.values(weights).some(w=>w>0)||weights.schedule!==0)throw new Error('个人规则需包含有效权重, 班次仅作记录.');
@@ -290,7 +306,7 @@ function validatePreferences(raw){
  if(t.flexibleCostLimit<t.costLimit||!Number.isInteger(t.minFloor)||!Number.isInteger(t.topFloorBuffer)||
    !Array.isArray(t.allowedOrientations)||!t.allowedOrientations.length||new Set(t.allowedOrientations).size!==t.allowedOrientations.length||
    t.allowedOrientations.some(v=>!fieldMap.get('orientation')[3].some(o=>o[0]===v&&v!=='unknown')))throw new Error('个人规则阈值关系无效.');
- return {format:'qiju-preferences',version:1,weights,thresholds:structuredClone(t)};
+ return {format:'qiju-preferences',version:2,weights,thresholds:structuredClone(t)};
 }
 function migrateScoringRecord(r){
  r.ratings=validateRatings(r.ratings);
@@ -307,7 +323,7 @@ function evaluateCriterion(c,r,profile){
  const yesNoScore=(items,reason)=>items.includes(false)?result(0,reason):items.includes(null)?result(null,'待核实'):result(5,reason);
  const bool=k=>v[k]==='yes'?true:v[k]==='no'?false:null;
  if(c.mode==='info')return result(null,'仅记录, 不计分');
- if(c.mode==='manual'){const score=r.ratings?.[c.id]??null;return result(score,score===null?'待核实':ratingLabels[score].split(' · ')[1]);}
+ if(c.mode==='manual'){const score=r.ratings?.[c.id]??null;return result(score,score===null?(c.id==='stationAccess'&&legacyStationRatingIds.some(id=>r.ratings?.[id]!=null)?'原分项评分已保留, 请确认合并后的整体满足程度':'待核实'):ratingLabels[score].split(' · ')[1]);}
  if(c.mode==='boolean')return yesNoScore([bool(c.keys[0])],v[c.keys[0]]==='yes'?'已确认满足':'已确认不满足');
  if(c.mode==='gas')return yesNoScore(c.keys.map(bool),'需同时具备燃气灶和燃气热水器');
  if(c.mode==='washer')return yesNoScore([!v.washerType||v.washerType==='unknown'?null:v.washerType==='滚筒',bool('washerDryer')],'需滚筒洗衣机且支持烘干');
@@ -353,7 +369,7 @@ const SYNC_REPO = 'isotropy44/rental-viewing-data';
 const SYNC_BRANCH = 'main';
 const SYNC_PATH = 'data/records.json';
 // Older pages must reject the expanded schema instead of silently dropping its new fields.
-const SYNC_FORMAT_VERSION = 4;
+const SYNC_FORMAT_VERSION = 5;
 const emptySyncDoc = () => ({format:'qiju-sync',version:SYNC_FORMAT_VERSION,records:[],preferences:null});
 const copy = value => value === undefined ? undefined : structuredClone(value);
 function stableJSON(value) {
@@ -404,7 +420,7 @@ function mergeSyncDocs(base, local, remote, resolutions={}) {
     for (const f of fields) result.values[f[0]]=choose(id,['values',f[0]],f[1],b&&!b.deletedAt?(b.values?.[f[0]]??defaultFieldValue(f)):undefined,l.values[f[0]]??defaultFieldValue(f),r.values[f[0]]??defaultFieldValue(f));
     result.notes=choose(id,['notes'],'现场备注',b?.notes,l.notes,r.notes);
     result.location=choose(id,['location'],'现场定位',b?.location,l.location,r.location);
-    for(const c of criteria.filter(c=>c.mode==='manual'))result.ratings[c.id]=choose(id,['ratings',c.id],c.label+'评分',b?.ratings?.[c.id]??null,l.ratings?.[c.id]??null,r.ratings?.[c.id]??null);
+    for(const c of ratingFields)result.ratings[c.id]=choose(id,['ratings',c.id],c.label+'评分',b?.ratings?.[c.id]??null,l.ratings?.[c.id]??null,r.ratings?.[c.id]??null);
     // An observation changed on the other device invalidates a score based on the old fact.
     // If the score's author also supplied the winning observations, the score stays valid.
     for(const c of criteria.filter(c=>c.mode==='manual')){
@@ -421,9 +437,9 @@ function mergeSyncDocs(base, local, remote, resolutions={}) {
     }
     records.push(result);
   }
-  const lp=local.preferences??null,rp=remote.preferences??null;
+  const bp=validatePreferences(base.preferences??null),lp=validatePreferences(local.preferences??null),rp=validatePreferences(remote.preferences??null);
   // Absence in an older document is not an instruction to delete private preferences.
-  const preferences=!lp?copy(rp):!rp?copy(lp):choose('$preferences',['preferences'],'个人评分规则',base.preferences??null,lp,rp);
+  const preferences=!lp?copy(rp):!rp?copy(lp):choose('$preferences',['preferences'],'个人评分规则',bp,lp,rp);
   return {doc:{format:'qiju-sync',version:SYNC_FORMAT_VERSION,records,preferences},conflicts};
 }
 function commonBaseAfterRebase(sent, before, conflicts) {
@@ -445,7 +461,7 @@ function commonBaseAfterRebase(sent, before, conflicts) {
   result.records=[...map.values()];return result;
 }
 function validateSyncDoc(raw) {
-  if(!raw || raw.format!=='qiju-sync' || ![1,2,3,SYNC_FORMAT_VERSION].includes(raw.version) || !Array.isArray(raw.records) || raw.records.length>10000)
+  if(!raw || raw.format!=='qiju-sync' || ![1,2,3,4,SYNC_FORMAT_VERSION].includes(raw.version) || !Array.isArray(raw.records) || raw.records.length>10000)
     throw new Error('远端数据格式不受支持, 已保留本机记录.');
   const ids=new Set(),photoIds=new Set();
   const records=raw.records.map(r=>{
@@ -560,14 +576,14 @@ class GitHubRemote {
     const tree=await this.request('/git/trees/'+commit.tree.sha+'?recursive=1');
     if(tree.truncated)throw new SyncError('数据仓库目录过大, 请先整理仓库.',{fatal:true});
     const files=new Map(tree.tree.filter(e=>e.type==='blob').map(e=>[e.path,e.sha]));
-    let doc=emptySyncDoc();
+    let doc=emptySyncDoc(),needsUpgrade=false;
     if(files.has(SYNC_PATH)){
       const blob=await this.request('/git/blobs/'+files.get(SYNC_PATH));
       if(blob.size>10*1024*1024)throw new SyncError('远端元数据过大, 已停止读取.',{fatal:true});
-      try{doc=validateSyncDoc(JSON.parse(new TextDecoder().decode(base64Bytes(blob.content))));}
+      try{const raw=JSON.parse(new TextDecoder().decode(base64Bytes(blob.content)));doc=validateSyncDoc(raw);needsUpgrade=raw.version!==SYNC_FORMAT_VERSION||!same(raw.preferences??null,doc.preferences);}
       catch(e){throw new SyncError(e.message||'远端数据损坏.',{fatal:true});}
     }
-    return {head,tree:commit.tree.sha,files,doc};
+    return {head,tree:commit.tree.sha,files,doc,needsUpgrade};
   }
   async containsCommit(commit,head) {
     if(commit===head)return true;
@@ -631,7 +647,7 @@ class GitHubSynchronizer {
           throw new SyncError('远端缺少历史记录或删除标记, 请检查仓库后重试.',{fatal:true});
         const merged=mergeSyncDocs(local.meta.base,local.doc,snapshot.doc,local.meta.resolutions);
         if(merged.conflicts.length){await this.adapter.conflicts(merged.conflicts);return {conflicts:true};}
-        if(same(merged.doc,snapshot.doc)) {
+        if(same(merged.doc,snapshot.doc)&&!snapshot.needsUpgrade) {
           await this.reconcile(local.doc,snapshot.doc,snapshot.head,remote,check);
           return {ok:true};
         }
@@ -674,7 +690,7 @@ class GitHubSynchronizer {
 // Browser adapter. Tokens live only inside GitHubRemote instances, never in persisted metadata.
 const syncRuntime={busy:false,error:'',fatal:false,firstDirty:0,debounce:null,deadline:null,retry:null,failures:0,poll:null};
 const photoDigests=new WeakMap();
-function readSyncMeta(){return new Promise((resolve,reject)=>{const tx=state.db.transaction('sync','readonly'),req=tx.objectStore('sync').get('state');req.onsuccess=()=>{try{const meta={...makeSyncMeta(),...(req.result||{})};meta.preferences=validatePreferences(meta.preferences);if(!req.result)for(const id of state.records.keys())meta.pending[id]=uuid();if(meta.repo!==SYNC_REPO||meta.branch!==SYNC_BRANCH)throw new Error('本机同步目标不匹配, 请先导出备份.');resolve(meta)}catch(e){reject(e)}};req.onerror=()=>reject(req.error)})}
+function readSyncMeta(){return new Promise((resolve,reject)=>{const tx=state.db.transaction('sync','readonly'),req=tx.objectStore('sync').get('state');req.onsuccess=()=>{try{const meta={...makeSyncMeta(),...(req.result||{})};const previousPreferences=meta.preferences;meta.preferences=validatePreferences(meta.preferences);if(!same(previousPreferences,meta.preferences))meta.pendingPreferences=uuid();if(!req.result)for(const id of state.records.keys())meta.pending[id]=uuid();if(meta.repo!==SYNC_REPO||meta.branch!==SYNC_BRANCH)throw new Error('本机同步目标不匹配, 请先导出备份.');resolve(meta)}catch(e){reject(e)}};req.onerror=()=>reject(req.error)})}
 function persistSyncMeta(mutate){return queuedLocal(async()=>{const meta=copy(state.sync||makeSyncMeta());mutate(meta);await rawLocalWrite({meta});state.sync=meta;updateSyncStatus();})}
 function cloneRecords(){return [...state.records.values()].map(r=>({...copy({...r,photos:[]}),photos:r.photos.map(p=>({...p,blob:p.blob}))}))}
 async function captureSyncLocal(){
@@ -844,7 +860,7 @@ function observationField(f,r){
  return '<label class="field '+(f[2]==='text'?'wide':'')+'" for="f-'+f[0]+'">'+f[1]+(f[2]==='select'?'<select id="f-'+f[0]+'" data-field="'+f[0]+'">'+f[3].map(o=>'<option value="'+esc(o[0])+'" '+(r.values[f[0]]===o[0]?'selected':'')+'>'+o[1]+'</option>').join('')+'</select>':'<input id="f-'+f[0]+'" data-field="'+f[0]+'" type="'+f[2]+'" value="'+esc(r.values[f[0]])+'" '+(f[2]==='number'?'min="0" max="100000000" step="any" inputmode="decimal"':f[2]==='url'?'inputmode="url" maxlength="4000"':'maxlength="500"')+'>')+'</label>';
 }
 function criterionHtml(c,r){
- return '<article class="criterion" id="criterion-'+c.id+'"><header class="criterion-heading"><h4>'+esc(c.label)+'</h4><span id="weight-'+c.id+'" class="weight"></span></header>'+(c.hint?'<p class="subtle">'+esc(c.hint)+'</p>':'')+'<div class="form-grid">'+c.keys.map(k=>observationField(fieldMap.get(k),r)).join('')+'</div><div class="rating-row">'+(c.mode==='manual'?'<label class="field" for="rating-'+c.id+'">满足程度<select id="rating-'+c.id+'" data-rating="'+c.id+'"><option value="">未确认</option>'+ratingLabels.map((label,n)=>'<option value="'+n+'">'+label+'</option>').join('')+'</select></label>':'<span class="subtle">'+(c.mode==='info'?'仅作记录':'依据原始记录自动判断')+'</span>')+'<p id="rating-status-'+c.id+'" class="rating-status" role="status"></p></div></article>';
+ return '<article class="criterion '+(c.id==='stationAccess'?'station-access':'')+'" id="criterion-'+c.id+'"><header class="criterion-heading"><h4>'+esc(c.label)+'</h4><span id="weight-'+c.id+'" class="weight"></span></header>'+(c.hint?'<p class="subtle">'+esc(c.hint)+'</p>':'')+'<div class="form-grid">'+c.keys.map((k,i)=>observationField(c.id==='stationAccess'?[k,['距离 (米)','步行 (分钟)','骑行 (分钟)'][i],...fieldMap.get(k).slice(2)]:fieldMap.get(k),r)).join('')+'</div><div class="rating-row">'+(c.mode==='manual'?'<label class="field" for="rating-'+c.id+'">满足程度<select id="rating-'+c.id+'" data-rating="'+c.id+'"><option value="">未确认</option>'+ratingLabels.map((label,n)=>'<option value="'+n+'">'+label+'</option>').join('')+'</select></label>':'<span class="subtle">'+(c.mode==='info'?'仅作记录':'依据原始记录自动判断')+'</span>')+'<p id="rating-status-'+c.id+'" class="rating-status" role="status"></p></div></article>';
 }
 // Presentation groups retain the original observation and rating IDs.
 const criterionBundles=[
