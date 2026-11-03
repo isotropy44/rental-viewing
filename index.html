@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dqFWrkisFz4Y0o2Icm7J+5rb7+mwAIasOHEnMDIHVCM=' 'sha256-C+Cd2JBR437DlLuiwF8S49X6FS1vLx+OxVD5oAeL158=' 'sha256-0O+eTlsm3bafMSLxtbH+RtkFHWtFZ1PL3DaLO2LumDk=' 'sha256-KLaLUpDH0qOsoYLglJ9UqSRmOHw1rhvhIiArpHrT/Go=' 'sha256-lLl+hgkz0Bnz/XzWL16qwNFNzkNwXiFPhpUBmAx+qSw=' 'sha256-2svj0RaS4BEuNbwBVFaQFwUBbYohTUjMPrLbmSQSjO0='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-nUhngHMZAcN0H4/toGJk16q7/6J+QIOEbjr8m02ViVE=' 'sha256-8i4ARMJJUAd4apdRbH4OEb2CFN51TfA8kEVJVaDQvQ0=' 'sha256-0O+eTlsm3bafMSLxtbH+RtkFHWtFZ1PL3DaLO2LumDk=' 'sha256-KLaLUpDH0qOsoYLglJ9UqSRmOHw1rhvhIiArpHrT/Go=' 'sha256-SZUYahEW4XlDIJ6BFpysn8qpRRNFHq+X9UCiNGqX5Dw=' 'sha256-2svj0RaS4BEuNbwBVFaQFwUBbYohTUjMPrLbmSQSjO0='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f5f3ec">
 <meta name="description" content="属于自己的看房记录, 保存现场细节, 再慢慢做决定.">
@@ -44,6 +44,10 @@ body.dialog-open{overflow:hidden}
 .bundle-auto{display:flex;align-items:center;min-height:45px;font-size:12px;color:var(--muted)}
 
 .form-section summary small[id^="group-status-"]{display:block;margin-top:4px}
+
+.form-grid.basic-grid>.field{grid-column:auto}
+.basic-grid input{display:block;min-inline-size:0;max-width:100%;overflow:hidden}
+.basic-grid input[type="datetime-local"]::-webkit-date-and-time-value{min-width:0;text-align:left;overflow:hidden;text-overflow:ellipsis}
 </style>
 </head>
 <body>
@@ -121,7 +125,7 @@ function mapUrl(r){const p=r.location;return p?'https://uri.amap.com/marker?posi
 function safeMapLink(value){try{const u=new URL(value);return ['https:','http:'].includes(u.protocol)&&!u.username&&!u.password?u.href:''}catch{return ''}}
 function displayValue(r,f){const value=r.values[f[0]];if(value===''||value===undefined||value==='unknown')return '未确认';if(f[2]==='metro')return metroLineIds(value).map(id=>metroLineMap.get(id)[1]).join(' / ')||'未确认';return f[2]==='select'?f[3].find(o=>o[0]===value)?.[1]||'未确认':f[2]==='datetime-local'?dateText(value):String(value)}
 function renderList(){if(!$('editor').hidden){state.listNeedsRender=true;return}state.listNeedsRender=false;const all=[...state.records.values()].sort((a,b)=>$('sortRecords').value==='score'?((scoreRecord(b)?.total??-1)-(scoreRecord(a)?.total??-1)||b.createdAt.localeCompare(a.createdAt)):b.createdAt.localeCompare(a.createdAt));const q=$('search').value.trim().toLowerCase();const list=all.filter(r=>[r.values.name,r.values.address,r.notes].some(v=>String(v||'').toLowerCase().includes(q)));$('totalCount').textContent=all.length;$('locatedCount').textContent=all.filter(r=>r.location).length;$('photoCount').textContent=all.reduce((n,r)=>n+r.photos.length,0);$('listHint').textContent=q?' / 找到 '+list.length+' 套':'';
- $('cards').innerHTML=list.length?list.map(r=>{const v=r.values;return '<article class="card"><div class="cover">'+(r.photos[0]?'<img src="'+photoUrl(r.photos[0])+'" alt="'+esc(nameOf(r))+' 的现场照片">':'<div class="house-art" aria-hidden="true"></div>')+'<span class="cover-tag">'+(v.viewedAt?esc(dateText(v.viewedAt).split(' ')[0]):'待看房')+'</span><label class="compare-check"><input type="checkbox" data-select="'+esc(r.id)+'" '+(state.selected.has(r.id)?'checked':'')+'>对比</label></div><div class="card-body"><div class="card-title"><h3>'+esc(nameOf(r))+'</h3><span class="rent">'+(v.rent!==''&&v.rent!==undefined?'¥ '+esc(v.rent)+'<small> / 月</small>':'<small>租金待补</small>')+'</span></div><div class="address">'+esc(v.address||'小区及门牌待补充')+'</div>'+scoreSummaryHtml(r)+metroCard(r)+'<div class="facts"><span class="chip">'+(v.area!==''&&v.area!==undefined?esc(v.area)+' 平方米':'面积未确认')+'</span><span class="chip '+(v.cats==='no'?'bad':'')+'">'+(v.cats==='yes'?'可养猫':v.cats==='no'?'不可养猫':'养猫待确认')+'</span><span class="chip">'+esc(displayValue(r,fieldMap.get('orientation'))) +(v.orientation!=='unknown'&&v.orientation?'向':'朝向')+'</span></div><div class="card-footer">'+(mapUrl(r)?'<a href="'+esc(mapUrl(r))+'" target="_blank" rel="noopener noreferrer">⌖ 查看位置</a>':'<span class="subtle">⌖ 位置待记录</span>')+'<button class="btn" data-edit="'+esc(r.id)+'">打开记录 ↗</button></div></div></article>'}).join(''):'<div class="empty"><div class="house-art" aria-hidden="true"></div><h3>'+(q?'没有匹配的房源':'先记录第一套房源')+'</h3><p>'+(q?'换个关键词试试.':'每套房源一张记录, 每个细节都有地方安放.<br>条件先留空, 到现场再慢慢确认.')+'</p>'+(!q?'<button class="btn primary" id="emptyNew">+ 新增房源</button>':'')+'</div>';
+ $('cards').innerHTML=list.length?list.map(r=>{const v=r.values;return '<article class="card"><div class="cover">'+(r.photos[0]?'<img src="'+photoUrl(r.photos[0])+'" alt="'+esc(nameOf(r))+' 的现场照片">':'<div class="house-art" aria-hidden="true"></div>')+'<span class="cover-tag">'+(v.viewedAt?esc(dateText(v.viewedAt).split(' ')[0]):'待看房')+'</span><label class="compare-check"><input type="checkbox" data-select="'+esc(r.id)+'" '+(state.selected.has(r.id)?'checked':'')+'>对比</label></div><div class="card-body"><div class="card-title"><h3>'+esc(nameOf(r))+'</h3><span class="rent" title="固定月费合计">¥ '+esc(fixedMonthlyAmount(r))+'<small> / 月</small></span></div><div class="address">'+esc(v.address||'小区及门牌待补充')+'</div>'+scoreSummaryHtml(r)+metroCard(r)+'<div class="facts"><span class="chip">'+(v.area!==''&&v.area!==undefined?esc(v.area)+' 平方米':'面积未确认')+'</span><span class="chip '+(v.cats==='no'?'bad':'')+'">'+(v.cats==='yes'?'可养猫':v.cats==='no'?'不可养猫':'养猫待确认')+'</span><span class="chip">'+esc(displayValue(r,fieldMap.get('orientation'))) +(v.orientation!=='unknown'&&v.orientation?'向':'朝向')+'</span></div><div class="card-footer">'+(mapUrl(r)?'<a href="'+esc(mapUrl(r))+'" target="_blank" rel="noopener noreferrer">⌖ 查看位置</a>':'<span class="subtle">⌖ 位置待记录</span>')+'<button class="btn" data-edit="'+esc(r.id)+'">打开记录 ↗</button></div></div></article>'}).join(''):'<div class="empty"><div class="house-art" aria-hidden="true"></div><h3>'+(q?'没有匹配的房源':'先记录第一套房源')+'</h3><p>'+(q?'换个关键词试试.':'每套房源一张记录, 每个细节都有地方安放.<br>条件先留空, 到现场再慢慢确认.')+'</p>'+(!q?'<button class="btn primary" id="emptyNew">+ 新增房源</button>':'')+'</div>';
  $('selectedCount').textContent='已选 '+state.selected.size+' 套';$('compareDock').hidden=!state.selected.size;$('compareBtn').disabled=state.selected.size<2;
 }
 // Mobile dialogs use the document's native scroll, not a fixed body and nested scroller.
@@ -307,6 +311,12 @@ function evaluateCriterion(c,r,profile){
   return result(known(a)&&known(b)?(a<=b-t.topFloorBuffer?5:0):null,'当前楼层需在 '+t.minFloor+' 至总楼层减 '+t.topFloorBuffer+' 之间');
  }
  return result(null,'待核实');
+}
+// Card display treats missing fee inputs as zero without changing saved observations.
+function fixedMonthlyAmount(r){
+ return criterionMap.get('monthlyCost').keys.reduce((sum,key)=>{
+  const value=r.values[key];return sum+(typeof value==='number'&&Number.isFinite(value)?Math.round(value*100):0);
+ },0)/100;
 }
 function scoreRecord(r,profile=state.sync?.preferences){
  if(!profile)return null;
@@ -837,7 +847,7 @@ function criteriaGroupHtml(group,r){
 openEditor=function(id){
  const r=state.records.get(id);if(!r)return;state.current=id;$('editorTitle').textContent=nameOf(r);
  const basic=sections[0];
- $('recordForm').innerHTML='<details class="form-section" open><summary>基本资料</summary><div class="form-grid">'+basic.fields.map(f=>observationField(f,r)).join('')+'</div></details>'+scoringGroups.map((title,i)=>'<details class="form-section" '+(i===0?'open':'')+'><summary>'+title+' <small id="group-status-'+i+'"></small></summary><div class="criteria-list">'+criteriaGroupHtml(i,r)+'</div></details>').join('');
+ $('recordForm').innerHTML='<details class="form-section" open><summary>基本资料</summary><div class="form-grid basic-grid">'+basic.fields.map(f=>observationField(f,r)).join('')+'</div></details>'+scoringGroups.map((title,i)=>'<details class="form-section" '+(i===0?'open':'')+'><summary>'+title+' <small id="group-status-'+i+'"></small></summary><div class="criteria-list">'+criteriaGroupHtml(i,r)+'</div></details>').join('');
  $('notes').value=r.notes;refreshRatingControls();renderLocation();renderPhotos();updateSaveStatus();modalOpen('editor');$('editor').querySelector('.panel').scrollTop=0;
 };
 function refreshRatingControls(){
