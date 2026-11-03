@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-nUhngHMZAcN0H4/toGJk16q7/6J+QIOEbjr8m02ViVE=' 'sha256-8i4ARMJJUAd4apdRbH4OEb2CFN51TfA8kEVJVaDQvQ0=' 'sha256-0O+eTlsm3bafMSLxtbH+RtkFHWtFZ1PL3DaLO2LumDk=' 'sha256-KLaLUpDH0qOsoYLglJ9UqSRmOHw1rhvhIiArpHrT/Go=' 'sha256-fRcVUp1hGAjRNzkeb+5C8BG5f47PQhT95IbwD77Tzv0=' 'sha256-2svj0RaS4BEuNbwBVFaQFwUBbYohTUjMPrLbmSQSjO0='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-N742Uprc06DKZOKE/CB1KzBwqReCu0MT+HC4c1JBvOo=' 'sha256-VVxz+TKi94g3eWXNcwLALJe2rnbkn1XoZLfY3mc/KTg=' 'sha256-iB+yzc9sHBhAZz83STDHBUBHUxttrwaHQcy4O4M6rt8=' 'sha256-KLaLUpDH0qOsoYLglJ9UqSRmOHw1rhvhIiArpHrT/Go=' 'sha256-fRcVUp1hGAjRNzkeb+5C8BG5f47PQhT95IbwD77Tzv0=' 'sha256-2svj0RaS4BEuNbwBVFaQFwUBbYohTUjMPrLbmSQSjO0='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f5f3ec">
 <meta name="description" content="属于自己的看房记录, 保存现场细节, 再慢慢做决定.">
@@ -55,6 +55,14 @@ body.dialog-open{overflow:hidden}
 .basic-time-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:0 18px 18px}
 .basic-time-actions .btn{font-size:12px;font-weight:500}
 @media(max-width:560px){.basic-time-actions{padding:0 14px 17px}}
+
+.form-grid.basic-grid{grid-template-columns:repeat(6,minmax(0,1fr))}
+.form-grid.basic-grid>.field{grid-column:span 2}
+.form-grid.basic-grid>.field[for="f-viewedAt"],.form-grid.basic-grid>.field[for="f-mapLink"]{grid-column:span 3}
+.card-name{display:flex;align-items:baseline;gap:8px;flex:1;min-width:0;flex-wrap:wrap}
+.card-name h3{min-width:0;margin:0}
+.card-contact{font-size:12px;font-weight:700;line-height:1.5;color:var(--muted);overflow-wrap:anywhere;max-width:100%}
+.card-title{margin-bottom:8px}
 </style>
 </head>
 <body>
@@ -131,8 +139,8 @@ function releasePhoto(photo){if(state.urls.has(photo.id)){URL.revokeObjectURL(st
 function mapUrl(r){const p=r.location;return p?'https://uri.amap.com/marker?position='+p.longitude+','+p.latitude+'&coordinate=wgs84&name='+encodeURIComponent(nameOf(r)):safeMapLink(r.values.mapLink)}
 function safeMapLink(value){try{const u=new URL(value);return ['https:','http:'].includes(u.protocol)&&!u.username&&!u.password?u.href:''}catch{return ''}}
 function displayValue(r,f){const value=r.values[f[0]];if(value===''||value===undefined||value==='unknown')return '未确认';if(f[2]==='metro')return metroLineIds(value).map(id=>metroLineMap.get(id)[1]).join(' / ')||'未确认';return f[2]==='select'?f[3].find(o=>o[0]===value)?.[1]||'未确认':f[2]==='datetime-local'?dateText(value):String(value)}
-function renderList(){if(!$('editor').hidden){state.listNeedsRender=true;return}state.listNeedsRender=false;const all=[...state.records.values()].sort((a,b)=>$('sortRecords').value==='score'?((scoreRecord(b)?.total??-1)-(scoreRecord(a)?.total??-1)||b.createdAt.localeCompare(a.createdAt)):b.createdAt.localeCompare(a.createdAt));const q=$('search').value.trim().toLowerCase();const list=all.filter(r=>[r.values.name,r.values.address,r.notes].some(v=>String(v||'').toLowerCase().includes(q)));$('totalCount').textContent=all.length;$('locatedCount').textContent=all.filter(r=>r.location).length;$('photoCount').textContent=all.reduce((n,r)=>n+r.photos.length,0);$('listHint').textContent=q?' / 找到 '+list.length+' 套':'';
- $('cards').innerHTML=list.length?list.map(r=>{const v=r.values;return '<article class="card"><div class="cover">'+(r.photos[0]?'<img src="'+photoUrl(r.photos[0])+'" alt="'+esc(nameOf(r))+' 的现场照片">':'<div class="house-art" aria-hidden="true"></div>')+'<span class="cover-tag">'+(v.viewedAt?esc(dateText(v.viewedAt).split(' ')[0]):'待看房')+'</span><label class="compare-check"><input type="checkbox" data-select="'+esc(r.id)+'" '+(state.selected.has(r.id)?'checked':'')+'>对比</label></div><div class="card-body"><div class="card-title"><h3>'+esc(nameOf(r))+'</h3><span class="rent" title="固定月费合计">¥ '+esc(fixedMonthlyAmount(r))+'<small> / 月</small></span></div><div class="address">'+esc(v.address||'小区及门牌待补充')+'</div>'+scoreSummaryHtml(r)+metroCard(r)+'<div class="facts"><span class="chip">'+(v.area!==''&&v.area!==undefined?esc(v.area)+' 平方米':'面积未确认')+'</span><span class="chip '+(v.cats==='no'?'bad':'')+'">'+(v.cats==='yes'?'可养猫':v.cats==='no'?'不可养猫':'养猫待确认')+'</span><span class="chip">'+esc(displayValue(r,fieldMap.get('orientation'))) +(v.orientation!=='unknown'&&v.orientation?'向':'朝向')+'</span></div><div class="card-footer">'+(mapUrl(r)?'<a href="'+esc(mapUrl(r))+'" target="_blank" rel="noopener noreferrer">⌖ 查看位置</a>':'<span class="subtle">⌖ 位置待记录</span>')+'<button class="btn" data-edit="'+esc(r.id)+'">打开记录 ↗</button></div></div></article>'}).join(''):'<div class="empty"><div class="house-art" aria-hidden="true"></div><h3>'+(q?'没有匹配的房源':'先记录第一套房源')+'</h3><p>'+(q?'换个关键词试试.':'每套房源一张记录, 每个细节都有地方安放.<br>条件先留空, 到现场再慢慢确认.')+'</p>'+(!q?'<button class="btn primary" id="emptyNew">+ 新增房源</button>':'')+'</div>';
+function renderList(){if(!$('editor').hidden){state.listNeedsRender=true;return}state.listNeedsRender=false;const all=[...state.records.values()].sort((a,b)=>$('sortRecords').value==='score'?((scoreRecord(b)?.total??-1)-(scoreRecord(a)?.total??-1)||b.createdAt.localeCompare(a.createdAt)):b.createdAt.localeCompare(a.createdAt));const q=$('search').value.trim().toLowerCase();const list=all.filter(r=>[r.values.name,r.values.address,r.values.contact,r.notes].some(v=>String(v||'').toLowerCase().includes(q)));$('totalCount').textContent=all.length;$('locatedCount').textContent=all.filter(r=>r.location).length;$('photoCount').textContent=all.reduce((n,r)=>n+r.photos.length,0);$('listHint').textContent=q?' / 找到 '+list.length+' 套':'';
+ $('cards').innerHTML=list.length?list.map(r=>{const v=r.values;return '<article class="card"><div class="cover">'+(r.photos[0]?'<img src="'+photoUrl(r.photos[0])+'" alt="'+esc(nameOf(r))+' 的现场照片">':'<div class="house-art" aria-hidden="true"></div>')+'<span class="cover-tag">'+(v.viewedAt?esc(dateText(v.viewedAt).split(' ')[0]):'待看房')+'</span><label class="compare-check"><input type="checkbox" data-select="'+esc(r.id)+'" '+(state.selected.has(r.id)?'checked':'')+'>对比</label></div><div class="card-body"><div class="card-title"><div class="card-name"><h3>'+esc(nameOf(r))+'</h3>'+(v.contact?'<span class="card-contact">'+esc(v.contact)+'</span>':'')+'</div><span class="rent" title="固定月费合计">¥ '+esc(fixedMonthlyAmount(r))+'<small> / 月</small></span></div><div class="address">'+esc(v.address||'小区及门牌待补充')+'</div>'+scoreSummaryHtml(r)+metroCard(r)+'<div class="facts"><span class="chip">'+(v.area!==''&&v.area!==undefined?esc(v.area)+' 平方米':'面积未确认')+'</span><span class="chip '+(v.cats==='no'?'bad':'')+'">'+(v.cats==='yes'?'可养猫':v.cats==='no'?'不可养猫':'养猫待确认')+'</span><span class="chip">'+esc(displayValue(r,fieldMap.get('orientation'))) +(v.orientation!=='unknown'&&v.orientation?'向':'朝向')+'</span></div><div class="card-footer">'+(mapUrl(r)?'<a href="'+esc(mapUrl(r))+'" target="_blank" rel="noopener noreferrer">⌖ 查看位置</a>':'<span class="subtle">⌖ 位置待记录</span>')+'<button class="btn" data-edit="'+esc(r.id)+'">打开记录 ↗</button></div></div></article>'}).join(''):'<div class="empty"><div class="house-art" aria-hidden="true"></div><h3>'+(q?'没有匹配的房源':'先记录第一套房源')+'</h3><p>'+(q?'换个关键词试试.':'每套房源一张记录, 每个细节都有地方安放.<br>条件先留空, 到现场再慢慢确认.')+'</p>'+(!q?'<button class="btn primary" id="emptyNew">+ 新增房源</button>':'')+'</div>';
  $('selectedCount').textContent='已选 '+state.selected.size+' 套';$('compareDock').hidden=!state.selected.size;$('compareBtn').disabled=state.selected.size<2;
 }
 // Mobile dialogs use the document's native scroll, not a fixed body and nested scroller.
@@ -242,6 +250,7 @@ function criterionDependencies(c){
  return prerequisite?[...c.keys,prerequisite]:c.keys;
 }
 const extraFields=[
+ ['contact','联系人','text'],
  ['propertyFee','物业费 (元/月)','number'],['broadbandFee','固定宽带费 (元/月)','number'],['otherFixedFee','其他固定月费 (元/月)','number'],
  ['beike','是否贝壳省心租','select',yesNo],['currentFloor','当前楼层','number'],['totalFloors','总楼层','number'],
  ['scheduleNotes','班次及核验记录','text'],['livingOpeningNotes','客厅外窗及阳台观察','text'],['noiseNotes','隔音及噪音观察','text'],
@@ -255,7 +264,7 @@ extraFields.forEach(f=>{fields.push(f);fieldMap.set(f[0],f)});
 fieldMap.get('area')[1]='中介提供面积 (平方米)';
 fieldMap.get('floor')[1]='原楼层文字 (保留记录)';
 // Keep the established fields registry for validation and field-level synchronization.
-sections.splice(0,sections.length,{title:'基本资料',fields:['name','address','viewedAt','mapLink'].map(k=>fieldMap.get(k))},
+sections.splice(0,sections.length,{title:'基本资料',fields:['name','address','contact','viewedAt','mapLink'].map(k=>fieldMap.get(k))},
  ...scoringGroups.map((title,i)=>({title,fields:criteria.filter(c=>c.group===i).flatMap(c=>c.keys.map(k=>fieldMap.get(k)))})));
 const ratingLabels=['0 · 不满足','1 · 明显不足','2 · 较多不足','3 · 基本满足','4 · 接近满足','5 · 完全满足'];
 function validateRatings(raw){
@@ -344,7 +353,7 @@ const SYNC_REPO = 'isotropy44/rental-viewing-data';
 const SYNC_BRANCH = 'main';
 const SYNC_PATH = 'data/records.json';
 // Older pages must reject the expanded schema instead of silently dropping its new fields.
-const SYNC_FORMAT_VERSION = 3;
+const SYNC_FORMAT_VERSION = 4;
 const emptySyncDoc = () => ({format:'qiju-sync',version:SYNC_FORMAT_VERSION,records:[],preferences:null});
 const copy = value => value === undefined ? undefined : structuredClone(value);
 function stableJSON(value) {
@@ -436,7 +445,7 @@ function commonBaseAfterRebase(sent, before, conflicts) {
   result.records=[...map.values()];return result;
 }
 function validateSyncDoc(raw) {
-  if(!raw || raw.format!=='qiju-sync' || ![1,2,SYNC_FORMAT_VERSION].includes(raw.version) || !Array.isArray(raw.records) || raw.records.length>10000)
+  if(!raw || raw.format!=='qiju-sync' || ![1,2,3,SYNC_FORMAT_VERSION].includes(raw.version) || !Array.isArray(raw.records) || raw.records.length>10000)
     throw new Error('远端数据格式不受支持, 已保留本机记录.');
   const ids=new Set(),photoIds=new Set();
   const records=raw.records.map(r=>{
