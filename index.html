@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-RpU1Yy/CVTW275p1vuwquGmnYsYUHbL30Z7uEir0v/M=' 'sha256-TXFAp1Y36BVqY35nZQvmity3abLJt1vwSHquYpV9sNE=' 'sha256-l8KcdbecE9lR6y+aBHkLm+RHh8LdftfPD56ZKkaPS1c=' 'sha256-amCV7QXf4cXyP9t0QsaWW3Jjt0J9wzNyxEVJlXZsZPg=' 'sha256-3jEq4m2Qw31eZWpg136IgnR77WEVSNww+VqS8214GIE=' 'sha256-2svj0RaS4BEuNbwBVFaQFwUBbYohTUjMPrLbmSQSjO0='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-RpU1Yy/CVTW275p1vuwquGmnYsYUHbL30Z7uEir0v/M=' 'sha256-TXFAp1Y36BVqY35nZQvmity3abLJt1vwSHquYpV9sNE=' 'sha256-l8KcdbecE9lR6y+aBHkLm+RHh8LdftfPD56ZKkaPS1c=' 'sha256-amCV7QXf4cXyP9t0QsaWW3Jjt0J9wzNyxEVJlXZsZPg=' 'sha256-W4LO838rRbyjEWfp47iQY3OH91PEc0O4IIHzTRzFqZo=' 'sha256-2svj0RaS4BEuNbwBVFaQFwUBbYohTUjMPrLbmSQSjO0='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f5f3ec">
 <meta name="description" content="属于自己的看房记录, 保存现场细节, 再慢慢做决定.">
@@ -134,6 +134,15 @@ body.dialog-open{overflow:hidden}
 .fridge-rating{min-width:0}
 .fridge-inline .rating-status{position:absolute;min-width:0;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);margin:0}
 @media(max-width:560px){.fridge-inline{gap:8px;padding:10px}.fridge-inline .field{font-size:10px}}
+
+.auto-equipment{display:grid;grid-template-columns:minmax(64px,.95fr) repeat(2,minmax(0,1fr)) minmax(55px,.8fr);gap:10px;align-items:end}
+.auto-equipment .criterion-heading{display:block;align-self:center;min-width:0}
+.auto-equipment h4{font-size:13px;line-height:1.6}
+.auto-equipment .weight,.auto-equipment .field{font-size:11px}
+.auto-equipment .field{grid-column:auto;min-width:0}
+.auto-equipment select,.auto-equipment .equipment-score{height:48px;min-height:48px;padding:10px 6px;font-size:16px}
+.auto-equipment .equipment-score{display:flex;align-items:center;flex:none;line-height:24px;max-height:48px;font-size:14px;padding:10px 4px;min-width:0;width:100%;margin:0;white-space:nowrap;border:1px solid var(--line);border-radius:8px;background:var(--soft);color:var(--ink)}
+@media(max-width:560px){.auto-equipment{gap:8px;padding:10px}.auto-equipment .field{font-size:10px}.auto-equipment h4{font-size:12px}}
 </style>
 </head>
 <body>
@@ -982,6 +991,7 @@ function commuteHtml(c,r){
 function criterionHtml(c,r){
  if(c.id==='commute')return commuteHtml(c,r);
  if(c.id==='refrigerator')return '<article class="criterion fridge-inline" id="criterion-refrigerator"><header class="criterion-heading"><h4>冰箱</h4><span id="weight-refrigerator" class="weight"></span></header>'+c.keys.map(k=>observationField(fieldMap.get(k),r)).join('')+'<div class="fridge-rating">'+ratingSelect(c,true,true)+'</div></article>';
+ if(['washer','gas'].includes(c.id))return '<article class="criterion auto-equipment" id="criterion-'+c.id+'"><header class="criterion-heading"><h4>'+esc(c.label)+'</h4><span id="weight-'+c.id+'" class="weight"></span></header>'+c.keys.map(k=>observationField(fieldMap.get(k),r)).join('')+'<div class="field"><span>满足程度</span><output id="rating-status-'+c.id+'" class="rating-status equipment-score" role="status" aria-label="满足程度, 自动判断"></output></div></article>';
  if([3,6].includes(c.group)||['coffee','dryWet','smartTv','water'].includes(c.id))return compactCriterionHtml(c,r);
  return '<article class="criterion" id="criterion-'+c.id+'"><header class="criterion-heading"><h4>'+esc(c.label)+'</h4><span id="weight-'+c.id+'" class="weight"></span></header>'+(c.hint?'<p class="subtle">'+esc(c.hint)+'</p>':'')+'<div class="form-grid">'+c.keys.map(k=>observationField(fieldMap.get(k),r)).join('')+'</div><div class="rating-row">'+(c.mode==='manual'?ratingSelect(c):'<span class="subtle">依据原始记录自动判断</span><p id="rating-status-'+c.id+'" class="rating-status" role="status"></p>')+'</div></article>';
 }
@@ -1023,6 +1033,7 @@ function refreshRatingControls(){
   if(weight)weight.textContent=profile?'权重 '+profile.weights[c.id]:'规则待导入';
   if(status){status.textContent=!profile?'导入个人规则后显示评分':c.mode==='info'?'仅记录, 不计分':item.score===null?'待核实'+(item.reason==='待核实'?'':' · '+item.reason):item.score+' / 5 · '+item.reason;status.classList.toggle('score-red',!!item?.red);}
   if(status){status.title=item?.reason||'';if(c.id==='commute')status.textContent=!profile?'规则待导入':item.score===null?'待核实':(item.score*2)+' / 10';}
+  if(status&&['washer','gas'].includes(c.id)){status.textContent=!profile?'待导入':item.score===null?'待核实':item.score+' / 5';status.setAttribute('aria-label','满足程度, 自动判断: '+status.textContent+(item?' · '+item.reason:''));}
   const basicScore=$('basic-score-'+c.id);if(basicScore)basicScore.textContent=!profile?'':item.score===null?'待核实':item.score+' / 5';
   root?.classList.toggle('criterion-red',!!item?.red);
   if(c.mode==='manual'){const input=$('rating-'+c.id);if(input){input.disabled=!profile;if(input!==document.activeElement)input.value=r.ratings?.[c.id]??'';}}
