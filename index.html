@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-HAZkmZlAlORhCBf8osKqr2jzh4ozcvN2iYdJMkwzyyM=' 'sha256-QnbpYOxYdIoh/S39QTbWXusgcF7P4SRapyobsPQhkkY=' 'sha256-m9T2Yfgv+51slqn6eLVZVMO7Z4NfKc6XV0CtfoIHF9U=' 'sha256-7ialObrFwxZsX6OLyhof/pPKQ9JG+QISnG6HMktxUZI=' 'sha256-+Uj20D0AzL+zoE1d2N3GtWC6xEgdhoj9M4rTRH5ZY+E=' 'sha256-2svj0RaS4BEuNbwBVFaQFwUBbYohTUjMPrLbmSQSjO0='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-HAZkmZlAlORhCBf8osKqr2jzh4ozcvN2iYdJMkwzyyM=' 'sha256-QnbpYOxYdIoh/S39QTbWXusgcF7P4SRapyobsPQhkkY=' 'sha256-+9qI3yJQ4NVkcNjXDLUTlOR6tq42KkcPWuYf0P2Dxn8=' 'sha256-amCV7QXf4cXyP9t0QsaWW3Jjt0J9wzNyxEVJlXZsZPg=' 'sha256-+Uj20D0AzL+zoE1d2N3GtWC6xEgdhoj9M4rTRH5ZY+E=' 'sha256-2svj0RaS4BEuNbwBVFaQFwUBbYohTUjMPrLbmSQSjO0='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f5f3ec">
 <meta name="description" content="属于自己的看房记录, 保存现场细节, 再慢慢做决定.">
@@ -88,7 +88,7 @@ body.dialog-open{overflow:hidden}
 <div id="helpModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle" hidden><section class="panel" style="max-width:600px"><header class="panel-header"><h2 id="helpTitle">看房之前</h2><button class="btn" data-close="helpModal">关闭</button></header><div class="panel-content help-content"><h3>1. 用固定地址, 在 Safari 打开</h3><p>将本文件上传至支持 HTTPS (Hypertext Transfer Protocol Secure) 的静态网站空间, 再用 iPhone Safari 打开链接. 可在分享菜单中添加到主屏幕, 但请先确认该入口能读取原有记录. 直接预览文件附件不适合作为正式使用入口.</p><h3>2. 到场建档, 边看边填</h3><p>点击到场建档并定位, 首次允许浏览器访问位置. 室内定位可能有偏差, 请核对地图, 小区及门牌自行补充. 定位失败不影响填写, 可重试或粘贴地图分享链接. 通勤时间请参照地图导航填写.</p><h3>3. 自动保存, 定期备份</h3><p>记录与压缩后的照片先保存在当前浏览器的 IndexedDB 数据库中. 通过同步入口授权后, 自动与独立私有仓库双向同步. 每次刷新或重新打开页面需再次输入专用令牌, 待同步修改会保留. 未授权的设备可通过备份导入记录. 清理网站数据, 隐私浏览或系统存储清理可能导致数据丢失.</p><h3>4. 先记录事实, 再定评分</h3><p>所有条件默认未确认. 首页勾选至少 2 套房源即可对比. 导入私有个人规则后计算百分制加权分数, 未确认项暂不加分. 权重为 10 且未完全满足的项目标红, 不自动淘汰房源.</p></div></section></div>
 <div id="lightbox" class="modal lightbox" role="dialog" aria-modal="true" aria-label="查看照片" hidden><button class="btn" data-close="lightbox">关闭照片</button><img id="largePhoto" alt="房源现场照片"></div>
 <div id="toast" class="toast" role="status" hidden></div>
-<div id="syncModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="syncTitle" hidden><section class="panel" style="max-width:600px"><header class="panel-header"><div><h2 id="syncTitle">同步你的看房记录</h2><span class="subtle">本机先保存, 再与 GitHub 私有仓库同步</span></div><button class="btn" data-close="syncModal">关闭</button></header><div class="panel-content sync-stack"><div class="sync-status-box"><strong id="syncStatusText" role="status">待授权</strong><div id="syncStatusDetail" class="subtle"></div></div><div><div class="sync-label">固定的数据仓库</div><p style="overflow-wrap:anywhere"><a href="https://github.com/isotropy44/rental-viewing-data" target="_blank" rel="noopener noreferrer">isotropy44/rental-viewing-data ↗</a></p></div><div id="syncAuthFields"><p class="subtle">创建 PAT (Personal Access Token) 时, 仅选择上面的数据仓库, 授予 Contents 的 Read and write 权限, 有效期建议 30 天. 每次刷新或重新打开页面需要重新输入, 页面不会保存令牌.</p><p><a href="https://github.com/settings/personal-access-tokens/new?name=Rental%20Viewing%20Sync&amp;target_name=isotropy44&amp;expires_in=30&amp;contents=write" target="_blank" rel="noopener noreferrer">前往 GitHub 创建专用令牌 ↗</a></p><label class="field" for="syncToken">专用令牌<input id="syncToken" type="password" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="只在当前页面内存中使用"></label><p class="subtle">首次连接前建议先导出完整备份. 连接后将双向合并当前本机记录与私有仓库中的记录.</p><div class="sync-actions"><button class="btn primary" id="connectSync">连接并自动同步</button><button class="btn" id="syncBackup">先导出完整备份</button></div></div><div class="sync-actions"><button class="btn primary" id="syncNow">立即同步</button><button class="btn" id="disconnectSync">断开连接</button><button class="btn" id="showConflicts" hidden>处理冲突</button><button class="btn" id="checkSyncNetwork">检查网络</button></div><p id="syncNetworkResult" class="subtle" role="status"></p><p class="subtle">编辑结束 5 秒后同步, 连续编辑最多等待 30 秒. 仅在页面运行且已授权时同步, 不保证锁屏后继续上传. 删除状态会同步, Git 历史中的旧照片仍会保留.</p></div></section></div>
+<div id="syncModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="syncTitle" hidden><section class="panel" style="max-width:600px"><header class="panel-header"><div><h2 id="syncTitle">同步你的看房记录</h2><span class="subtle">本机先保存, 再与 GitHub 私有仓库同步</span></div><button class="btn" data-close="syncModal">关闭</button></header><div class="panel-content sync-stack"><div class="sync-status-box"><strong id="syncStatusText" role="status">待授权</strong><div id="syncStatusDetail" class="subtle"></div></div><div><div class="sync-label">固定的数据仓库</div><p style="overflow-wrap:anywhere"><a href="https://github.com/isotropy44/rental-viewing-data" target="_blank" rel="noopener noreferrer">isotropy44/rental-viewing-data ↗</a></p></div><div id="syncAuthFields"><p class="subtle">创建 PAT (Personal Access Token) 时, 仅选择上面的数据仓库, 授予 Contents 的 Read and write 权限, 有效期建议 30 天. 每次刷新或重新打开页面需要重新输入, 页面不会保存令牌.</p><p><a href="https://github.com/settings/personal-access-tokens/new?name=Rental%20Viewing%20Sync&amp;target_name=isotropy44&amp;expires_in=30&amp;contents=write" target="_blank" rel="noopener noreferrer">前往 GitHub 创建专用令牌 ↗</a></p><label class="field" for="syncToken">专用令牌<input id="syncToken" type="password" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="只在当前页面内存中使用" aria-describedby="syncTokenError"></label><p id="syncTokenError" class="subtle" role="alert" hidden></p><p class="subtle">首次连接前建议先导出完整备份. 连接后将双向合并当前本机记录与私有仓库中的记录.</p><div class="sync-actions"><button class="btn primary" id="connectSync">连接并自动同步</button><button class="btn" id="syncBackup">先导出完整备份</button></div></div><div class="sync-actions"><button class="btn primary" id="syncNow">立即同步</button><button class="btn" id="disconnectSync">断开连接</button><button class="btn" id="showConflicts" hidden>处理冲突</button><button class="btn" id="checkSyncNetwork">检查网络</button></div><p id="syncNetworkResult" class="subtle" role="status"></p><p class="subtle">编辑结束 5 秒后同步, 连续编辑最多等待 30 秒. 仅在页面运行且已授权时同步, 不保证锁屏后继续上传. 删除状态会同步, Git 历史中的旧照片仍会保留.</p></div></section></div>
 <div id="conflictModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="conflictTitle" hidden><section class="panel"><header class="panel-header"><div><h2 id="conflictTitle">两端有不同修改</h2><span class="subtle">逐项选择后再继续同步, 本机记录已保留</span></div><button class="btn" data-close="conflictModal">稍后处理</button></header><div class="panel-content"><div id="conflictList"></div><p><button class="btn primary" id="resolveConflicts">按选择继续同步</button></p></div></section></div>
 <input type="file" id="photoInput" accept="image/*" multiple hidden><input type="file" id="importInput" accept=".json,application/json" hidden>
 <div id="preferencesModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="preferencesTitle" hidden><section class="panel" style="max-width:680px"><header class="panel-header"><div><h2 id="preferencesTitle">个人评分规则</h2><span class="subtle">保存在本机, 授权后随私有数据同步</span></div><button class="btn" data-close="preferencesModal">关闭</button></header><div class="panel-content"><p id="preferencesStatus" class="subtle"></p><div class="sync-actions"><button class="btn primary" id="importPreferences">导入个人规则</button><button class="btn" id="exportPreferences">导出个人规则</button></div><p class="subtle">满足程度为 0 至 5 分. 未确认项暂不加分, 分母固定. 权重为 10 且未完全满足时标红, 高总分不会清除红项. 合并项只计一次权重.</p><div id="preferencesList"></div></div></section></div><input type="file" id="preferencesInput" accept=".json,application/json" hidden>
@@ -508,6 +508,17 @@ function syncRequestStage(path,method) {
   return '下载记录或照片';
 }
 const validSyncToken=token=>/^github_pat_[A-Za-z0-9_]+$/.test(token);
+function syncTokenInputError(token){
+  // Return static diagnostics only. Never interpolate any part of a credential.
+  if(!token)return '请先输入只授权数据仓库的专用令牌.';
+  if(/[\u0000-\u001f\u007f-\u009f\u200b-\u200f\u202a-\u202e\u2060-\u206f\ufeff]/u.test(token))return '复制内容含有不可见字符或换行. 请重新复制完整令牌, 不要手动修改令牌.';
+  if(/^Bearer\s/i.test(token))return '复制内容带有 Bearer 前缀. 请只粘贴令牌本身.';
+  if(/^["'`\u2018\u2019\u201c\u201d]|["'`\u2018\u2019\u201c\u201d]$/u.test(token))return '复制内容带有引号. 请只粘贴令牌本身.';
+  if(/^ghp_/.test(token))return '检测到 classic 令牌格式. 请使用仅授权数据仓库的细粒度令牌.';
+  if(!token.startsWith('github_pat_'))return '未识别到完整前缀 github_pat_. 请复制生成的完整令牌, 而不是令牌名称. 此提示不代表 GitHub 已判定令牌无效.';
+  if(!validSyncToken(token))return '令牌内容不完整, 或包含空格及其他无效字符. 请重新复制生成的完整令牌.';
+  return '';
+}
 async function checkGitHubNetwork(fetcher=fetch) {
   // Public requests only. Never read or forward the synchronizer's credential.
   for(const preflight of [false,true]){
@@ -819,11 +830,12 @@ function showSyncConflicts(){
 $('syncBtn').onclick=$('syncIndicator').onclick=()=>{updateSyncStatus();modalOpen('syncModal')};
 $('connectSync').onclick=async()=>{
   const token=$('syncToken').value.trim();$('syncToken').value='';
-  if(!token){toast('请先输入只授权数据仓库的专用令牌.');return}
-  if(!token.startsWith('github_pat_')){toast('请使用只授权数据仓库的细粒度令牌.');return}
-  if(!validSyncToken(token)){toast('令牌包含空格或其他无效字符, 请只复制生成的令牌本身.');return}
+  const inputError=syncTokenInputError(token);
+  $('syncTokenError').textContent=inputError;$('syncTokenError').hidden=!inputError;
+  if(inputError){toast(inputError);return}
   synchronizer.connect(token);syncRuntime.error='';syncRuntime.fatal=false;syncRuntime.failures=0;await runSync();
 };
+$('syncToken').oninput=()=>{$('syncTokenError').textContent='';$('syncTokenError').hidden=true};
 $('checkSyncNetwork').onclick=async()=>{
   $('checkSyncNetwork').disabled=true;$('syncNetworkResult').textContent='正在检查 api.github.com, 不使用令牌或房源数据...';
   try{$('syncNetworkResult').textContent=await checkGitHubNetwork()}
