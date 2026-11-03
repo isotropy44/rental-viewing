@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dqFWrkisFz4Y0o2Icm7J+5rb7+mwAIasOHEnMDIHVCM=' 'sha256-C+Cd2JBR437DlLuiwF8S49X6FS1vLx+OxVD5oAeL158=' 'sha256-0O+eTlsm3bafMSLxtbH+RtkFHWtFZ1PL3DaLO2LumDk=' 'sha256-KLaLUpDH0qOsoYLglJ9UqSRmOHw1rhvhIiArpHrT/Go=' 'sha256-oGPEK7qXDd13rcpwUg5dMLin4aY905FElkgWBy6i+oo=' 'sha256-2svj0RaS4BEuNbwBVFaQFwUBbYohTUjMPrLbmSQSjO0='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-dqFWrkisFz4Y0o2Icm7J+5rb7+mwAIasOHEnMDIHVCM=' 'sha256-C+Cd2JBR437DlLuiwF8S49X6FS1vLx+OxVD5oAeL158=' 'sha256-0O+eTlsm3bafMSLxtbH+RtkFHWtFZ1PL3DaLO2LumDk=' 'sha256-KLaLUpDH0qOsoYLglJ9UqSRmOHw1rhvhIiArpHrT/Go=' 'sha256-fOvkk0/yTpROTPja6CTEe2UtiysubcpR6YgZ05HvgRU=' 'sha256-2svj0RaS4BEuNbwBVFaQFwUBbYohTUjMPrLbmSQSjO0='; connect-src https://api.github.com; img-src blob: data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f5f3ec">
 <meta name="description" content="属于自己的看房记录, 保存现场细节, 再慢慢做决定.">
@@ -31,6 +31,17 @@ body.dialog-open{overflow:hidden}
  input,select,textarea,.search,.sort-label select{font-size:16px}
  .modal.lightbox{position:relative;display:flex;align-items:center;justify-content:center;padding:70px 12px 24px;background:#18201df5}
 }
+
+.criterion-bundle .bundle-observations,.bundle-rating-grid{display:grid;grid-template-columns:repeat(var(--bundle-columns),minmax(0,1fr));gap:10px}
+.bundle-observations .field{font-size:12px}
+.bundle-observations .field select{padding:11px 6px}
+.bundle-ratings{border-top:1px dashed var(--line);margin-top:16px;padding-top:12px}
+.bundle-ratings h5{font-size:12px;font-weight:600;margin:0 0 12px}
+.bundle-rating{min-width:0;border-radius:7px;padding:8px 4px}
+.bundle-rating-label{display:flex;flex-direction:column;gap:2px;font-size:12px;margin-bottom:7px;color:var(--muted)}
+.bundle-rating select{width:100%;min-width:0;min-height:45px;padding:9px 5px;font-size:16px;color:var(--ink);background:white;border:1px solid var(--line);border-radius:8px}
+.bundle-rating .rating-status{min-width:0;margin:8px 0 0;font-size:11px;overflow-wrap:anywhere}
+.bundle-auto{display:flex;align-items:center;min-height:45px;font-size:12px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -807,10 +818,24 @@ function observationField(f,r){
 function criterionHtml(c,r){
  return '<article class="criterion" id="criterion-'+c.id+'"><header class="criterion-heading"><h4>'+esc(c.label)+'</h4><span id="weight-'+c.id+'" class="weight"></span></header>'+(c.hint?'<p class="subtle">'+esc(c.hint)+'</p>':'')+'<div class="form-grid">'+c.keys.map(k=>observationField(fieldMap.get(k),r)).join('')+'</div><div class="rating-row">'+(c.mode==='manual'?'<label class="field" for="rating-'+c.id+'">满足程度<select id="rating-'+c.id+'" data-rating="'+c.id+'"><option value="">未确认</option>'+ratingLabels.map((label,n)=>'<option value="'+n+'">'+label+'</option>').join('')+'</select></label>':'<span class="subtle">'+(c.mode==='info'?'仅作记录':'依据原始记录自动判断')+'</span>')+'<p id="rating-status-'+c.id+'" class="rating-status" role="status"></p></div></article>';
 }
+// Presentation groups retain the original observation and rating IDs.
+const criterionBundles=[
+ {id:'bedroomAc',title:'卧室空调',members:['bedroomAc','bedroomAcAge','bedroomAcEnergy'],labels:['有无','新旧','能效']},
+ {id:'livingAc',title:'客厅空调',members:['livingAc','livingAcAge','livingAcEnergy'],labels:['有无','新旧','能效']},
+ {id:'toilet',title:'马桶',members:['toiletClean','toiletSmart'],labels:['清洁情况','智能功能']}
+];
+const bundleByMember=new Map(criterionBundles.flatMap(bundle=>bundle.members.map(id=>[id,bundle])));
+function bundleHtml(bundle,r){
+ const members=bundle.members.map(id=>criterionMap.get(id));
+ return '<article class="criterion criterion-bundle" id="bundle-'+bundle.id+'" style="--bundle-columns:'+members.length+'"><header class="criterion-heading"><h4>'+bundle.title+'</h4><span class="weight">分项计分</span></header><div class="form-grid bundle-observations">'+members.map((c,i)=>{const f=fieldMap.get(c.keys[0]);return observationField([f[0],bundle.labels[i],...f.slice(2)],r)}).join('')+'</div><div class="bundle-ratings"><h5>满足程度</h5><div class="bundle-rating-grid">'+members.map((c,i)=>'<div class="bundle-rating" id="criterion-'+c.id+'"><div class="bundle-rating-label"><span>'+bundle.labels[i]+'</span><span id="weight-'+c.id+'" class="weight"></span></div>'+(c.mode==='manual'?'<select id="rating-'+c.id+'" data-rating="'+c.id+'" aria-label="'+esc(c.label)+'满足程度"><option value="">未确认</option>'+ratingLabels.map((_,n)=>'<option value="'+n+'">'+n+'</option>').join('')+'</select>':'<span class="bundle-auto">自动判断</span>')+'<p id="rating-status-'+c.id+'" class="rating-status" role="status"></p></div>').join('')+'</div></div></article>';
+}
+function criteriaGroupHtml(group,r){
+ return criteria.filter(c=>c.group===group).map(c=>{const bundle=bundleByMember.get(c.id);return bundle?(bundle.members[0]===c.id?bundleHtml(bundle,r):''):criterionHtml(c,r)}).join('');
+}
 openEditor=function(id){
  const r=state.records.get(id);if(!r)return;state.current=id;$('editorTitle').textContent=nameOf(r);
  const basic=sections[0];
- $('recordForm').innerHTML='<details class="form-section" open><summary>基本资料</summary><div class="form-grid">'+basic.fields.map(f=>observationField(f,r)).join('')+'</div></details>'+scoringGroups.map((title,i)=>'<details class="form-section" '+(i===0?'open':'')+'><summary>'+title+' <small id="group-status-'+i+'"></small></summary><div class="criteria-list">'+criteria.filter(c=>c.group===i).map(c=>criterionHtml(c,r)).join('')+'</div></details>').join('');
+ $('recordForm').innerHTML='<details class="form-section" open><summary>基本资料</summary><div class="form-grid">'+basic.fields.map(f=>observationField(f,r)).join('')+'</div></details>'+scoringGroups.map((title,i)=>'<details class="form-section" '+(i===0?'open':'')+'><summary>'+title+' <small id="group-status-'+i+'"></small></summary><div class="criteria-list">'+criteriaGroupHtml(i,r)+'</div></details>').join('');
  $('notes').value=r.notes;refreshRatingControls();renderLocation();renderPhotos();updateSaveStatus();modalOpen('editor');$('editor').querySelector('.panel').scrollTop=0;
 };
 function refreshRatingControls(){
@@ -824,6 +849,7 @@ function refreshRatingControls(){
   root?.classList.toggle('criterion-red',!!item?.red);
   if(c.mode==='manual'){const input=$('rating-'+c.id);if(input){input.disabled=!profile;if(input!==document.activeElement)input.value=r.ratings?.[c.id]??'';}}
  }
+ criterionBundles.forEach(bundle=>$('bundle-'+bundle.id)?.classList.toggle('criterion-red',!!s?.items.some(item=>bundle.members.includes(item.id)&&item.red)));
  scoringGroups.forEach((_,i)=>{const items=s?.items.filter(x=>criterionMap.get(x.id).group===i&&x.weight>0)||[];const el=$('group-status-'+i);if(el)el.textContent=s?'已确认 '+items.filter(x=>x.score!==null).length+'/'+items.length+' · 红项 '+items.filter(x=>x.red).length:'';});
 }
 const originalEditField=editField;
